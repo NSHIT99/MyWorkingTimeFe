@@ -23,3 +23,6 @@ export interface IDeArchiveTaskReq {
   id: number;
 }
 
+export interface ISearchBar {
+  setSearchKey: (e: string) => void;
+}

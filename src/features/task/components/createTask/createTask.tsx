@@ -7,15 +7,13 @@ import TextField from "@mui/material/TextField";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "@mui/material/Modal";
 import { useForm, Controller } from "react-hook-form";
-import { RootState } from "../../../redux/store";
-import { IRoleReq } from "../../../interfaces/role/roleType";
-import { createRoleActions } from "../../../redux/actions/role";
-import {
-  resetCreateProgress,
-  resetMessage,
-  resetProgress,
-} from "../../../redux/reducer/roleReducer";
+import { RootState } from "../../../../redux/store";
+import { resetCreateProgress, resetProgress } from "../../../../redux/reducer/taskReducer";
+import { NativeSelect } from "@mui/material";
+import { createTask } from "../../../../redux/actions/task";
+import { ICreateTaskReq } from "../../../../interfaces/task/taskType";
 import { useSnackbar } from "notistack";
+
 const TitleHeader = styled.div`
   font-size: 22px;
 `;
@@ -35,51 +33,45 @@ const BtnNewTask = styled.div`
 
 const InputName = styled(TextField)``;
 
-interface INewRole {
+interface INewTask {
   name: string;
-  displayName: string;
-  description: string;
+  type: string;
 }
 
-const CreateRole: React.FC = () => {
-  const { reset, control, handleSubmit } = useForm<INewRole>();
+const CreateTasks: React.FC = () => {
+  const { reset, control, handleSubmit } = useForm<INewTask>();
   const dispatch = useDispatch();
-  const progress = useSelector((state: RootState) => state.role.progress);
-  const createProgress = useSelector(
-    (state: RootState) => state.role.createProgress
-  );
-  const message = useSelector((state: RootState) => state.role.error.message);
-  const handleCreate = (props: IRoleReq) => {
+  const { enqueueSnackbar } = useSnackbar();
+  const progress = useSelector((state: RootState) => state.task.progress);
+  const createProgress = useSelector((state: RootState) => state.task.createProgress);
+  const message = useSelector((state: RootState) => state.task.error.message);
+  const handleCreate = async (props: ICreateTaskReq) => {
     dispatch(
-      createRoleActions({
+      createTask({
         name: props.name,
-        displayName: props.displayName,
-        description: props.description,
+        type: +props.type,
       })
     );
     reset({
       name: "",
-      displayName: "",
-      description: "",
+      type: "",
     });
   };
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
-    if (createProgress === "done") {
-      enqueueSnackbar("Create Role SuccessFully", { variant: "success" });
-      dispatch(resetMessage());
+    if (createProgress === "done" && open) {
+      enqueueSnackbar("Create Task SuccessFully", { variant: "success" });
       dispatch(resetProgress());
       dispatch(resetCreateProgress());
       setOpen(false);
     } else if (createProgress === "error" && message) {
       enqueueSnackbar(message, { variant: "error" });
     }
-  }, [progress, , createProgress, open, dispatch]);
+  }, [createProgress, open, dispatch]);
   return (
     <NewTask>
       <Button
@@ -88,7 +80,7 @@ const CreateRole: React.FC = () => {
         startIcon={<AddIcon />}
         onClick={handleOpen}
       >
-        Tạo vai trò
+        Tạo công việc
       </Button>
       <Modal open={open}>
         <Box
@@ -107,7 +99,7 @@ const CreateRole: React.FC = () => {
           }}
         >
           <form onSubmit={handleSubmit(handleCreate)}>
-            <TitleHeader>New Role</TitleHeader>
+            <TitleHeader>New Task</TitleHeader>
             <Controller
               name="name"
               render={({ field }) => {
@@ -124,32 +116,13 @@ const CreateRole: React.FC = () => {
               defaultValue=""
             />
             <Controller
-              name="displayName"
-              render={({ field }) => {
-                return (
-                  <InputName
-                    label="Display Name *"
-                    variant="standard"
-                    {...field}
-                    style={{ width: "100%" }}
-                  />
-                );
-              }}
-              control={control}
-              defaultValue=""
-            />
-            <Controller
-              name="description"
-              render={({ field }) => {
-                return (
-                  <InputName
-                    label="Description *"
-                    variant="standard"
-                    {...field}
-                    style={{ width: "100%" }}
-                  />
-                );
-              }}
+              name="type"
+              render={({ field }) => (
+                <NativeSelect {...field} style={{ width: "100%" }}>
+                  <option value={0}>Common Task</option>
+                  <option value={1}>Other Task</option>
+                </NativeSelect>
+              )}
               control={control}
               defaultValue=""
             />
@@ -178,4 +151,4 @@ const CreateRole: React.FC = () => {
   );
 };
 
-export default CreateRole;
+export default CreateTasks;

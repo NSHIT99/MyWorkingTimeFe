@@ -9,7 +9,7 @@ import {
   ICreateTaskReq,
   IDeArchiveTaskReq,
   ITaskReq,
-} from "../../interfaces/taskType/taskType";
+} from "../../interfaces/task/taskType";
 
 export const getTask = createAsyncThunk("/Task/GetAll", async () => {
   const response = await getTaskApi();

@@ -6,6 +6,7 @@ import NotFound from "../notFound/notFound";
 import HomeView from "../../features/home/home";
 import Users from "../../features/user/user";
 import Roles from "../../features/role/role";
+import Tasks from "../../features/task/task";
 
 const MainContent = styled.div`
   width: 100%;
@@ -34,7 +35,7 @@ const MainView: React.FC = () => {
           <PrivateRoute
             exact={false}
             path={`${path}/main/task`}
-            component={NotFound}
+            component={Tasks}
           />
           <PrivateRoute
             exact={false}

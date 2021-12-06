@@ -170,7 +170,7 @@ const CreateUser: React.FC = () => {
         startIcon={<AddIcon />}
         onClick={handleOpen}
       >
-        Create User
+        Tạo người dùng
       </Button>
       <Modal open={open} onClose={handleClose}>
         <Box

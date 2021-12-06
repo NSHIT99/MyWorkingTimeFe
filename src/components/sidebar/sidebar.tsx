@@ -162,7 +162,7 @@ const SideBar = () => {
             <ListItemIcon>
               <HomeIcon />
             </ListItemIcon>
-            <ListItemText primary="Home Page" />
+            <ListItemText primary="Trang chủ" />
           </ListItemButton>
         </StyleLink>
         <ListItemButton onClick={handleClick}>
@@ -179,7 +179,7 @@ const SideBar = () => {
                 <ListItemIcon>
                   <GroupIcon />
                 </ListItemIcon>
-                <ListItemText primary="Users" />
+                <ListItemText primary="Người dùng" />
               </ListItemButton>
             </StyleLink>
             <StyleLink to="/app/main/role">
@@ -187,7 +187,7 @@ const SideBar = () => {
                 <ListItemIcon>
                   <LocalOfferIcon />
                 </ListItemIcon>
-                <ListItemText primary="Roles" />
+                <ListItemText primary="Vai trò" />
               </ListItemButton>
             </StyleLink>
           </List>
@@ -197,7 +197,7 @@ const SideBar = () => {
             <ListItemIcon>
               <ImportContactsIcon />
             </ListItemIcon>
-            <ListItemText primary="Tasks" />
+            <ListItemText primary="Công việc" />
           </ListItemButton>
         </StyleLink>
         <StyleLink to="/app/main/project">
@@ -205,7 +205,7 @@ const SideBar = () => {
             <ListItemIcon>
               <AssessmentIcon />
             </ListItemIcon>
-            <ListItemText primary="Projects" />
+            <ListItemText primary="Dự án" />
           </ListItemButton>
         </StyleLink>
       </List>

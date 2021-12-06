@@ -1,8 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 import { IError } from "../../interfaces/auth/authType";
-import { ITaskReq } from "../../interfaces/taskType/taskType";
-import { archiveTask, createTask, deArchiveTask, deleteTask, getTask } from "../actions/task";
+import { ITaskReq } from "../../interfaces/task/taskType";
+import {
+  archiveTask,
+  createTask,
+  deArchiveTask,
+  deleteTask,
+  getTask,
+} from "../actions/task";
 import { RootState } from "../store";
 
 export interface TaskState {
@@ -11,12 +17,14 @@ export interface TaskState {
   success: boolean;
   searchName: string;
   error: IError;
+  createProgress: string;
 }
 
 const initialState: TaskState = {
   tasks: [],
   progress: "",
   success: false,
+  createProgress: "",
   searchName: "",
   error: {
     code: 0,
@@ -32,6 +40,9 @@ const taskSlice = createSlice({
   reducers: {
     setSearchName: (state, action) => {
       state.searchName = action.payload.searchName;
+    },
+    resetCreateProgress(state) {
+      state.createProgress = "";
     },
     resetProgress(state) {
       state.progress = "";
@@ -62,6 +73,7 @@ const taskSlice = createSlice({
       state.progress = "pending";
     });
     builder.addCase(createTask.fulfilled, (state, action) => {
+      state.createProgress = "done";
       state.progress = "done";
       const findTask = state.tasks.find(
         (task) => task.id === action.payload.result.id
@@ -114,6 +126,7 @@ const taskSlice = createSlice({
       }
     });
     builder.addCase(createTask.rejected, (state, action) => {
+      state.createProgress = "error";
       state.progress = "error";
     });
     builder.addCase(deleteTask.rejected, (state, action) => {
@@ -129,17 +142,12 @@ const taskSlice = createSlice({
 });
 
 const selectSelf = (state: RootState) => state.task;
-const getAllTaskSelector = createSelector(
-  selectSelf,
-  (state) => state.tasks
+const getAllTaskSelector = createSelector(selectSelf, (state) => state.tasks);
+const getCommonTaskSelector = createSelector(getAllTaskSelector, (tasks) =>
+  tasks.filter((task) => task.type === 0)
 );
-const getCommonTaskSelector = createSelector(
-  getAllTaskSelector,
-  (tasks) => tasks.filter((task) => task.type === 0)
-);
-const getOtherTaskSelector = createSelector(
-  getAllTaskSelector,
-  (tasks) => tasks.filter((task) => task.type === 1)
+const getOtherTaskSelector = createSelector(getAllTaskSelector, (tasks) =>
+  tasks.filter((task) => task.type === 1)
 );
 
 export const taskSelector = {
@@ -148,7 +156,12 @@ export const taskSelector = {
   getOtherTaskSelector,
 };
 
-export const { resetProgress, resetSuccess, setSearchName, resetMessage } =
-  taskSlice.actions;
+export const {
+  resetProgress,
+  resetSuccess,
+  setSearchName,
+  resetMessage,
+  resetCreateProgress,
+} = taskSlice.actions;
 
 export default taskSlice.reducer;

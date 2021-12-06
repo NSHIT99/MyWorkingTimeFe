@@ -83,6 +83,7 @@ const TextLeftBlockNav = styled.p`
   white-space: nowrap;
   font-size: 15px;
 `;
+
 const RightBlockNav = styled.div``;
 const Header: React.FC = () => {
   const [open, setOpen] = useState(false);
