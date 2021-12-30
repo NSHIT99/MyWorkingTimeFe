@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Button, MenuItem, Modal } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from "react-redux";
+import { deleteProject } from "../../../../../redux/actions/project";
+import { RootState } from "../../../../../redux/store";
 import { Box } from "@mui/system";
 import styled from "styled-components";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { SnackbarProvider, VariantType, useSnackbar } from "notistack";
-import { IGetAllReq } from "../../../interfaces/user/userType";
-import { RootState } from "../../../redux/store";
-import { resetUserProgress  as resetProgress } from "../../../redux/reducer/userRuducer";
-import { deleteUserActions } from "../../../redux/actions/user";
+import { resetProgress } from "../../../../../redux/reducer/projectReducer";
+import { IProjectReq } from "../../../../../interfaces/project/projectType";
 
 const style = {
   position: "absolute" as "absolute",
@@ -41,15 +41,19 @@ const StyleButton = styled.div`
   display: flex;
   gap: 15px;
 `;
-const ActionDeleteUser: React.FC<{ user: IGetAllReq }> = ({ user }) => {
+const ActionDelete: React.FC<{ project: IProjectReq }> = ({ project }) => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
   const handleOpen = () => {
     setOpen(true);
   };
-  const progress = useSelector((state: RootState) => state.user.progress);
-
+  const error = useSelector((state: RootState) => state.project.error);
+  // const success = useSelector((state: RootState) => state.project.success);
+  const progress = useSelector((state: RootState) => state.project.progress);
+  // const onDelete = async (id: number) => {
+  //   dispatch(deleteProject(id));
+  // };
   useEffect(() => {
     if (progress === "done") {
       dispatch(resetProgress());
@@ -58,9 +62,11 @@ const ActionDeleteUser: React.FC<{ user: IGetAllReq }> = ({ user }) => {
   }, [progress, dispatch]);
   const { enqueueSnackbar } = useSnackbar();
   const handleClickVariant = (variant: VariantType, id: number) => () => {
-    dispatch(deleteUserActions(id));
+    dispatch(deleteProject(id));
     enqueueSnackbar(
-        "Xoá người dùng thành công",
+      error === null
+        ? "Delete project success"
+        : "MyTimesheet is exist, you cann't delete Project",
       {
         variant,
       }
@@ -69,8 +75,8 @@ const ActionDeleteUser: React.FC<{ user: IGetAllReq }> = ({ user }) => {
   return (
     <>
       <MenuItem disableRipple onClick={handleOpen}>
-        <DeleteIcon style={{color: "red"}} />
-        <p style={{ color: "red" }}>xoá người dùng</p>
+        <DeleteIcon />
+        <p style={{ color: "red" }}>Delete</p>
       </MenuItem>
       <Modal
         open={open}
@@ -82,7 +88,7 @@ const ActionDeleteUser: React.FC<{ user: IGetAllReq }> = ({ user }) => {
             <ErrorOutlineIcon sx={{ color: "#f8bb86", fontSize: "100px" }} />
             <TextTitle>Are you sure?</TextTitle>
             <TextDescription>
-              Xoá người dùng : '{user.name}' ?
+              Delete project : '{project.name}' ?
             </TextDescription>
             <StyleButton>
               <Button
@@ -96,8 +102,8 @@ const ActionDeleteUser: React.FC<{ user: IGetAllReq }> = ({ user }) => {
                 variant="outlined"
                 sx={{ color: "black", background: "#7cd1f9" }}
                 onClick={handleClickVariant(
-                   "success",
-                  user.id
+                  error === null ? "success" : "error",
+                  project.id
                 )}
               >
                 Yes
@@ -110,10 +116,12 @@ const ActionDeleteUser: React.FC<{ user: IGetAllReq }> = ({ user }) => {
   );
 };
 
-export const DeleteUser: React.FC<{ user: IGetAllReq }> = ({ user }) => {
+const DeleteProject: React.FC<{ project: IProjectReq }> = ({ project }) => {
   return (
     <SnackbarProvider maxSnack={3} autoHideDuration={1500}>
-      <ActionDeleteUser user={user} />
+      <ActionDelete project={project} />
     </SnackbarProvider>
   );
 };
+
+export default DeleteProject;

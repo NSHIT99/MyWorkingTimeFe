@@ -8,7 +8,10 @@ import { useDispatch, useSelector } from "react-redux";
 import Modal from "@mui/material/Modal";
 import { useForm, Controller } from "react-hook-form";
 import { RootState } from "../../../../redux/store";
-import { resetCreateProgress, resetProgress } from "../../../../redux/reducer/taskReducer";
+import {
+  resetCreateProgress,
+  resetProgress,
+} from "../../../../redux/reducer/taskReducer";
 import { NativeSelect } from "@mui/material";
 import { createTask } from "../../../../redux/actions/task";
 import { ICreateTaskReq } from "../../../../interfaces/task/taskType";
@@ -43,7 +46,9 @@ const CreateTasks: React.FC = () => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const progress = useSelector((state: RootState) => state.task.progress);
-  const createProgress = useSelector((state: RootState) => state.task.createProgress);
+  const createProgress = useSelector(
+    (state: RootState) => state.task.createProgress
+  );
   const message = useSelector((state: RootState) => state.task.error.message);
   const handleCreate = async (props: ICreateTaskReq) => {
     dispatch(
@@ -64,7 +69,7 @@ const CreateTasks: React.FC = () => {
 
   useEffect(() => {
     if (createProgress === "done" && open) {
-      enqueueSnackbar("Create Task SuccessFully", { variant: "success" });
+      enqueueSnackbar("Tạo công việc thành công", { variant: "success" });
       dispatch(resetProgress());
       dispatch(resetCreateProgress());
       setOpen(false);
@@ -99,16 +104,16 @@ const CreateTasks: React.FC = () => {
           }}
         >
           <form onSubmit={handleSubmit(handleCreate)}>
-            <TitleHeader>New Task</TitleHeader>
+            <TitleHeader>Tạo công việc</TitleHeader>
             <Controller
               name="name"
               render={({ field }) => {
                 return (
                   <InputName
-                    label="Name *"
+                    label="Tên công việc *"
                     variant="standard"
                     {...field}
-                    style={{ width: "100%" }}
+                    style={{ width: "100%", marginBottom: "10px" }}
                   />
                 );
               }}
@@ -119,8 +124,8 @@ const CreateTasks: React.FC = () => {
               name="type"
               render={({ field }) => (
                 <NativeSelect {...field} style={{ width: "100%" }}>
-                  <option value={0}>Common Task</option>
-                  <option value={1}>Other Task</option>
+                  <option value={0}>Công việc chung</option>
+                  <option value={1}>Công việc khác</option>
                 </NativeSelect>
               )}
               control={control}

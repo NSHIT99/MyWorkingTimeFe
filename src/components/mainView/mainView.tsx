@@ -7,6 +7,7 @@ import HomeView from "../../features/home/home";
 import Users from "../../features/user/user";
 import Roles from "../../features/role/role";
 import Tasks from "../../features/task/task";
+import Projects from "../../features/project/project";
 
 const MainContent = styled.div`
   width: 100%;
@@ -55,7 +56,7 @@ const MainView: React.FC = () => {
           <PrivateRoute
             exact={false}
             path={`${path}/main/project`}
-            component={NotFound}
+            component={Projects}
           />
         </Switch>
       </Content>

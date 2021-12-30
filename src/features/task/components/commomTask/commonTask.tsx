@@ -14,7 +14,6 @@ import Button from "@mui/material/Button";
 import Archive from "../archiveTask/archiveTask";
 import DeArchiveTask from "../deArchiveTask/deArchiveTask";
 import DeleteTask from "../deleteTask/deleteTask";
-import { Alert, Snackbar } from "@mui/material";
 import EditTasks from "../editTesk/editTask";
 
 const Title = styled.div`
@@ -71,9 +70,9 @@ const CommonTask: React.FC = () => {
 
   return (
     <Common>
-      <Title>Nhiệm vụ chung ({commonTasks.length})</Title>
+      <Title>Công việc chung ({commonTasks.length})</Title>
       <TitleContent>
-        Các nhiệm vụ này được tự động thêm vào tất cả các dự án mới
+        Các công việc này được tự động thêm vào tất cả các dự án mới
       </TitleContent>
       <hr />
       <TableCommon>

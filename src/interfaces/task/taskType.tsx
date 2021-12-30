@@ -2,6 +2,7 @@ export interface ITaskReq {
   name: string;
   type: number;
   isDeleted: boolean;
+  billable?: boolean;
   id: number;
 }
 

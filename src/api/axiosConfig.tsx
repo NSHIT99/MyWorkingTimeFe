@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { config } from "process";
 
 const axiosConfig = axios.create({
   baseURL: `http://localhost:3000/api`,

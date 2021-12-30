@@ -52,7 +52,7 @@ const ListRoles: React.FC = () => {
               }}
             >
               <TableCell scope="row">STT</TableCell>
-              <TableCell scope="row">RoleName</TableCell>
+              <TableCell scope="row">Vai trò</TableCell>
               <TableCell scope="row">Kí hiệu</TableCell>
               <TableCell scope="row">Đặc điểm</TableCell>
               <TableCell scope="row">Tuỳ chỉnh</TableCell>

@@ -15,6 +15,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import LockIcon from "@mui/icons-material/Lock";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { resetProgress } from "../../redux/reducer/authReducer";
 
 const LoginTimesheet = styled.div`
   font-family: "Roboto", sans-serif;
@@ -123,6 +124,7 @@ const Login: React.FC = () => {
   const progress = useSelector((state: RootState) => state.auth.progress);
   useEffect(() => {
     if (progress === "done" && accessToken) {
+      dispatch(resetProgress());
       history.push("/app");
     }
   }, [accessToken, history]);

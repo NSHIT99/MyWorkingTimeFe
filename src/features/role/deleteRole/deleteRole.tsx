@@ -60,7 +60,7 @@ const ActionDeleteRole: React.FC<{ role: IRoleReq }> = ({ role }) => {
   const handleClickVariant = (variant: VariantType, id: number) => () => {
     dispatch(deleteRoleActions(id));
     enqueueSnackbar(
-        "Delete Role SuccessFully",
+        "Xoá vai trò thành công",
       {
         variant,
       }
@@ -82,7 +82,7 @@ const ActionDeleteRole: React.FC<{ role: IRoleReq }> = ({ role }) => {
             <ErrorOutlineIcon sx={{ color: "#f8bb86", fontSize: "100px" }} />
             <TextTitle>Are you sure?</TextTitle>
             <TextDescription>
-              Delete project : '{role.name}' ?
+              Xoá vai trò : '{role.name}' ?
             </TextDescription>
             <StyleButton>
               <Button

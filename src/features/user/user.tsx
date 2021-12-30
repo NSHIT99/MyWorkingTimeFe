@@ -41,7 +41,7 @@ const Users: React.FC = () => {
   return (
     <TaskContent>
       <HeaderTask>
-        <TitleHeader>Users</TitleHeader>
+        <TitleHeader>Người dùng</TitleHeader>
         <MoreVertIcon />
       </HeaderTask>
       <hr></hr>

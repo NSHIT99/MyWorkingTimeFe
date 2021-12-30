@@ -5,6 +5,10 @@ import { RootState } from "../../../../redux/store";
 import Checkbox from "@mui/material/Checkbox";
 import { UseFormRegister, UseFormSetValue } from "react-hook-form";
 import { INewUser } from "../createUser";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableRow from "@mui/material/TableRow";
 
 const NewTask = styled.div`
   display: flex;
@@ -17,31 +21,12 @@ const FormCreate = styled.div`
   flex-direction: column;
 `;
 
-const FormLeft = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const FormRight = styled.div``;
-
-const ListRole = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const TextView = styled.div`
-  font-size: 15px;
-  margin-right: 20px;
-`;
-
 interface useForm {
   register: UseFormRegister<INewUser>;
   setValue: UseFormSetValue<INewUser>;
 }
 
 const TabRole: React.FC<useForm> = ({ register, setValue }) => {
-  const dispatch = useDispatch();
   const roles = useSelector((state: RootState) => state.user.roles);
   const [check, setCheck] = React.useState<boolean>(false);
 
@@ -50,26 +35,36 @@ const TabRole: React.FC<useForm> = ({ register, setValue }) => {
       <FormCreate>
         {roles.map((item, index) => {
           return (
-            <ListRole>
-              <FormLeft>
-                <TextView>{item.name}</TextView>
-                <TextView>{item.displayName}</TextView>
-                <TextView>{item.description}</TextView>
-              </FormLeft>
-              <FormRight>
-                <Checkbox
-                  color="error"
-                  value={check}
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setCheck(event.target.checked);
-                    setValue(
-                      "roleNames",
-                      event.target.checked === true ? `${item.name}` : null
-                    );
-                  }}
-                />
-              </FormRight>
-            </ListRole>
+            <Table
+              aria-label="simple table"
+              sx={{ border: 1, color: "#e9e9e9" }}
+              key={index}
+            >
+              <TableBody>
+                <TableRow
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell scope="row">{item.name}</TableCell>
+                  <TableCell scope="row">{item.displayName}</TableCell>
+                  <TableCell scope="row">{item.description}</TableCell>
+                  <TableCell scope="row" align="right">
+                    <Checkbox
+                      color="error"
+                      value={check}
+                      onChange={(
+                        event: React.ChangeEvent<HTMLInputElement>
+                      ) => {
+                        setCheck(event.target.checked);
+                        setValue(
+                          "roleNames",
+                          event.target.checked === true ? `${item.name}` : null
+                        );
+                      }}
+                    />
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
           );
         })}
       </FormCreate>

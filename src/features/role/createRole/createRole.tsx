@@ -71,7 +71,7 @@ const CreateRole: React.FC = () => {
 
   useEffect(() => {
     if (createProgress === "done") {
-      enqueueSnackbar("Create Role SuccessFully", { variant: "success" });
+      enqueueSnackbar("Tạo vai trò thành công", { variant: "success" });
       dispatch(resetMessage());
       dispatch(resetProgress());
       dispatch(resetCreateProgress());
@@ -107,13 +107,13 @@ const CreateRole: React.FC = () => {
           }}
         >
           <form onSubmit={handleSubmit(handleCreate)}>
-            <TitleHeader>New Role</TitleHeader>
+            <TitleHeader>Tạo vai trò</TitleHeader>
             <Controller
               name="name"
               render={({ field }) => {
                 return (
                   <InputName
-                    label="Name *"
+                    label="Vai trò *"
                     variant="standard"
                     {...field}
                     style={{ width: "100%" }}
@@ -128,7 +128,7 @@ const CreateRole: React.FC = () => {
               render={({ field }) => {
                 return (
                   <InputName
-                    label="Display Name *"
+                    label="Tên hiển thi *"
                     variant="standard"
                     {...field}
                     style={{ width: "100%" }}
@@ -143,7 +143,7 @@ const CreateRole: React.FC = () => {
               render={({ field }) => {
                 return (
                   <InputName
-                    label="Description *"
+                    label="Đặc điểm *"
                     variant="standard"
                     {...field}
                     style={{ width: "100%" }}

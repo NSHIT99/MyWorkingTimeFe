@@ -53,7 +53,7 @@ const DeleteTask: React.FC<{ task: ITaskReq }> = ({ task }) => {
   };
   const message = useSelector((state: RootState) => state.task.error.message);
   const onDelete = async (id: number) => {
-    enqueueSnackbar("Delete Task SuccessFully", { variant: "success" });
+    enqueueSnackbar("Xoá công việc thành công", { variant: "success" });
     dispatch(deleteTask(id));
     handleClose();
   };

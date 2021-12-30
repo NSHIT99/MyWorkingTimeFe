@@ -68,7 +68,7 @@ const EditTasks: React.FC<{ task: ITaskReq }> = ({ task }) => {
 
   useEffect(() => {
     if (progress === "done" && open) {
-      enqueueSnackbar("Edit Task SuccessFully", { variant: "success" });
+      enqueueSnackbar("Sửa công việc thành công", { variant: "success" });
       dispatch(resetProgress());
       setOpen(false);
     } else if (progress === "error" && message) {
@@ -111,7 +111,7 @@ const EditTasks: React.FC<{ task: ITaskReq }> = ({ task }) => {
                     label="Name *"
                     variant="standard"
                     {...field}
-                    style={{ width: "100%" }}
+                    style={{ width: "100%", marginBottom: "10px" }}
                   />
                 );
               }}
@@ -122,8 +122,8 @@ const EditTasks: React.FC<{ task: ITaskReq }> = ({ task }) => {
               name="type"
               render={({ field }) => (
                 <NativeSelect {...field} style={{ width: "100%" }}>
-                  <option value={0}>Common Task</option>
-                  <option value={1}>Other Task</option>
+                  <option value={0}>Công việc chung</option>
+                  <option value={1}>Công việc khác</option>
                 </NativeSelect>
               )}
               control={control}

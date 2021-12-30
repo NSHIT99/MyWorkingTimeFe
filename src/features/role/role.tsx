@@ -41,7 +41,7 @@ const Roles: React.FC = () => {
   return (
     <TaskContent>
       <HeaderTask>
-        <TitleHeader>Roles</TitleHeader>
+        <TitleHeader>Vai trò</TitleHeader>
         <MoreVertIcon />
       </HeaderTask>
       <hr></hr>

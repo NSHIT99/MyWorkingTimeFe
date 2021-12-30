@@ -58,3 +58,20 @@ export interface IUserReq {
 export interface IUserRes {
   result: IUserReq[];
 }
+
+export interface IUserNotPagging {
+  name: string;
+  isActive: boolean;
+  type: number;
+  jobTitle: string;
+  level: number;
+  userCode: string;
+  avatarPath: string;
+  branch: number;
+  id: number;
+  projectType?: number;
+}
+
+export interface IUserNotPaggingRes {
+  result: IUserNotPagging[];
+}

@@ -150,7 +150,7 @@ const CreateUser: React.FC = () => {
 
   useEffect(() => {
     if (progress === "done" && open) {
-      enqueueSnackbar("Create Role SuccessFully", { variant: "success" });
+      enqueueSnackbar("Tạo người dùng thành công", { variant: "success" });
       dispatch(resetMessage());
       dispatch(resetUserProgress());
       setOpen(false);
@@ -191,7 +191,7 @@ const CreateUser: React.FC = () => {
         >
           <form onSubmit={handleSubmit(handleCreate)}>
             <Header>
-              <TitleHeader>Create User</TitleHeader>
+              <TitleHeader>Tạo người dùng</TitleHeader>
               <CloseIcon onClick={handleClose} />
             </Header>
             <hr />
@@ -203,12 +203,12 @@ const CreateUser: React.FC = () => {
                   aria-label="basic tabs example"
                 >
                   <Tab
-                    label="User"
+                    label="Người dùng"
                     {...a11yProps(0)}
                     sx={{ textTransform: "capitalize" }}
                   />
                   <Tab
-                    label="Role"
+                    label="Vai trò"
                     {...a11yProps(1)}
                     sx={{ textTransform: "capitalize" }}
                   />

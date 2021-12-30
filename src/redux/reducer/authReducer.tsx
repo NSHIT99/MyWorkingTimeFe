@@ -42,4 +42,8 @@ const authSlice = createSlice({
   },
 });
 
+export const {
+  resetProgress,
+} = authSlice.actions;
+
 export default authSlice.reducer;

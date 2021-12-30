@@ -4,9 +4,14 @@ import Button from "@mui/material/Button";
 import Menu, { MenuProps } from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import EditIcon from "@mui/icons-material/Edit";
-import { DeleteRole } from "../../deleteRole/deleteRole";
-import { IRoleReq } from "../../../../interfaces/role/roleType";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+// import EditProject from "../editProject/editProject";
+import { getInputProject, getUserNotPagging } from "../../../../redux/actions/project";
+import { useDispatch } from "react-redux";
+import { getTask } from "../../../../redux/actions/task";
+import { IProjectReq } from "../../../../interfaces/project/projectType";
+import ActiveAndInactive from "./actions/actionActive";
+import DeleteProject from "./actions/actionDelete";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -57,14 +62,18 @@ const ButtonActions = styled(Button)`
   }
 `;
 
-const ActionsRole: React.FC<{ role: IRoleReq }> = ({ role }) => {
+const Actions: React.FC<{ project: IProjectReq }> = ({ project }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const dispatch = useDispatch();
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+    dispatch(getInputProject({ input: project.id }));
+    dispatch(getTask());
+    dispatch(getUserNotPagging());
   };
 
   return (
@@ -86,7 +95,7 @@ const ActionsRole: React.FC<{ role: IRoleReq }> = ({ role }) => {
         onClick={handleClick}
         endIcon={<KeyboardArrowDownIcon />}
       >
-        Tuỳ chỉnh
+        Actions
       </ButtonActions>
       <StyledMenu
         id="demo-customized-menu"
@@ -97,14 +106,16 @@ const ActionsRole: React.FC<{ role: IRoleReq }> = ({ role }) => {
         open={open}
         onClose={handleClose}
       >
+        {/* <EditProject project={project} /> */}
         <MenuItem onClick={handleClose} disableRipple>
-          <EditIcon />
-          Sửa vai trò
+          <VisibilityIcon />
+          View
         </MenuItem>
-        <DeleteRole role={role} />
+        <ActiveAndInactive project={project} />
+        <DeleteProject project={project} />
       </StyledMenu>
     </div>
   );
 };
 
-export default ActionsRole;
+export default Actions;

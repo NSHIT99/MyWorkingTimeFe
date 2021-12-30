@@ -28,6 +28,7 @@ const SidebarContainer = styled.div`
   position: fixed;
   margin-top: 70px;
   background-color: #fff;
+  z-index: 999;
 `;
 
 const User = styled.div`
@@ -169,7 +170,7 @@ const SideBar = () => {
           <ListItemIcon>
             <GroupWorkIcon />
           </ListItemIcon>
-          <ListItemText primary="Admin" />
+          <ListItemText primary="Quản trị" />
           {open ? <AddIcon /> : <AddIcon />}
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
