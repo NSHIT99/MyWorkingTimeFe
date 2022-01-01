@@ -1,6 +1,7 @@
 export interface IGetAllReq {
   id: number;
   userName: string;
+  password: string;
   emailAddress: string;
   name: string;
   surname: string;

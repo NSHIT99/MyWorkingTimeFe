@@ -10,6 +10,7 @@ import { getProject } from "../../redux/actions/project";
 import { projectSelector } from "../../redux/reducer/projectReducer";
 // import CreateProjects from "./component/createProject/createProject";
 import ListProjects from "./component/listProject/listProject";
+import CreateProjects from "./component/createProject/createProject";
 
 const ProjectContent = styled.div`
   width: 100%;
@@ -73,7 +74,7 @@ const Projects: React.FC = () => {
       </HeaderProject>
       <hr />
       <AddContent>
-        {/* <CreateProjects /> */}
+        <CreateProjects />
         <FormControl sx={{ width: "230px", left: "50px" }}>
           <Select
             labelId="demo-simple-select-label"

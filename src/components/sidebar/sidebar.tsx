@@ -122,7 +122,6 @@ const SideBar = () => {
     history.push("/account/login");
   };
 
-  const dispatch = useDispatch()
   return (
     <SidebarContainer>
       <User>

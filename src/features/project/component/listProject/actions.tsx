@@ -6,7 +6,7 @@ import MenuItem from "@mui/material/MenuItem";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 // import EditProject from "../editProject/editProject";
-import { getInputProject, getUserNotPagging } from "../../../../redux/actions/project";
+import { getInputProject } from "../../../../redux/actions/project";
 import { useDispatch } from "react-redux";
 import { getTask } from "../../../../redux/actions/task";
 import { IProjectReq } from "../../../../interfaces/project/projectType";
@@ -73,7 +73,6 @@ const Actions: React.FC<{ project: IProjectReq }> = ({ project }) => {
     setAnchorEl(null);
     dispatch(getInputProject({ input: project.id }));
     dispatch(getTask());
-    dispatch(getUserNotPagging());
   };
 
   return (

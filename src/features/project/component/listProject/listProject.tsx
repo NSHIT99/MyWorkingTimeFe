@@ -82,26 +82,15 @@ const ItemName = styled.div``;
 export const formatDay = (day: string) => dayjs(day).format("DD/MM/YYYY");
 const ListProjects: React.FC = () => {
   const projects = useSelector((state: RootState) => state.project.projects);
-  const groups = projects.reduce((groups: IGroups, key: IProjectReq) => {
-    const customerName = groups[key.customerName] || [];
-    customerName.push(key);
-    groups[key.customerName] = customerName;
-    return groups;
-  }, {});
-
-  console.log(groups);
   
   return (
     <ContentTable>
-      {Object.keys(groups).map((group) => {
-        return (
           <Table
             aria-label="simple table"
             sx={{
               border: 1,
               color: "#e9e9e9",
             }}
-            key={Object.keys(groups).indexOf(group)}
           >
             <TableHead>
               <TableRow>
@@ -115,12 +104,10 @@ const ListProjects: React.FC = () => {
                     fontSize: "20px",
                   }}
                 >
-                  {group}
                 </TableCell>
               </TableRow>
             </TableHead>
             {projects
-              .filter((item) => item.customerName === group)
               .map((item) => {
                 return (
                   <TableBody>
@@ -193,13 +180,12 @@ const ListProjects: React.FC = () => {
                         <Actions project={item} />
                         </div>
                       </TableCell>
+                      
                     </TableRow>
                   </TableBody>
                 );
               })}
           </Table>
-        );
-      })}
     </ContentTable>
   );
 };

@@ -26,7 +26,6 @@ export const createProjectApi = async ({
   timeEnd,
   note,
   projectType,
-  customerId,
   tasks,
   users,
   projectTargetUsers,
@@ -43,7 +42,6 @@ export const createProjectApi = async ({
       timeEnd,
       note,
       projectType,
-      customerId,
       tasks,
       users,
       projectTargetUsers,
@@ -85,9 +83,4 @@ export const getInputProjectApi = async ({ input }: IGetProjectReq) => {
   if (typeof input === "number") url += `input=${input}`;
   const data = await getApi<ICreateProjectRes>(url);
   return data;
-};
-
-export const getUserNotPaggingApi = async () => {
-  const res = await getApi<IUserNotPaggingRes>(`/User/GetUserNotPagging`);
-  return res;
 };

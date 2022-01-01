@@ -27,3 +27,16 @@ export const deleteRoleApi = async (id: number) => {
   );
   return data;
 };
+
+export const updateRoleApi = async ({ id, name, displayName, description }: ICreateRoleReq) => {
+  const update = await postApi<ICreateRoleReq, IRoleRes | IDataError>(
+    `/Role/Update`,
+    {
+      id,
+      name,
+      displayName,
+      description,
+    }
+  );
+  return update;
+};

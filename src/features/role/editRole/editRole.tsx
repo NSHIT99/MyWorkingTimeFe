@@ -1,96 +1,78 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import AddIcon from "@mui/icons-material/Add";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
+import { Button, MenuItem, Modal } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
 import { useDispatch, useSelector } from "react-redux";
-import Modal from "@mui/material/Modal";
-import { useForm, Controller } from "react-hook-form";
+import { Box } from "@mui/system";
+import styled from "styled-components";
+import { SnackbarProvider, VariantType, useSnackbar } from "notistack";
 import { RootState } from "../../../redux/store";
+import { resetProgress, resetUpdateProgress } from "../../../redux/reducer/roleReducer";
 import { IRoleReq } from "../../../interfaces/role/roleType";
-import { createRoleActions } from "../../../redux/actions/role";
-import {
-  resetCreateProgress,
-  resetMessage,
-  resetProgress,
-} from "../../../redux/reducer/roleReducer";
-import { useSnackbar } from "notistack";
+import { useForm, Controller } from "react-hook-form";
+import TextField from "@mui/material/TextField";
+import { updateRoleActions } from "../../../redux/actions/role";
 
 const TitleHeader = styled.div`
   font-size: 22px;
 `;
 
-const NewTask = styled.div`
-  display: flex;
-  padding: 10px 25px;
-  gap: 250px;
-`;
+const InputName = styled(TextField)``;
 
-const BtnNewTask = styled.div`
+const BtnEditRole = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: 20px;
   padding-top: 30px;
 `;
 
-const InputName = styled(TextField)``;
-
-interface INewRole {
+interface IUpdateRole {
+  id: number;
   name: string;
   displayName: string;
   description: string;
 }
 
-const CreateRole: React.FC = () => {
-  const { reset, control, handleSubmit } = useForm<INewRole>();
+export const EditRole: React.FC<{ role: IRoleReq }> = ({ role }) => {
   const dispatch = useDispatch();
+  const { control, handleSubmit } = useForm<IUpdateRole>({
+    defaultValues: { id: role.id, name: role.name, displayName: role.displayName, description: role.description },
+  });
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
   const progress = useSelector((state: RootState) => state.role.progress);
-  const createProgress = useSelector(
-    (state: RootState) => state.role.createProgress
-  );
   const message = useSelector((state: RootState) => state.role.error.message);
-  const handleCreate = (props: IRoleReq) => {
+
+  const handleEdit = (props: IUpdateRole) => {
     dispatch(
-      createRoleActions({
+      updateRoleActions({
+        id: props.id,
         name: props.name,
         displayName: props.displayName,
         description: props.description,
       })
     );
-    reset({
-      name: "",
-      displayName: "",
-      description: "",
-    });
   };
 
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const { enqueueSnackbar } = useSnackbar();
-
   useEffect(() => {
-    if (createProgress === "done") {
-      enqueueSnackbar("Tạo vai trò thành công", { variant: "success" });
-      dispatch(resetMessage());
+    if (progress === "done" && open) {
+      enqueueSnackbar("Sửa vai trò thành công", { variant: "success" });
       dispatch(resetProgress());
-      dispatch(resetCreateProgress());
+      dispatch(resetUpdateProgress());
       setOpen(false);
-    } else if (createProgress === "error" && message) {
+    } else if (progress === "error" && message) {
       enqueueSnackbar(message, { variant: "error" });
     }
-  }, [progress, , createProgress, open, dispatch]);
+  }, [progress, open, dispatch]);
   return (
-    <NewTask>
-      <Button
-        style={{ background: "#f24b50", height: "40px" }}
-        variant="contained"
-        startIcon={<AddIcon />}
-        onClick={handleOpen}
-      >
-        Tạo vai trò
-      </Button>
+    <>
+      <MenuItem disableRipple onClick={handleOpen}>
+        <EditIcon />
+        <p>Chỉnh sửa</p>
+      </MenuItem>
       <Modal open={open}>
         <Box
           sx={{
@@ -107,8 +89,8 @@ const CreateRole: React.FC = () => {
             flexDirection: "column",
           }}
         >
-          <form onSubmit={handleSubmit(handleCreate)}>
-            <TitleHeader>Tạo vai trò</TitleHeader>
+          <form onSubmit={handleSubmit(handleEdit)}>
+            <TitleHeader>Sửa vai trò</TitleHeader>
             <Controller
               name="name"
               render={({ field }) => {
@@ -154,7 +136,7 @@ const CreateRole: React.FC = () => {
               control={control}
               defaultValue=""
             />
-            <BtnNewTask>
+            <BtnEditRole>
               <Button
                 variant="outlined"
                 color="error"
@@ -171,12 +153,10 @@ const CreateRole: React.FC = () => {
               >
                 Save
               </Button>
-            </BtnNewTask>
+            </BtnEditRole>
           </form>
         </Box>
       </Modal>
-    </NewTask>
+    </>
   );
 };
-
-export default CreateRole;

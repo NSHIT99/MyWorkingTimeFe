@@ -41,7 +41,7 @@ const StyleButton = styled.div`
   display: flex;
   gap: 15px;
 `;
-const ActionDeleteRole: React.FC<{ role: IRoleReq }> = ({ role }) => {
+export const DeleteRole: React.FC<{ role: IRoleReq }> = ({ role }) => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const handleClose = () => setOpen(false);
@@ -49,13 +49,17 @@ const ActionDeleteRole: React.FC<{ role: IRoleReq }> = ({ role }) => {
     setOpen(true);
   };
   const progress = useSelector((state: RootState) => state.role.progress);
+  const message = useSelector((state: RootState) => state.role.error.message);
 
   useEffect(() => {
     if (progress === "done") {
+      enqueueSnackbar("Sửa vai trò thành công", { variant: "success" });
       dispatch(resetProgress());
       setOpen(false);
+    } else if (progress === "error" && message) {
+      enqueueSnackbar(message, { variant: "error" });
     }
-  }, [progress, dispatch]);
+  }, [progress,, dispatch]);
   const { enqueueSnackbar } = useSnackbar();
   const handleClickVariant = (variant: VariantType, id: number) => () => {
     dispatch(deleteRoleActions(id));
@@ -107,13 +111,5 @@ const ActionDeleteRole: React.FC<{ role: IRoleReq }> = ({ role }) => {
         </Box>
       </Modal>
     </>
-  );
-};
-
-export const DeleteRole: React.FC<{ role: IRoleReq }> = ({ role }) => {
-  return (
-    <SnackbarProvider maxSnack={3} autoHideDuration={1500}>
-      <ActionDeleteRole role={role} />
-    </SnackbarProvider>
   );
 };

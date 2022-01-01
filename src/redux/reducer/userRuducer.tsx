@@ -5,6 +5,7 @@ import {
   createUserActions,
   deleteUserActions,
   getAllActions,
+  updateUserActions,
 } from "../actions/user";
 import { RootState } from "../store";
 import { createSelector } from "@reduxjs/toolkit";
@@ -19,11 +20,15 @@ export interface IUserState {
   searchName: string;
   error: IError;
   roles: IRoleReq[];
+  createProgress: string;
+  updateProgress: string;
 }
 
 const initialState: IUserState = {
   progress: "",
   success: false,
+  createProgress: "",
+  updateProgress: "",
   searchName: "",
   users: [],
   createUser: [],
@@ -42,6 +47,12 @@ const userSlice = createSlice({
   reducers: {
     resetUserProgress(state) {
       state.progress = "";
+    },
+    resetCreateProgress(state) {
+      state.createProgress = "";
+    },
+    resetUpdateProgress(state) {
+      state.updateProgress = "";
     },
     resetSuccess(state) {
       state.success = false;
@@ -62,7 +73,7 @@ const userSlice = createSlice({
       .addCase(getAllActions.rejected, (state, action) => {
         state.progress = "error";
       });
-      builder
+    builder
       .addCase(getAllRoleActions.pending, (state, action) => {
         state.progress = "pending";
       })
@@ -79,10 +90,12 @@ const userSlice = createSlice({
       })
       .addCase(createUserActions.fulfilled, (state, action) => {
         state.progress = "done";
+        state.createProgress = "done";
         state.users.push(action.payload.result);
       })
       .addCase(createUserActions.rejected, (state, action) => {
         state.progress = "error";
+        state.createProgress = "error";
       });
     builder
       .addCase(deleteUserActions.pending, (state, action) => {
@@ -97,6 +110,36 @@ const userSlice = createSlice({
       .addCase(deleteUserActions.rejected, (state, action) => {
         state.progress = "error";
       });
+      builder
+      .addCase(updateUserActions.pending, (state, action) => {
+        state.progress = "pending";
+      })
+      .addCase(updateUserActions.fulfilled, (state, action) => {
+        state.progress = "done";
+        state.updateProgress = "done";
+        state.users.find((user) => user.id === action.payload.result.id);
+        state.users = state.users.map((user) => {
+          if (user.id === action.payload.result.id) {
+            user.name = action.payload.result.name;
+            user.userName = action.payload.result.userName;
+            user.emailAddress = action.payload.result.emailAddress;
+            user.name = action.payload.result.name;
+            user.surname = action.payload.result.surname;
+            user.address = action.payload.result.address;
+            user.phoneNumber = action.payload.result.phoneNumber;
+            user.avatarPath = action.payload.result.avatarPath;
+            user.type = action.payload.result.type;
+            user.branch = action.payload.result.branch;
+            user.sex = action.payload.result.sex;
+          }
+          return user;
+        });
+      })
+      .addCase(updateUserActions.rejected, (state, action) => {
+        state.progress = "error";
+        state.updateProgress = "error";
+        state.error.message = action.payload as string;
+      });
   },
 });
 
@@ -110,6 +153,12 @@ export const userSelector = {
   progressSelector,
 };
 
-export const { resetUserProgress, resetSuccess, resetMessage } = userSlice.actions;
+export const {
+  resetUserProgress,
+  resetSuccess,
+  resetMessage,
+  resetCreateProgress,
+  resetUpdateProgress,
+} = userSlice.actions;
 
 export default userSlice.reducer;

@@ -4,7 +4,7 @@ import { createSelector } from "reselect";
 import { ICreateProject, IProjectReq } from "../../interfaces/project/projectType";
 import { IError } from "../../interfaces/auth/authType";
 import { ITaskReq } from "../../interfaces/task/taskType";
-import { activeProject, createProject, deleteProject, getProject, getUserNotPagging, inactiveProject } from "../actions/project";
+import { activeProject, createProject, deleteProject, getProject, inactiveProject } from "../actions/project";
 import { getTask } from "../actions/task";
 import { IUserNotPagging } from "../../interfaces/user/userType";
 
@@ -44,7 +44,6 @@ const initialState: ProjectState = {
     timeEnd: "",
     note: "",
     projectType: 0,
-    customerId: 0,
     tasks: [
       {
         taskId: 0,
@@ -154,14 +153,6 @@ const projectSlice = createSlice({
         state.progress = "error";
       });
     builder
-      .addCase(getUserNotPagging.pending, (state, action) => {
-        state.progress = "pending";
-      })
-      .addCase(getUserNotPagging.fulfilled, (state, action) => {
-        state.users = action.payload.result;
-        state.filteredUsers = action.payload.result;
-      });
-    builder
       .addCase(createProject.pending, (state, action) => {
         state.progress = "pending";
       })
@@ -184,7 +175,6 @@ const projectSlice = createSlice({
       if (findProject) {
         state.createProjects = state.createProjects.map((project) => {
           if (project.id === action.payload.result.id) {
-            project.customerId = action.payload.result.customerId;
             project.name = action.payload.result.name;
             project.code = action.payload.result.code;
             project.timeStart = action.payload.result.timeStart;

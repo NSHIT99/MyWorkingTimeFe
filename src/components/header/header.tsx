@@ -40,6 +40,7 @@ const Title = styled.div`
 const RightBlock = styled.div`
   padding-right: 25px;
 `;
+
 const StyleBox = styled(Box)`
   position: absolute;
   top: 59.4%;

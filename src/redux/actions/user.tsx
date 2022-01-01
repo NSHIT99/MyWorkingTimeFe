@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { createUserApi, deleteUserApi, getAll } from "../../api/user";
+import { createUserApi, deleteUserApi, getAll, updateUserApi } from "../../api/user";
 import { ICreateUserReq, IUserReq } from "../../interfaces/user/userType";
 
 export const getAllActions = createAsyncThunk("/User/GetAll", async () => {
@@ -48,5 +48,41 @@ export const createUserActions = createAsyncThunk(
       sex,
     });
     return create as { result: IUserReq };
+  }
+);
+
+export const updateUserActions = createAsyncThunk(
+  "/User/UpdateUser",
+  async ({
+    id,
+    userName,
+    password,
+    emailAddress,
+    name,
+    surname,
+    address,
+    phoneNumber,
+    roleNames,
+    avatarPath,
+    type,
+    branch,
+    sex,
+  }: ICreateUserReq) => {
+    const update = await updateUserApi({
+      id,
+      userName,
+      password,
+      emailAddress,
+      name,
+      surname,
+      address,
+      phoneNumber,
+      roleNames,
+      avatarPath,
+      type,
+      branch,
+      sex,
+    });
+    return update as { result: IUserReq };
   }
 );

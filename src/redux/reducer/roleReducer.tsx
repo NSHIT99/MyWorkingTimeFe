@@ -7,7 +7,9 @@ import {
   createRoleActions,
   deleteRoleActions,
   getAllRoleActions,
+  updateRoleActions,
 } from "../actions/role";
+
 export interface IRoleState {
   roles: IRoleReq[];
   createRole: IRoleReq[];
@@ -16,11 +18,13 @@ export interface IRoleState {
   searchName: string;
   error: IError;
   createProgress: string;
+  updateProgress: string;
 }
 
 const initialState: IRoleState = {
   progress: "",
   createProgress: "",
+  updateProgress: "",
   success: false,
   searchName: "",
   roles: [],
@@ -42,6 +46,9 @@ const roleSlice = createSlice({
     },
     resetCreateProgress(state) {
       state.createProgress = "";
+    },
+    resetUpdateProgress(state) {
+      state.updateProgress = "";
     },
     resetSuccess(state) {
       state.success = false;
@@ -77,6 +84,28 @@ const roleSlice = createSlice({
         state.error.message = action.payload as string;
       });
     builder
+      .addCase(updateRoleActions.pending, (state, action) => {
+        state.progress = "pending";
+      })
+      .addCase(updateRoleActions.fulfilled, (state, action) => {
+        state.progress = "done";
+        state.updateProgress = "done";
+        state.roles.find((role) => role.id === action.payload.result.id);
+        state.roles = state.roles.map((role) => {
+          if (role.id === action.payload.result.id) {
+            role.name = action.payload.result.name;
+            role.displayName = action.payload.result.displayName;
+            role.description = action.payload.result.description;
+          }
+          return role;
+        });
+      })
+      .addCase(updateRoleActions.rejected, (state, action) => {
+        state.progress = "error";
+        state.updateProgress = "error";
+        state.error.message = action.payload as string;
+      });
+    builder
       .addCase(deleteRoleActions.pending, (state, action) => {
         state.progress = "pending";
       })
@@ -105,6 +134,7 @@ export const {
   resetSuccess,
   resetMessage,
   resetCreateProgress,
+  resetUpdateProgress,
 } = roleSlice.actions;
 
 export default roleSlice.reducer;

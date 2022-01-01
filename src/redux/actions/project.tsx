@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ActiveProjectApi, createProjectApi, deleteProjectApi, getInputProjectApi, getProjectApi, getUserNotPaggingApi, InactiveProjectApi } from "../../api/project";
+import { ActiveProjectApi, createProjectApi, deleteProjectApi, getInputProjectApi, getProjectApi, InactiveProjectApi } from "../../api/project";
 import { IActiveProjectReq, ICreateProject, ICreateProjectRes, IGetProjectReq, IProjectSearch } from "../../interfaces/project/projectType";
 
 export const getProject = createAsyncThunk(
@@ -29,7 +29,6 @@ export const createProject = createAsyncThunk(
     timeEnd,
     note,
     projectType,
-    customerId,
     tasks,
     users,
     projectTargetUsers,
@@ -44,7 +43,6 @@ export const createProject = createAsyncThunk(
       timeEnd,
       note,
       projectType,
-      customerId,
       tasks,
       users,
       projectTargetUsers,
@@ -75,11 +73,3 @@ export const deleteProject = createAsyncThunk(
     return response;
   }
 );
-
-export const getUserNotPagging = createAsyncThunk(
-    "/User/GetUserNotPagging",
-    async () => {
-      const response = await getUserNotPaggingApi();
-      return response;
-    }
-  );

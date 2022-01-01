@@ -23,12 +23,12 @@ const TitleContent = styled.div`
   font-size: 14px;
 `;
 
-const Common = styled.div`
+const UserList = styled.div`
   padding: 10px 25px;
   gap: 50px;
 `;
 
-const TableCommon = styled.div``;
+const TableUser = styled.div``;
 
 const ListUsers: React.FC = () => {
   const dispatch = useDispatch();
@@ -42,11 +42,11 @@ const ListUsers: React.FC = () => {
   const users = useSelector(userSelector.getAllUserSelector);
 
   return (
-    <Common>
+    <UserList>
       <Title>Danh sách ({users.length})</Title>
       <TitleContent>Danh sách các thành viên trong MyWorkingTime</TitleContent>
       <hr />
-      <TableCommon>
+      <TableUser>
         <Table aria-label="simple table" sx={{ border: 0 }}>
           <TableHead>
             <TableRow
@@ -140,8 +140,8 @@ const ListUsers: React.FC = () => {
             })}
           </TableBody>
         </Table>
-      </TableCommon>
-    </Common>
+      </TableUser>
+    </UserList>
   );
 };
 

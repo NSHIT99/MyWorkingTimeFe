@@ -2,11 +2,10 @@ import * as React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Menu, { MenuProps } from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import EditIcon from "@mui/icons-material/Edit";
 import { DeleteRole } from "../../deleteRole/deleteRole";
 import { IRoleReq } from "../../../../interfaces/role/roleType";
+import { EditRole } from "../../editRole/editRole";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -97,10 +96,7 @@ const ActionsRole: React.FC<{ role: IRoleReq }> = ({ role }) => {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose} disableRipple>
-          <EditIcon />
-          Sửa vai trò
-        </MenuItem>
+        <EditRole role={role} />
         <DeleteRole role={role} />
       </StyledMenu>
     </div>
