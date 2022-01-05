@@ -125,7 +125,7 @@ const Login: React.FC = () => {
   useEffect(() => {
     if (progress === "done" && accessToken) {
       dispatch(resetProgress());
-      history.push("/app");
+      history.push("/app/home");
     }
   }, [accessToken, history]);
 

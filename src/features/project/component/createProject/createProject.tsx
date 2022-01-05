@@ -238,7 +238,7 @@ const CreateProjects: React.FC = () => {
         startIcon={<AddIcon />}
         onClick={handleOpen}
       >
-        New Project
+        Tạo dự án
       </Button>
       <Modal open={open} onClose={handleClose}>
         <Box
@@ -259,7 +259,7 @@ const CreateProjects: React.FC = () => {
         >
           <form onSubmit={handleSubmit(onSaveProject)}>
             <Header>
-              <TitleHeader>Create Project</TitleHeader>
+              <TitleHeader>Tạo dự án</TitleHeader>
               <CloseIcon onClick={handleClose} />
             </Header>
             <hr />

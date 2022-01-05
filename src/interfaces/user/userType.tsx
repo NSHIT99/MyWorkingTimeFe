@@ -26,6 +26,7 @@ export interface ICreateUserReq {
   emailAddress: string;
   name: string;
   surname: string;
+  fullName: string;
   address: string;
   phoneNumber: string;
   roleNames: string;
@@ -75,4 +76,14 @@ export interface IUserNotPagging {
 
 export interface IUserNotPaggingRes {
   result: IUserNotPagging[];
+}
+
+export interface IResetPassword {
+  userId: number;
+  adminPassword: string;
+  newPassword: string;
+}
+
+export interface IResetPasswordRes {
+  result: IResetPassword[];
 }

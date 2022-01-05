@@ -7,7 +7,6 @@ import {
   IProjectRes,
   IProjectSearch,
 } from "../interfaces/project/projectType";
-import { IUserNotPaggingRes } from "../interfaces/user/userType";
 import { deleteApi, getApi, postApi } from "../utils/apiHelper";
 
 export const getProjectApi = async ({ status, search }: IProjectSearch) => {
@@ -53,7 +52,7 @@ export const createProjectApi = async ({
 
 export const ActiveProjectApi = async ({ id }: IActiveProjectReq) => {
   const data = await postApi<IActiveProjectReq, IDeleteProjectRes>(
-    `/Project/Active?Id=${id}`,
+    `/Project/Active?id=${id}`,
     {
       id,
     }
@@ -63,7 +62,7 @@ export const ActiveProjectApi = async ({ id }: IActiveProjectReq) => {
 
 export const InactiveProjectApi = async ({ id }: IActiveProjectReq) => {
   const data = await postApi<IActiveProjectReq, IDeleteProjectRes>(
-    `/Project/Inactive?Id=${id}`,
+    `/Project/Inactive?id=${id}`,
     {
       id,
     }
@@ -73,14 +72,14 @@ export const InactiveProjectApi = async ({ id }: IActiveProjectReq) => {
 
 export const deleteProjectApi = async (id: number) => {
   let url = `/Project/Delete?`;
-  if (typeof id === "number") url += `Id=${id}`;
+  if (typeof id === "number") url += `id=${id}`;
   const data = await deleteApi<IDeleteProjectRes>(url);
   return data;
 };
 
 export const getInputProjectApi = async ({ input }: IGetProjectReq) => {
   let url = `/Project/Get?`;
-  if (typeof input === "number") url += `input=${input}`;
+  if (typeof input === "number") url += `id=${input}`;
   const data = await getApi<ICreateProjectRes>(url);
   return data;
 };

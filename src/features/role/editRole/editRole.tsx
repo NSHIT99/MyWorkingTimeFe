@@ -4,7 +4,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@mui/system";
 import styled from "styled-components";
-import { SnackbarProvider, VariantType, useSnackbar } from "notistack";
+import { useSnackbar } from "notistack";
 import { RootState } from "../../../redux/store";
 import { resetProgress, resetUpdateProgress } from "../../../redux/reducer/roleReducer";
 import { IRoleReq } from "../../../interfaces/role/roleType";
@@ -23,6 +23,10 @@ const BtnEditRole = styled.div`
   justify-content: flex-end;
   gap: 20px;
   padding-top: 30px;
+`;
+
+const TitleActions = styled.p`
+  margin: 0;
 `;
 
 interface IUpdateRole {
@@ -71,7 +75,7 @@ export const EditRole: React.FC<{ role: IRoleReq }> = ({ role }) => {
     <>
       <MenuItem disableRipple onClick={handleOpen}>
         <EditIcon />
-        <p>Chỉnh sửa</p>
+        <TitleActions>Chỉnh sửa</TitleActions>
       </MenuItem>
       <Modal open={open}>
         <Box

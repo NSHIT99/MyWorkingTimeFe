@@ -11,7 +11,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../redux/store";
 import Actions from "./actions";
 import dayjs from "dayjs";
-import { IGroups, IProjectReq } from "../../../../interfaces/project/projectType";
 
 const ContentTable = styled.div`
   padding: 10px 25px;
@@ -133,13 +132,13 @@ const ListProjects: React.FC = () => {
                         <ListItemOne>{item.pms}</ListItemOne>
                         <ListItemTwo>{item.activeMember} members</ListItemTwo>
                         {item.projectType == 0 ? (
-                          <ListItemThree>T&M</ListItemThree>
+                          <ListItemThree>Internship project</ListItemThree>
                         ) : item.projectType == 1 ? (
-                          <ListItemThree>FF</ListItemThree>
+                          <ListItemThree>Specialized project</ListItemThree>
                         ) : item.projectType == 2 ? (
-                          <ListItemThree>NB</ListItemThree>
+                          <ListItemThree>Final project</ListItemThree>
                         ) : (
-                          <ListItemThree>ODC</ListItemThree>
+                          <ListItemThree>None</ListItemThree>
                         )}
                         {item.timeEnd ? (
                           <ListItemfour>

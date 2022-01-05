@@ -29,10 +29,9 @@ const TitleHeader = styled.div`
 
 const AddContent = styled.div`
   display: flex;
-  justify-content: space-between;
   padding: 15px;
   align-items: center;
-  gap: 50px;
+  gap: 500px;
 `;
 
 const Projects: React.FC = () => {

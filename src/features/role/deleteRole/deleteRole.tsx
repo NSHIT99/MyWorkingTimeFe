@@ -41,6 +41,12 @@ const StyleButton = styled.div`
   display: flex;
   gap: 15px;
 `;
+
+const TitleActions = styled.p`
+  margin: 0;
+  color: red;
+`;
+
 export const DeleteRole: React.FC<{ role: IRoleReq }> = ({ role }) => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -74,7 +80,7 @@ export const DeleteRole: React.FC<{ role: IRoleReq }> = ({ role }) => {
     <>
       <MenuItem disableRipple onClick={handleOpen}>
         <DeleteIcon style={{color: "red"}} />
-        <p style={{ color: "red" }}>Delete</p>
+        <TitleActions>Delete</TitleActions>
       </MenuItem>
       <Modal
         open={open}

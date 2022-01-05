@@ -1,5 +1,5 @@
 import { IDeleteRes } from "../interfaces/type";
-import { ICreateUserReq, IUserRes } from "../interfaces/user/userType";
+import { ICreateUserReq, IResetPassword, IResetPasswordRes, IUserRes } from "../interfaces/user/userType";
 import { IDataError } from "../utils/apiError";
 import { deleteApi, getApi, postApi, putApi } from "../utils/apiHelper";
 
@@ -20,6 +20,7 @@ export const createUserApi = async ({
   emailAddress,
   name,
   surname,
+  fullName,
   address,
   phoneNumber,
   roleNames,
@@ -37,6 +38,7 @@ export const createUserApi = async ({
       emailAddress,
       name,
       surname,
+      fullName,
       address,
       phoneNumber,
       roleNames,
@@ -56,6 +58,7 @@ export const updateUserApi = async ({
   emailAddress,
   name,
   surname,
+  fullName,
   address,
   phoneNumber,
   roleNames,
@@ -73,6 +76,7 @@ export const updateUserApi = async ({
       emailAddress,
       name,
       surname,
+      fullName,
       address,
       phoneNumber,
       roleNames,
@@ -83,4 +87,16 @@ export const updateUserApi = async ({
     }
   );
   return update;
+};
+
+export const ResetPasswordApi = async ({
+  userId, adminPassword, newPassword
+}: IResetPassword) => {
+  const resetPassword = await postApi<IResetPassword, IResetPasswordRes | IDataError>(
+    `/User/ResetPassword`,
+    {
+      userId, adminPassword, newPassword
+    }
+  );
+  return resetPassword;
 };

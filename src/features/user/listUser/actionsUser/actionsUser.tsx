@@ -4,13 +4,12 @@ import Button from "@mui/material/Button";
 import Menu, { MenuProps } from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import EditIcon from "@mui/icons-material/Edit";
 import { IGetAllReq } from "../../../../interfaces/user/userType";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import DeleteIcon from "@mui/icons-material/Delete";
 import LockIcon from "@mui/icons-material/Lock";
 import { DeleteUser } from "../../deleteUser/deleteUser";
-import { EditUser } from "../../editUser/editUser";
+import EditUser from "../../editUser/EditUser";
+import ResetPassword from "../../resetPassword/resetPassword";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -103,10 +102,7 @@ const ActionsUser: React.FC<{ user: IGetAllReq }> = ({ user }) => {
       >
         <EditUser user={user} />
         <DeleteUser user={user} />
-        <MenuItem onClick={handleClose} disableRipple>
-          <LockIcon />
-          Đổi mật khẩu
-        </MenuItem>
+        <ResetPassword user={user} />
         <MenuItem onClick={handleClose} disableRipple>
           <CloudUploadIcon />
           Chỉnh sửa avatar

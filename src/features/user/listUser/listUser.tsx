@@ -51,7 +51,11 @@ const ListUsers: React.FC = () => {
           <TableHead>
             <TableRow
               sx={{
-                "& th": { border: "1px solid #ccc", background: "#e9e9e9", textAlign: "center" },
+                "& th": {
+                  border: "1px solid #ccc",
+                  background: "#e9e9e9",
+                  textAlign: "center",
+                },
               }}
             >
               <TableCell scope="row">STT</TableCell>
@@ -125,11 +129,9 @@ const ListUsers: React.FC = () => {
                   {item.type == 1 ? (
                     <TableCell scope="row">Nhóm trưởng</TableCell>
                   ) : item.type == 2 ? (
-                    <TableCell scope="row">Thành viên</TableCell>
-                  ) : item.type == 3 ? (
                     <TableCell scope="row">GV phụ trách</TableCell>
                   ) : (
-                    <TableCell scope="row">None</TableCell>
+                    <TableCell scope="row">Thành viên</TableCell>
                   )}
                   <TableCell scope="row">{item.roleNames}</TableCell>
                   <TableCell scope="row">

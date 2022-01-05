@@ -1,6 +1,16 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { createUserApi, deleteUserApi, getAll, updateUserApi } from "../../api/user";
-import { ICreateUserReq, IUserReq } from "../../interfaces/user/userType";
+import {
+  createUserApi,
+  deleteUserApi,
+  getAll,
+  ResetPasswordApi,
+  updateUserApi,
+} from "../../api/user";
+import {
+  ICreateUserReq,
+  IResetPassword,
+  IUserReq,
+} from "../../interfaces/user/userType";
 
 export const getAllActions = createAsyncThunk("/User/GetAll", async () => {
   const response = await getAll();
@@ -24,6 +34,7 @@ export const createUserActions = createAsyncThunk(
     emailAddress,
     name,
     surname,
+    fullName,
     address,
     phoneNumber,
     roleNames,
@@ -39,6 +50,7 @@ export const createUserActions = createAsyncThunk(
       emailAddress,
       name,
       surname,
+      fullName,
       address,
       phoneNumber,
       roleNames,
@@ -60,6 +72,7 @@ export const updateUserActions = createAsyncThunk(
     emailAddress,
     name,
     surname,
+    fullName,
     address,
     phoneNumber,
     roleNames,
@@ -75,6 +88,7 @@ export const updateUserActions = createAsyncThunk(
       emailAddress,
       name,
       surname,
+      fullName,
       address,
       phoneNumber,
       roleNames,
@@ -84,5 +98,17 @@ export const updateUserActions = createAsyncThunk(
       sex,
     });
     return update as { result: IUserReq };
+  }
+);
+
+export const resetPasswordActions = createAsyncThunk(
+  "/User/ResetPassword",
+  async ({ userId, adminPassword, newPassword }: IResetPassword) => {
+    const resetPassword = await ResetPasswordApi({
+      userId,
+      adminPassword,
+      newPassword,
+    });
+    return resetPassword as { result: IResetPassword };
   }
 );

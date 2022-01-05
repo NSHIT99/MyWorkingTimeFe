@@ -5,6 +5,7 @@ import {
   createUserActions,
   deleteUserActions,
   getAllActions,
+  resetPasswordActions,
   updateUserActions,
 } from "../actions/user";
 import { RootState } from "../store";
@@ -110,7 +111,7 @@ const userSlice = createSlice({
       .addCase(deleteUserActions.rejected, (state, action) => {
         state.progress = "error";
       });
-      builder
+    builder
       .addCase(updateUserActions.pending, (state, action) => {
         state.progress = "pending";
       })
@@ -138,6 +139,25 @@ const userSlice = createSlice({
       .addCase(updateUserActions.rejected, (state, action) => {
         state.progress = "error";
         state.updateProgress = "error";
+        state.error.message = action.payload as string;
+      });
+      builder
+      .addCase(resetPasswordActions.pending, (state, action) => {
+        state.progress = "pending";
+      })
+      .addCase(resetPasswordActions.fulfilled, (state, action) => {
+        state.progress = "done";
+        state.users.find((user) => user.id === action.payload.result.userId);
+        state.users.find((user) => user.roleNames === "Admin" && user.password === action.payload.result.adminPassword);
+        state.users = state.users.map((user) => {
+          if (user.id === action.payload.result.userId && user.roleNames === "Admin" && user.password === action.payload.result.adminPassword) {
+            user.password = action.payload.result.newPassword;
+          }
+          return user;
+        });
+      })
+      .addCase(resetPasswordActions.rejected, (state, action) => {
+        state.progress = "error";
         state.error.message = action.payload as string;
       });
   },

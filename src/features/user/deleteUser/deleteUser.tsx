@@ -41,6 +41,12 @@ const StyleButton = styled.div`
   display: flex;
   gap: 15px;
 `;
+
+const TitleActions = styled.p`
+  margin: 0;
+  color: red;
+`;
+
 const ActionDeleteUser: React.FC<{ user: IGetAllReq }> = ({ user }) => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -70,7 +76,7 @@ const ActionDeleteUser: React.FC<{ user: IGetAllReq }> = ({ user }) => {
     <>
       <MenuItem disableRipple onClick={handleOpen}>
         <DeleteIcon style={{color: "red"}} />
-        <p style={{ color: "red" }}>xoá người dùng</p>
+        <TitleActions>xoá người dùng</TitleActions>
       </MenuItem>
       <Modal
         open={open}

@@ -30,7 +30,7 @@ interface useForm {
   setValue: UseFormSetValue<INewUser>;
 }
 
-const TabUser: React.FC<useForm> = ({ register, setValue }) => {
+const TabUser: React.FC<useForm> = ({ register }) => {
   const [branch, setBranch] = React.useState("");
   const handleChangeBranch = (event: SelectChangeEvent) => {
     setBranch(event.target.value as string);

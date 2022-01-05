@@ -102,6 +102,7 @@ export interface INewUser {
   emailAddress: string;
   name: string;
   surname: string;
+  fullName: string;
   address: string;
   phoneNumber: string;
   roleNames: string | null;
@@ -125,6 +126,7 @@ const CreateUser: React.FC = () => {
         emailAddress: props.emailAddress,
         name: props.name,
         surname: props.surname,
+        fullName: props.fullName,
         address: props.address,
         phoneNumber: props.phoneNumber,
         roleNames: props.roleNames,

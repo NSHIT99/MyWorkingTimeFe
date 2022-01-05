@@ -26,7 +26,7 @@ interface useForm {
   setValue: UseFormSetValue<INewUser>;
 }
 
-const TabRole: React.FC<useForm> = ({ register, setValue }) => {
+const TabRole: React.FC<useForm> = ({ setValue }) => {
   const roles = useSelector((state: RootState) => state.user.roles);
   const [check, setCheck] = React.useState<boolean>(false);
 
