@@ -72,7 +72,7 @@ const CommonTask: React.FC = () => {
     <Common>
       <Title>Công việc chung ({commonTasks.length})</Title>
       <TitleContent>
-        Các công việc này được tự động thêm vào tất cả các dự án mới
+        Các công việc này được tự động thêm vào tất cả các đồ án mới
       </TitleContent>
       <hr />
       <TableCommon>

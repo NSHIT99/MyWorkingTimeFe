@@ -106,10 +106,6 @@ const Actions: React.FC<{ project: IProjectReq }> = ({ project }) => {
         onClose={handleClose}
       >
         {/* <EditProject project={project} /> */}
-        <MenuItem onClick={handleClose} disableRipple>
-          <VisibilityIcon />
-          View
-        </MenuItem>
         <ActiveAndInactive project={project} />
         <DeleteProject project={project} />
       </StyledMenu>

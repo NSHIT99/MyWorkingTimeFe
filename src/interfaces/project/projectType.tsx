@@ -1,7 +1,7 @@
 import { IError } from "../auth/authType";
 
 export interface IProjectReq {
-  name: string;
+  fullName: string;
   code: string;
   status: number;
   pms: string[];

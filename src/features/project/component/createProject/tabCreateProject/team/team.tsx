@@ -3,8 +3,6 @@ import styled from "styled-components";
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import { Checkbox } from "@mui/material";
-import { red } from "@mui/material/colors";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../../redux/store";
 import HeaderTeam from "./headerTeam/headerTeam";
@@ -33,11 +31,6 @@ const LeftHeader = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 20px;
-`;
-const StyledCheckBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
 `;
 const RightHeader = styled.div`
   display: flex;
@@ -71,21 +64,10 @@ const Team: React.FC = () => {
         <Header>
           <Block>
             <LeftHeader>
-              <Text>Team</Text>
-              <StyledCheckBox>
-                <Checkbox
-                  sx={{
-                    color: red[800],
-                    "&.Mui-checked": {
-                      color: red[600],
-                    },
-                  }}
-                />
-                <Text>Show deactive member</Text>
-              </StyledCheckBox>
+              <Text>Danh sách tham gia</Text>
             </LeftHeader>
             <RightHeader onClick={handleClickShowMember}>
-              <Text>Member Type</Text>
+              <Text>Vai trò</Text>
               {openShowMember ? <ExpandLess /> : <ExpandMore />}
             </RightHeader>
           </Block>
@@ -98,7 +80,7 @@ const Team: React.FC = () => {
         <Container>
           <Block>
             <LeftHeader>
-              <TextView>Select team member</TextView>
+              <TextView>Danh sách</TextView>
             </LeftHeader>
             <RightHeader onClick={handleClickSelectMember}>
               {openSelectMember ? <ExpandLess /> : <ExpandMore />}

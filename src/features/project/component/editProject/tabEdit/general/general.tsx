@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 import { TabPanel } from "@mui/lab";
-import {
-  Button,
-  Table,
-  TableBody,
-  TableCell,
-  TableRow,
-} from "@mui/material";
+import { Button, Table, TableBody, TableCell, TableRow } from "@mui/material";
 import styled from "styled-components";
 import {
   Control,
@@ -158,7 +152,7 @@ const General = ({ control, setValue }: props) => {
                           setValue("projectType", 0);
                         }}
                       >
-                        Time & Materials
+                        Đồ án thực tập
                       </Button>
                     )}
                   />
@@ -193,7 +187,7 @@ const General = ({ control, setValue }: props) => {
                           setValue("projectType", 1);
                         }}
                       >
-                        Fixed Fee
+                        Đồ án chuyên ngành
                       </Button>
                     )}
                   />
@@ -228,42 +222,7 @@ const General = ({ control, setValue }: props) => {
                           setValue("projectType", 2);
                         }}
                       >
-                        Non-Billable
-                      </Button>
-                    )}
-                  />
-                  <Controller
-                    name="projectType"
-                    control={control}
-                    render={({ field: { onChange, value } }) => (
-                      <Button
-                        type="button"
-                        defaultValue={value}
-                        onChange={onChange}
-                        style={{
-                          marginRight: "10px",
-                          width: "130px",
-                          height: "50px",
-                          color:
-                            activeButton === 3 || value === 3
-                              ? "#ffffff"
-                              : "black",
-                          textTransform: "none",
-                          borderRadius: "8px",
-                          border: "1px solid#c1c1c1",
-                          whiteSpace: "nowrap",
-                          background:
-                            activeButton === 3 || value === 3
-                              ? "#f36c00"
-                              : "#ffffff",
-                        }}
-                        variant="contained"
-                        onClick={() => {
-                          setActiveButton(3);
-                          setValue("projectType", 3);
-                        }}
-                      >
-                        ODC
+                        Đồ án tốt nghiệp
                       </Button>
                     )}
                   />

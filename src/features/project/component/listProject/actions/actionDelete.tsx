@@ -41,6 +41,12 @@ const StyleButton = styled.div`
   display: flex;
   gap: 15px;
 `;
+
+const TitleActions = styled.p`
+  margin: 0;
+  color: red;
+`;
+
 const ActionDelete: React.FC<{ project: IProjectReq }> = ({ project }) => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -49,11 +55,8 @@ const ActionDelete: React.FC<{ project: IProjectReq }> = ({ project }) => {
     setOpen(true);
   };
   const error = useSelector((state: RootState) => state.project.error);
-  // const success = useSelector((state: RootState) => state.project.success);
   const progress = useSelector((state: RootState) => state.project.progress);
-  // const onDelete = async (id: number) => {
-  //   dispatch(deleteProject(id));
-  // };
+  
   useEffect(() => {
     if (progress === "done") {
       dispatch(resetProgress());
@@ -76,7 +79,7 @@ const ActionDelete: React.FC<{ project: IProjectReq }> = ({ project }) => {
     <>
       <MenuItem disableRipple onClick={handleOpen}>
         <DeleteIcon />
-        <p style={{ color: "red" }}>Delete</p>
+        <TitleActions>Delete</TitleActions>
       </MenuItem>
       <Modal
         open={open}

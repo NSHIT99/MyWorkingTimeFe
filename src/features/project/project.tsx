@@ -68,7 +68,7 @@ const Projects: React.FC = () => {
   return (
     <ProjectContent>
       <HeaderProject>
-        <TitleHeader>Manage Projects</TitleHeader>
+        <TitleHeader>Quản lý đồ án</TitleHeader>
         <MoreVertIcon />
       </HeaderProject>
       <hr />
@@ -82,13 +82,13 @@ const Projects: React.FC = () => {
             onChange={handleChange}
           >
             <MenuItem value={0} onClick={handleStatus0}>
-              Active Projects ({ProjectStatus0.length})
+              Đồ án đang hoạt dộng ({ProjectStatus0.length})
             </MenuItem>
             <MenuItem value={1} onClick={handleStatus1}>
-              Deactive Projects ({ProjectStatus1.length})
+              Đồ án đã xong ({ProjectStatus1.length})
             </MenuItem>
             <MenuItem value={2} onClick={handleStatus}>
-              All Projects ({ProjectStatus.length})
+              Tất cả đồ án ({ProjectStatus.length})
             </MenuItem>
           </Select>
         </FormControl>

@@ -27,13 +27,13 @@ const TitleHeader = styled.div`
   font-size: 22px;
 `;
 
-const NewTask = styled.div`
+const NewUser = styled.div`
   display: flex;
   padding: 10px 25px;
   gap: 250px;
 `;
 
-const BtnNewTask = styled.div`
+const BtnNewUser = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: 20px;
@@ -164,7 +164,7 @@ const CreateUser: React.FC = () => {
     dispatch(getAllRoleActions());
   }, []);
   return (
-    <NewTask>
+    <NewUser>
       <Button
         style={{ background: "#f24b50", height: "40px" }}
         variant="contained"
@@ -224,7 +224,7 @@ const CreateUser: React.FC = () => {
                 </TabPanel>
               </ListTab>
             </Box>
-            <BtnNewTask>
+            <BtnNewUser>
               <Button
                 variant="outlined"
                 color="error"
@@ -241,11 +241,11 @@ const CreateUser: React.FC = () => {
               >
                 Save
               </Button>
-            </BtnNewTask>
+            </BtnNewUser>
           </form>
         </Box>
       </Modal>
-    </NewTask>
+    </NewUser>
   );
 };
 

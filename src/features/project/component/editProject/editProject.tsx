@@ -189,7 +189,7 @@ const EditProject: React.FC<{ project: IProjectReq }> = ({ project }) => {
         <Container>
           <Form onSubmit={handleSubmit(onSaveProject)}>
             <HeaderForm>
-              <Title>Edit Project: {project.name}</Title>
+              <Title>Edit Project: {project.fullName}</Title>
               <CloseIcon onClick={handleClose} />
             </HeaderForm>
             <ContentForm

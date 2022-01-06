@@ -17,7 +17,7 @@ import Tabs from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import { Alert, Snackbar } from "@mui/material";
-import { createProject } from "../../../../redux/actions/project";
+import { createProject, getUserNotPagging } from "../../../../redux/actions/project";
 
 const TitleHeader = styled.div`
   font-size: 30px;
@@ -25,11 +25,13 @@ const TitleHeader = styled.div`
   line-height: 48px;
   z-index: 1;
 `;
+
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
+
 const NewProject = styled.div`
   display: flex;
   padding: 10px 25px;
@@ -40,7 +42,7 @@ const BtnNewProject = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: 20px;
-  padding-top: 30px;
+  padding-top: 10px;
 `;
 
 const ListTab = styled.div`
@@ -128,6 +130,7 @@ const CreateProjects: React.FC = () => {
   const handleOpen = () => {
     setOpen(true);
     dispatch(getTask());
+    dispatch(getUserNotPagging());
   };
   const handleClose = () => {
     setOpen(false);
@@ -238,7 +241,7 @@ const CreateProjects: React.FC = () => {
         startIcon={<AddIcon />}
         onClick={handleOpen}
       >
-        Tạo dự án
+        Tạo đồ án
       </Button>
       <Modal open={open} onClose={handleClose}>
         <Box
@@ -259,7 +262,7 @@ const CreateProjects: React.FC = () => {
         >
           <form onSubmit={handleSubmit(onSaveProject)}>
             <Header>
-              <TitleHeader>Tạo dự án</TitleHeader>
+              <TitleHeader>Tạo đồ án</TitleHeader>
               <CloseIcon onClick={handleClose} />
             </Header>
             <hr />
@@ -271,17 +274,17 @@ const CreateProjects: React.FC = () => {
                   aria-label="basic tabs example"
                 >
                   <Tab
-                    label="General"
+                    label="Thông tin chung"
                     {...a11yProps(0)}
                     sx={{ textTransform: "capitalize" }}
                   />
                   <Tab
-                    label="Team"
+                    label="Thành lập nhóm"
                     {...a11yProps(1)}
                     sx={{ textTransform: "capitalize" }}
                   />
                   <Tab
-                    label="Tasks"
+                    label="Công việc"
                     {...a11yProps(2)}
                     sx={{ textTransform: "capitalize" }}
                   />

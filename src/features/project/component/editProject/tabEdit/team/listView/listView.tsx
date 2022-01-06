@@ -200,8 +200,7 @@ import { IUserNotPagging } from "../../../../../../../interfaces/user/userType";
           onClick={() => handlePushMember(user)}
         />
         <View>
-          <Avatar src={`http://dev.timesheetapi.nccsoft.vn/${user.avatarPath}`} />
-          <TextView>{user.name}</TextView>
+          <TextView>{user.fullName}</TextView>
           {user.branch === 0 ? (
             <StyledBranchOne>HN</StyledBranchOne>
           ) : user.branch === 1 ? (
@@ -217,39 +216,6 @@ import { IUserNotPagging } from "../../../../../../../interfaces/user/userType";
             <StyledBranchTwo>Internship</StyledBranchTwo>
           ) : user.type === 2 ? (
             <StyledBranchThree>Collaborator</StyledBranchThree>
-          ) : null}
-          {user.level === 0 ? (
-            <StyledLevelIntern0>Intern_0</StyledLevelIntern0>
-          ) : user.level === 1 ? (
-            <StyledLevelIntern1>Intern_1</StyledLevelIntern1>
-          ) : user.level === 2 ? (
-            <StyledLevelIntern2>Intern_2</StyledLevelIntern2>
-          ) : user.level === 3 ? (
-            <StyledLevelPrefresher0>Prefresher</StyledLevelPrefresher0>
-          ) : user.level === 4 ? (
-            <StyledLevelFresher1>Fresher-</StyledLevelFresher1>
-          ) : user.level === 5 ? (
-            <StyledLevelFresher2>Fresher+</StyledLevelFresher2>
-          ) : user.level === 6 ? (
-            <StyledLevelFresher3>Fresher+</StyledLevelFresher3>
-          ) : user.level === 7 ? (
-            <StyledLevelJunior0>Junior-</StyledLevelJunior0>
-          ) : user.level === 8 ? (
-            <StyledLevelJunior1>Junior</StyledLevelJunior1>
-          ) : user.level === 9 ? (
-            <StyledLevelJunior2>Junior+</StyledLevelJunior2>
-          ) : user.level === 10 ? (
-            <StyledLevelMiddle0>Middle-</StyledLevelMiddle0>
-          ) : user.level === 11 ? (
-            <StyledLevelMiddle1>Middle</StyledLevelMiddle1>
-          ) : user.level === 12 ? (
-            <StyledLevelMiddle2>Middle+</StyledLevelMiddle2>
-          ) : user.level === 13 ? (
-            <StyledLevelSenior0>Senior-</StyledLevelSenior0>
-          ) : user.level === 14 ? (
-            <StyledLevelSenior1>Senior</StyledLevelSenior1>
-          ) : user.level === 15 ? (
-            <StyledLevelSenior2>Senior+</StyledLevelSenior2>
           ) : null}
         </View>
       </Wrapper>

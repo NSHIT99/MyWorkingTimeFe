@@ -262,10 +262,9 @@ export const TabEditUser = ({ control, setValue }: props) => {
                   }}
                   {...field}
                 >
-                  <MenuItem value={0}>None</MenuItem>
-                  <MenuItem value={1}>Leader</MenuItem>
-                  <MenuItem value={2}>Member</MenuItem>
-                  <MenuItem value={3}>Manager</MenuItem>
+                  <MenuItem value={0}>Nhóm trưởng</MenuItem>
+                  <MenuItem value={1}>Giáo viên phụ trách</MenuItem>
+                  <MenuItem value={2}>Thành viên</MenuItem>
                 </Select>
               );
             }}

@@ -20,7 +20,6 @@ import logosidebar from "../../asset/img/logosidebar.png";
 import GroupIcon from "@mui/icons-material/Group";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import logo from "../../asset/img/logo.png";
-import { useDispatch } from "react-redux";
 
 const SidebarContainer = styled.div`
   width: 350px;
@@ -49,7 +48,7 @@ const Info = styled.div`
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    padding-right: 10px;
+    margin-right: 25px;
   }
 `;
 
@@ -205,7 +204,7 @@ const SideBar = () => {
             <ListItemIcon>
               <AssessmentIcon />
             </ListItemIcon>
-            <ListItemText primary="Dự án" />
+            <ListItemText primary="Quản lý đồ án" />
           </ListItemButton>
         </StyleLink>
       </List>

@@ -6,9 +6,8 @@ import { INewUser } from "../createUser";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
-const NewTask = styled.div`
+const NewUser = styled.div`
   display: flex;
-  padding: 10px 25px;
   gap: 250px;
 `;
 
@@ -45,7 +44,7 @@ const TabUser: React.FC<useForm> = ({ register }) => {
   };
 
   return (
-    <NewTask>
+    <NewUser>
       <FormCreate>
         <FormLeft>
           <TextField
@@ -226,14 +225,13 @@ const TabUser: React.FC<useForm> = ({ register }) => {
               "& div": { padding: "8px 0" },
             }}
           >
-            <MenuItem value={0}>None</MenuItem>
-            <MenuItem value={1}>Leader</MenuItem>
-            <MenuItem value={2}>Member</MenuItem>
-            <MenuItem value={3}>Manager</MenuItem>
+            <MenuItem value={0}>Nhóm trưởng</MenuItem>
+            <MenuItem value={1}>Giáo viên phụ trách</MenuItem>
+            <MenuItem value={2}>Thành viên</MenuItem>
           </Select>
         </FormRight>
       </FormCreate>
-    </NewTask>
+    </NewUser>
   );
 };
 

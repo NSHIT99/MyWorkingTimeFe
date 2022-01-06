@@ -23,79 +23,60 @@ const Wrapper = styled.div`
 `;
 const ListBranch: React.FC = () => {
   const dispatch = useDispatch();
-  const [branch, setBranch] = React.useState("All");
-  const [type, setType] = React.useState("All");
-  const [level, setLevel] = React.useState("All");
+  const [branch, setBranch] = React.useState("Tất cả");
+  const [type, setType] = React.useState("Tất cả");
   const handleChangeBranch = (event: SelectChangeEvent) => {
     setBranch(event.target.value);
-    dispatch(filter({ branch: event.target.value, type, level }));
+    dispatch(filter({ branch: event.target.value, type }));
   };
   const handleChangeType = (event: SelectChangeEvent) => {
     setType(event.target.value);
-    dispatch(filter({ type: event.target.value, branch, level }));
+    dispatch(filter({ type: event.target.value, branch }));
   };
-  const handleChangeLevel = (event: SelectChangeEvent) => {
-    setLevel(event.target.value);
-    dispatch(filter({ level: event.target.value, type, branch }));
-  };
+
   return (
     <Wrapper>
       <div>
         <FormControl variant="standard" sx={{ m: 1, minWidth: 100 }}>
-          <InputLabel id="demo-simple-select-standard-label">Branch</InputLabel>
+          <InputLabel id="demo-simple-select-standard-label">Lớp</InputLabel>
           <Select
             id="demo-simple-select"
             value={branch}
             onChange={handleChangeBranch}
           >
-            <MenuItem value={"All"}>All</MenuItem>
-            <MenuItem value={0}>Ha Noi</MenuItem>
-            <MenuItem value={1}>Da Nang</MenuItem>
-            <MenuItem value={2}>Ho Chi Minh</MenuItem>
-            <MenuItem value={3}>Vinh</MenuItem>
+            <MenuItem value={"Tất cả"}>Tất cả</MenuItem>
+            <MenuItem value={0}>None</MenuItem>
+            <MenuItem value={1}>58K1</MenuItem>
+            <MenuItem value={2}>58K2</MenuItem>
+            <MenuItem value={3}>58K3</MenuItem>
+            <MenuItem value={4}>58K4</MenuItem>
+            <MenuItem value={5}>59K1</MenuItem>
+            <MenuItem value={6}>59K2</MenuItem>
+            <MenuItem value={7}>59K3</MenuItem>
+            <MenuItem value={8}>59K4</MenuItem>
+            <MenuItem value={9}>60K1</MenuItem>
+            <MenuItem value={10}>60K2</MenuItem>
+            <MenuItem value={11}>60K3</MenuItem>
+            <MenuItem value={12}>60K4</MenuItem>
+            <MenuItem value={13}>61K1</MenuItem>
+            <MenuItem value={14}>61K2</MenuItem>
+            <MenuItem value={15}>61K3</MenuItem>
+            <MenuItem value={16}>61K4</MenuItem>
           </Select>
         </FormControl>
       </div>
       <div>
         <FormControl variant="standard" sx={{ m: 1, minWidth: 100 }}>
-          <InputLabel id="demo-simple-select-standard-label">Type</InputLabel>
+          <InputLabel id="demo-simple-select-standard-label">Nhiệm vụ</InputLabel>
           <Select
             id="demo-simple-select"
             value={type}
             onChange={handleChangeType}
           >
-            <MenuItem value={"All"}>All</MenuItem>
-            <MenuItem value={0}>Staff</MenuItem>
-            <MenuItem value={1}>Internship</MenuItem>
-            <MenuItem value={2}>Collaborator</MenuItem>
-          </Select>
-        </FormControl>
-      </div>
-      <div>
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 100 }}>
-          <InputLabel id="demo-simple-select-standard-label">Level</InputLabel>
-          <Select
-            id="demo-simple-select"
-            value={level}
-            onChange={handleChangeLevel}
-          >
-            <MenuItem value={"All"}>All</MenuItem>
-            <MenuItem value={0}>Intern_0</MenuItem>
-            <MenuItem value={1}>Intern_1</MenuItem>
-            <MenuItem value={2}>Intern_2</MenuItem>
-            <MenuItem value={3}>Prefresher</MenuItem>
-            <MenuItem value={4}>Fresher-</MenuItem>
-            <MenuItem value={5}>Fresher</MenuItem>
-            <MenuItem value={6}>Fresher+</MenuItem>
-            <MenuItem value={7}>Junior-</MenuItem>
-            <MenuItem value={8}>Junior</MenuItem>
-            <MenuItem value={9}>Junior+</MenuItem>
-            <MenuItem value={10}>Middle-</MenuItem>
-            <MenuItem value={11}>Middle</MenuItem>
-            <MenuItem value={12}>Middle+</MenuItem>
-            <MenuItem value={13}>Senior-</MenuItem>
-            <MenuItem value={14}>Senior</MenuItem>
-            <MenuItem value={15}>Senior+</MenuItem>
+            <MenuItem value={"Tất cả"}>Tất cả</MenuItem>
+            <MenuItem value={0}>Nhóm trưởng</MenuItem>
+            <MenuItem value={1}>Giáo viên phụ trách</MenuItem>
+            <MenuItem value={2}>Thành viên</MenuItem>
           </Select>
         </FormControl>
       </div>
@@ -110,7 +91,7 @@ const ListBranch: React.FC = () => {
             ),
           }}
           style={{ width: "270px" }}
-          label="Search by name"
+          label="Tìm kiếm theo tên"
           variant="standard"
         />
       </div>

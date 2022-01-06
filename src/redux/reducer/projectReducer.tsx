@@ -1,10 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { createSelector } from "reselect";
-import { ICreateProject, IProjectReq } from "../../interfaces/project/projectType";
+import {
+  ICreateProject,
+  IProjectReq,
+} from "../../interfaces/project/projectType";
 import { IError } from "../../interfaces/auth/authType";
 import { ITaskReq } from "../../interfaces/task/taskType";
-import { activeProject, createProject, deleteProject, getProject, inactiveProject } from "../actions/project";
+import {
+  activeProject,
+  createProject,
+  deleteProject,
+  getProject,
+  getUserNotPagging,
+  inactiveProject,
+} from "../actions/project";
 import { getTask } from "../actions/task";
 import { IUserNotPagging } from "../../interfaces/user/userType";
 
@@ -94,8 +104,6 @@ const projectSlice = createSlice({
         (user) =>
           (action.payload.branch === "All" ||
             user.branch === action.payload.branch) &&
-          (action.payload.level === "All" ||
-            user.level === action.payload.level) &&
           (action.payload.type === "All" || user.type === action.payload.type)
       );
     },
@@ -242,11 +250,25 @@ const projectSlice = createSlice({
           state.error.message = action.payload.error.message;
         }
       });
+    builder
+      .addCase(getUserNotPagging.pending, (state, action) => {
+        state.progress = "pending";
+      })
+      .addCase(getUserNotPagging.fulfilled, (state, action) => {
+        state.users = action.payload.result;
+        state.filteredUsers = action.payload.result;
+      })
+      .addCase(getUserNotPagging.rejected, (state, action) => {
+        state.progress = "error";
+      });
   },
 });
 
 const selectSelf = (state: RootState) => state.project;
-const getAllProjectSelector = createSelector(selectSelf, (state) => state.projects);
+const getAllProjectSelector = createSelector(
+  selectSelf,
+  (state) => state.projects
+);
 
 const getAllProjectStatus0 = createSelector(getAllProjectSelector, (projects) =>
   projects.filter((projects) => projects.status === 0)

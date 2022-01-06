@@ -45,17 +45,17 @@ interface useForm {
 const General: React.FC<useForm> = ({ register, setValue }) => {
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
-  const [Active, setActive] = React.useState("Fixed Fee");
+  const [Active, setActive] = React.useState("Đồ án chuyên ngành");
 
   return (
     <NewGeneral>
       <FormList>
-        <ListName>ProjectName*</ListName>
+        <ListName>Tên đồ án*</ListName>
         <TextField
           hiddenLabel
           id="outlined-basic"
           variant="outlined"
-          placeholder="Project name"
+          placeholder="Tên đồ án"
           {...register("name", { required: true })}
           sx={{
             border: "1px solid rgba(0,0,0,.12)",
@@ -64,12 +64,12 @@ const General: React.FC<useForm> = ({ register, setValue }) => {
         />
       </FormList>
       <FormList>
-        <ListName>Project Code*</ListName>
+        <ListName>Ngôn ngữ code*</ListName>
         <TextField
           hiddenLabel
           id="outlined-basic"
           variant="outlined"
-          placeholder="Project code"
+          placeholder="Ngôn ngữ code"
           {...register("code", { required: true })}
           sx={{
             border: "1px solid rgba(0,0,0,.12)",
@@ -78,7 +78,7 @@ const General: React.FC<useForm> = ({ register, setValue }) => {
         />
       </FormList>
       <FormList>
-        <ListName>Dates*</ListName>
+        <ListName>Thời gian hoàn thiện*</ListName>
         <TextField
           style={{ width: "24%" }}
           type="date"
@@ -92,7 +92,7 @@ const General: React.FC<useForm> = ({ register, setValue }) => {
         />
       </FormList>
       <FormList>
-        <ListName>Note</ListName>
+        <ListName>Ghi chú</ListName>
         <ListInput>
           <TextareaAutosize
             {...register("note")}
@@ -112,59 +112,46 @@ const General: React.FC<useForm> = ({ register, setValue }) => {
         </CheckboxUser>
       </FormList>
       <FormList>
-        <ListName>Project Type*</ListName>
+        <ListName>Loại đồ án*</ListName>
         <Stack spacing={2} direction="row">
           <BtnProjectType
             variant="outlined"
             style={{
               color: "#000",
-              background: Active === "Time & Materials" ? "#f36c00" : "#fff",
+              background: Active === "Đồ án thực tập" ? "#f36c00" : "#fff",
             }}
             onClick={() => {
-              setActive("Time & Materials");
+              setActive("Đồ án thực tập");
               setValue("projectType", 0);
             }}
           >
-            Time & Materials
+            Đồ án thực tập
           </BtnProjectType>
           <BtnProjectType
             variant="outlined"
             style={{
               color: "#000",
-              background: Active === "Fixed Fee" ? "#f36c00" : "#fff",
+              background: Active === "Đồ án chuyên ngành" ? "#f36c00" : "#fff",
             }}
             onClick={() => {
-              setActive("Fixed Fee");
+              setActive("Đồ án chuyên ngành");
               setValue("projectType", 1);
             }}
           >
-            Fixed Fee
+            Đồ án chuyên ngành
           </BtnProjectType>
           <BtnProjectType
             variant="outlined"
             style={{
               color: "#000",
-              background: Active === "Non-Billable" ? "#f36c00" : "#fff",
+              background: Active === "Đồ án tốt nghiệp" ? "#f36c00" : "#fff",
             }}
             onClick={() => {
-              setActive("Non-Billable");
+              setActive("Đồ án tốt nghiệp");
               setValue("projectType", 2);
             }}
           >
-            Non-Billable
-          </BtnProjectType>
-          <BtnProjectType
-            variant="outlined"
-            style={{
-              color: "#000",
-              background: Active === "OBC" ? "#f36c00" : "#fff",
-            }}
-            onClick={() => {
-              setActive("OBC");
-              setValue("projectType", 3);
-            }}
-          >
-            OBC
+            Đồ án tốt nghiệp
           </BtnProjectType>
         </Stack>
       </FormList>

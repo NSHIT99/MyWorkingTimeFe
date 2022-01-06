@@ -114,9 +114,9 @@ const Tasks: React.FC = () => {
     <Wrapper>
       <Header>
         <NavHeader>
-          <Text>Tasks</Text>
+          <Text>Công việc</Text>
           <RightNav>
-            <Text>Billable</Text>
+            <Text>Tích chọn</Text>
             <Checkbox {...label} color="error" defaultChecked />
           </RightNav>
         </NavHeader>
@@ -147,7 +147,7 @@ const Tasks: React.FC = () => {
         })}
       </Header>
       <ViewSelect>
-        <TextView>Select task</TextView>
+        <TextView>Danh sách công việc</TextView>
         <RightSelect onClick={handleClickSelectTask}>
           {openSelectTask ? <ExpandLess /> : <ExpandMore />}
         </RightSelect>
@@ -165,9 +165,9 @@ const Tasks: React.FC = () => {
               </LeftView>
               <RightView>
                 {item.type === 0 ? (
-                  <TextView>Common Task</TextView>
+                  <TextView>Công việc chung</TextView>
                 ) : (
-                  <TextView>Other Task</TextView>
+                  <TextView>Công việc khác</TextView>
                 )}
               </RightView>
             </ViewTask>

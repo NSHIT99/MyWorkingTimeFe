@@ -7,6 +7,7 @@ import {
   IProjectRes,
   IProjectSearch,
 } from "../interfaces/project/projectType";
+import { IUserNotPaggingRes } from "../interfaces/user/userType";
 import { deleteApi, getApi, postApi } from "../utils/apiHelper";
 
 export const getProjectApi = async ({ status, search }: IProjectSearch) => {
@@ -82,4 +83,11 @@ export const getInputProjectApi = async ({ input }: IGetProjectReq) => {
   if (typeof input === "number") url += `id=${input}`;
   const data = await getApi<ICreateProjectRes>(url);
   return data;
+};
+
+export const getUserNotPaggingApi = async () => {
+  const res = await getApi<IUserNotPaggingRes>(
+    `/User/GetUserNotPagging`
+  );
+  return res;
 };

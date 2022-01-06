@@ -62,15 +62,11 @@ export interface IUserRes {
 }
 
 export interface IUserNotPagging {
-  name: string;
-  isActive: boolean;
+  id: number;
+  fullName: string;
   type: number;
-  jobTitle: string;
-  level: number;
-  userCode: string;
   avatarPath: string;
   branch: number;
-  id: number;
   projectType?: number;
 }
 
