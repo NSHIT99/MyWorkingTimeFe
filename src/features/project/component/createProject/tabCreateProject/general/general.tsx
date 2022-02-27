@@ -102,15 +102,6 @@ const General: React.FC<useForm> = ({ register, setValue }) => {
           />
         </ListInput>
       </FormList>
-      <FormList style={{ paddingBottom: "0" }}>
-        <ListName>All User</ListName>
-        <CheckboxUser>
-          <Checkbox {...label} {...register("isAllUserBelongTo")} />
-          <Title>
-            Auto add user as a member of this project when creating new user
-          </Title>
-        </CheckboxUser>
-      </FormList>
       <FormList>
         <ListName>Loại đồ án*</ListName>
         <Stack spacing={2} direction="row">

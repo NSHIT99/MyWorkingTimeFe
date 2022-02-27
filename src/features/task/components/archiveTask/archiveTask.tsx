@@ -62,11 +62,12 @@ const Archive: React.FC<{ task: ITaskReq }> = ({ task }) => {
           background: "#FFFFFF",
           color: "black",
           textTransform: "none",
+          padding: "10px 0",
         }}
         variant="contained"
         onClick={handleOpen}
       >
-        Archive
+        Tạm ẩn
       </Button>
       <Modal
         open={open}

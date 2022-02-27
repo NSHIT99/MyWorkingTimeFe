@@ -75,7 +75,6 @@ const initialState: ProjectState = {
         id: 0,
       },
     ],
-    isAllUserBelongTo: false,
     id: 0,
   },
   error: {
@@ -188,7 +187,6 @@ const projectSlice = createSlice({
             project.timeStart = action.payload.result.timeStart;
             project.timeEnd = action.payload.result.timeEnd;
             project.note = action.payload.result.note;
-            project.isAllUserBelongTo = action.payload.result.isAllUserBelongTo;
             project.projectType = action.payload.result.projectType;
             project.users = action.payload.result.users;
             project.tasks = action.payload.result.tasks;

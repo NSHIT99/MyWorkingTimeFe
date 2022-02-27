@@ -80,7 +80,7 @@ export const DeleteRole: React.FC<{ role: IRoleReq }> = ({ role }) => {
     <>
       <MenuItem disableRipple onClick={handleOpen}>
         <DeleteIcon style={{color: "red"}} />
-        <TitleActions>Delete</TitleActions>
+        <TitleActions>Xoá vai trò</TitleActions>
       </MenuItem>
       <Modal
         open={open}

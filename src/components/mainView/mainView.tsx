@@ -8,6 +8,7 @@ import Roles from "../../features/role/role";
 import Tasks from "../../features/task/task";
 import Projects from "../../features/project/project";
 import MainHome from "../../features/mainHome/mainHome";
+import Myworkingtime from "../../features/myworkingTime/myworkingtime";
 
 const MainContent = styled.div`
   width: 100%;
@@ -54,6 +55,11 @@ const MainView: React.FC = () => {
             exact={false}
             path={`${path}/main/project`}
             component={Projects}
+          />
+          <PrivateRoute
+            exact={false}
+            path={`${path}/main/myworkingtime`}
+            component={Myworkingtime}
           />
         </Switch>
       </Content>

@@ -20,6 +20,8 @@ import logosidebar from "../../asset/img/logosidebar.png";
 import GroupIcon from "@mui/icons-material/Group";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import logo from "../../asset/img/logo.png";
+import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
+import DateRangeIcon from '@mui/icons-material/DateRange';
 
 const SidebarContainer = styled.div`
   width: 350px;
@@ -205,6 +207,22 @@ const SideBar = () => {
               <AssessmentIcon />
             </ListItemIcon>
             <ListItemText primary="Quản lý đồ án" />
+          </ListItemButton>
+        </StyleLink>
+        <StyleLink to="/app/main/myworkingtime">
+          <ListItemButton>
+            <ListItemIcon>
+              <AccessAlarmIcon />
+            </ListItemIcon>
+            <ListItemText primary="Quản lý thời gian" />
+          </ListItemButton>
+        </StyleLink>
+        <StyleLink to="/app/main/workingtime">
+          <ListItemButton>
+            <ListItemIcon>
+              <DateRangeIcon />
+            </ListItemIcon>
+            <ListItemText primary="Xác thực thời gian" />
           </ListItemButton>
         </StyleLink>
       </List>

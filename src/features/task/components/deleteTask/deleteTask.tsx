@@ -84,8 +84,8 @@ const DeleteTask: React.FC<{ task: ITaskReq }> = ({ task }) => {
             <ErrorOutlineIcon
               sx={{ width: "100px", height: "100px", color: "#f8bb86" }}
             />
-            <TextTitle>Are you sure?</TextTitle>
-            <TextDescription>Delete task : {task.name} ?</TextDescription>
+            <TextTitle>Bạn có chắc chắn không?</TextTitle>
+            <TextDescription>Xoá công việc : {task.name} ?</TextDescription>
             <StyleButton>
               <Button
                 variant="outlined"

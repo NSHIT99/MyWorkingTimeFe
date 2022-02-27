@@ -13,7 +13,6 @@ import FormInputProjectCode from "./form/formInputProjectCode";
 import FormInputTimeStart from "./form/formInputTimeStart";
 import FormInputTimeEnd from "./form/formInputTimeEnd";
 import FormInputNote from "./form/formInputNote";
-import FormCheckBox from "./form/formCheckBox";
 import { IEditProject } from "../../../../../../interfaces/project/projectType";
 
 const Text = styled.div`
@@ -99,20 +98,6 @@ const General = ({ control, setValue }: props) => {
               <StyleContentFour>
                 <Text>Note</Text>
                 <FormInputNote control={control} />
-              </StyleContentFour>
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>
-              <StyleContentFour>
-                <Text>All User</Text>
-                <StyledCheckBox>
-                  <FormCheckBox control={control} />
-                  <Text>
-                    Auto add user as a member of this project when creating new
-                    user
-                  </Text>
-                </StyledCheckBox>
               </StyleContentFour>
             </TableCell>
           </TableRow>

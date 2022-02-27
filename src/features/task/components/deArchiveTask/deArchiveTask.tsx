@@ -61,11 +61,12 @@ const DeArchiveTask: React.FC<{ task: ITaskReq }> = ({ task }) => {
           background: "#FFFFFF",
           color: "black",
           textTransform: "none",
+          padding: "10px 0",
         }}
         variant="contained"
         onClick={handleOpen}
       >
-        Unarchive
+        Lưu trữ
       </Button>
       <Modal
         open={open}

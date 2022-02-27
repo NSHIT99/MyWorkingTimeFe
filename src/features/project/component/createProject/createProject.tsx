@@ -99,7 +99,6 @@ function a11yProps(index: number) {
 
 export interface INewProject {
   code: string;
-  isAllUserBelongTo: boolean;
   name: string;
   note: string;
   projectTargetUsers: {
@@ -145,7 +144,6 @@ const CreateProjects: React.FC = () => {
       tasks: [],
       users: [],
       projectTargetUsers: [],
-      isAllUserBelongTo: false,
     });
   };
   const [valueTab, setValueTab] = React.useState(0);
@@ -189,7 +187,6 @@ const CreateProjects: React.FC = () => {
       tasks: tasks,
       users: members,
       projectTargetUsers: props.projectTargetUsers,
-      isAllUserBelongTo: props.isAllUserBelongTo,
     };
     dispatch(createProject(newProject));
     reset({
@@ -203,7 +200,6 @@ const CreateProjects: React.FC = () => {
       tasks: [],
       users: [],
       projectTargetUsers: [],
-      isAllUserBelongTo: false,
     });
   };
   useEffect(() => {
@@ -251,7 +247,7 @@ const CreateProjects: React.FC = () => {
             left: "50%",
             transform: "translate(-50%, -50%)",
             width: "70%",
-            height: "85%",
+            height: "90%",
             bgcolor: "#fff",
             pt: 2,
             px: 4,

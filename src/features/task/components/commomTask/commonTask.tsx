@@ -41,7 +41,6 @@ const ItemRight = styled.div`
 const CommonTask: React.FC = () => {
   const [open, setOpen] = React.useState(true);
 
-  const error = useSelector((state: RootState) => state.task.error.message);
   const handleClick = () => {
     setOpen(!open);
   };
@@ -52,9 +51,6 @@ const CommonTask: React.FC = () => {
     setOpenSnackbar(true);
   };
 
-  const handleSnackBarClose = () => {
-    setOpenSnackbar(false);
-  };
   const progress = useSelector((state: RootState) => state.task.progress);
   useEffect(() => {
     if (progress === "done" && open) {
@@ -64,7 +60,6 @@ const CommonTask: React.FC = () => {
     }
   }, [progress, open, dispatch]);
 
-  const message = useSelector((state: RootState) => state.task.error.message);
   const searchName = useSelector((state: RootState) => state.task.searchName);
   const commonTasks = useSelector(taskSelector.getCommonTaskSelector);
 

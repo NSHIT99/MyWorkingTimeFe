@@ -79,7 +79,7 @@ const ActionActive: React.FC<{ project: IProjectReq }> = ({ project }) => {
         <>
           <MenuItem disableRipple onClick={handleOpen}>
             <ClearIcon />
-            DeActive
+            Đã xong
           </MenuItem>
           <Modal
             open={open}
@@ -91,9 +91,9 @@ const ActionActive: React.FC<{ project: IProjectReq }> = ({ project }) => {
                 <ErrorOutlineIcon
                   sx={{ color: "#f8bb86", fontSize: "100px" }}
                 />
-                <TextTitle>Are you sure?</TextTitle>
+                <TextTitle>Bạn có chắc chắn?</TextTitle>
                 <TextDescription>
-                  DeActive project : '{project.name}' ?
+                  Đồ án đã xong : '{project.fullName}' ?
                 </TextDescription>
                 <StyleButton>
                   <Button
@@ -122,7 +122,7 @@ const ActionActive: React.FC<{ project: IProjectReq }> = ({ project }) => {
         <>
           <MenuItem disableRipple onClick={handleOpen}>
             <CheckIcon />
-            Active
+            Đang hoạt động
           </MenuItem>
           <Modal
             open={open}
@@ -134,9 +134,9 @@ const ActionActive: React.FC<{ project: IProjectReq }> = ({ project }) => {
                 <ErrorOutlineIcon
                   sx={{ color: "#f8bb86", fontSize: "100px" }}
                 />
-                <TextTitle>Are you sure?</TextTitle>
+                <TextTitle>Bạn có chắc chắn?</TextTitle>
                 <TextDescription>
-                  Active project : '{project.name}' ?
+                  Đồ án đang hoạt động : '{project.fullName}' ?
                 </TextDescription>
                 <StyleButton>
                   <Button

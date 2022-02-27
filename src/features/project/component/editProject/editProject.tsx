@@ -124,7 +124,6 @@ const EditProject: React.FC<{ project: IProjectReq }> = ({ project }) => {
     tasks: selectedTasks,
     users: selectedMembers,
     projectTargetUsers: projectGet.projectTargetUsers,
-    isAllUserBelongTo: projectGet.isAllUserBelongTo,
   };
   const methods = useForm<IEditProject>({
     defaultValues: defaultValues,
@@ -163,7 +162,6 @@ const EditProject: React.FC<{ project: IProjectReq }> = ({ project }) => {
       tasks: tasks,
       users: members,
       projectTargetUsers: props.projectTargetUsers,
-      isAllUserBelongTo: props.isAllUserBelongTo,
     };
     dispatch(onSaveProject(newProject));
     reset();

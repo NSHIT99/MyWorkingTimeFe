@@ -1,6 +1,7 @@
 import { IError } from "../auth/authType";
 
 export interface IProjectReq {
+  name: string;
   fullName: string;
   code: string;
   status: number;
@@ -48,7 +49,6 @@ export interface ICreateProject {
     roleName: string;
     id: number;
   }[];
-  isAllUserBelongTo: boolean;
   id?: number;
 }
 
@@ -88,7 +88,6 @@ export interface IEditProject {
     roleName: string;
     id: number;
   }[];
-  isAllUserBelongTo: boolean;
 }
 
 export interface IEditProjectRes {

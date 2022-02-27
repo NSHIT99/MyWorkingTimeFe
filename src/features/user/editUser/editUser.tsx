@@ -167,7 +167,7 @@ const EditUser: React.FC<{ user: IGetAllReq }> = ({ user }) => {
             left: "50%",
             transform: "translate(-50%, -50%)",
             width: "40%",
-            height: "78%",
+            height: "85%",
             bgcolor: "#fff",
             pt: 2,
             px: 4,

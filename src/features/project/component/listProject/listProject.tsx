@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import Button from "@mui/material/Button";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -53,8 +52,9 @@ const ListItemfour = styled.div`
 `;
 
 const StyleInactive = styled.button`
-  background-color: #9e9e9e;
+  background-color: #4caf50;
   border: none;
+  width: 120px;
   border-radius: 3px;
   & p {
     font-size: 14px;
@@ -65,8 +65,9 @@ const StyleInactive = styled.button`
   }
 `;
 const StyleActive = styled.button`
-  background-color: #4caf50;
+  background-color: red;
   border: none;
+  width: 120px;
   border-radius: 3px;
   & p {
     font-size: 14px;
@@ -82,6 +83,7 @@ export const formatDay = (day: string) => dayjs(day).format("DD/MM/YYYY");
 const ListProjects: React.FC = () => {
   const projects = useSelector((state: RootState) => state.project.projects);
 
+  console.log(projects)
   return (
     <ContentTable>
       <Table
@@ -126,8 +128,9 @@ const ListProjects: React.FC = () => {
                     marginTop: "10px",
                   }}
                 >
+                  <ItemName>{item.name}</ItemName>
                   <ItemName>{item.fullName}</ItemName>
-                  <ListItemOne>{item.pms}</ListItemOne>
+                  <ListItemOne>{item.pms.join(' - ')}</ListItemOne>
                   <ListItemTwo>{item.activeMember} thành viên</ListItemTwo>
                   {item.projectType == 0 ? (
                     <ListItemThree>Đồ án thực tập</ListItemThree>
@@ -162,14 +165,14 @@ const ListProjects: React.FC = () => {
                   >
                     <Alert variant="filled" severity="error"></Alert>
                   </Snackbar>
-                  <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                  <div style={{ display: "flex", justifyContent: "flex-end", gap: "5px" }}>
                     {item.status === 1 ? (
                       <StyleInactive>
-                        <p>Inactive</p>
+                        <p>Đã xong</p>
                       </StyleInactive>
                     ) : (
                       <StyleActive>
-                        <p>Active</p>
+                        <p>Đang hoạt động</p>
                       </StyleActive>
                     )}
                     <Actions project={item} />

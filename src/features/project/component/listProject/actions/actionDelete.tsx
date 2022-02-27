@@ -79,7 +79,7 @@ const ActionDelete: React.FC<{ project: IProjectReq }> = ({ project }) => {
     <>
       <MenuItem disableRipple onClick={handleOpen}>
         <DeleteIcon />
-        <TitleActions>Delete</TitleActions>
+        <TitleActions>Xoá nhóm đồ án</TitleActions>
       </MenuItem>
       <Modal
         open={open}
@@ -91,7 +91,7 @@ const ActionDelete: React.FC<{ project: IProjectReq }> = ({ project }) => {
             <ErrorOutlineIcon sx={{ color: "#f8bb86", fontSize: "100px" }} />
             <TextTitle>Are you sure?</TextTitle>
             <TextDescription>
-              Delete project : '{project.name}' ?
+              Delete project : '{project.fullName}' ?
             </TextDescription>
             <StyleButton>
               <Button
