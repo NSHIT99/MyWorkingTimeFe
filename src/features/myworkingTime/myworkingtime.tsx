@@ -10,6 +10,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import SubmitMyWorkingTime from "./submitMyWorkingtime/submitMyWorkingtime";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -128,92 +129,43 @@ const Myworkingtime: React.FC = () => {
         <TabPanel value={tab} index={0}>
           <ViewWork>
             <CreateMyworkingtime />
-            <Button
-              type="submit"
-              variant="contained"
-              color="error"
-              sx={{ background: "#f24b50", color: "#fff" }}
-            >
-              Gửi yêu cầu xác nhận
-            </Button>
+           <SubmitMyWorkingTime value={value} />
           </ViewWork>
         </TabPanel>
         <TabPanel value={tab} index={1}>
           <ViewWork>
             <CreateMyworkingtime />
-            <Button
-              type="submit"
-              variant="contained"
-              color="error"
-              sx={{ background: "#f24b50", color: "#fff" }}
-            >
-              Gửi yêu cầu xác nhận
-            </Button>
+           <SubmitMyWorkingTime value={value} />
           </ViewWork>
         </TabPanel>
         <TabPanel value={tab} index={2}>
           <ViewWork>
             <CreateMyworkingtime />
-            <Button
-              type="submit"
-              variant="contained"
-              color="error"
-              sx={{ background: "#f24b50", color: "#fff" }}
-            >
-              Gửi yêu cầu xác nhận
-            </Button>
+           <SubmitMyWorkingTime value={value} />
           </ViewWork>
         </TabPanel>
         <TabPanel value={tab} index={3}>
           <ViewWork>
             <CreateMyworkingtime />
-            <Button
-              type="submit"
-              variant="contained"
-              color="error"
-              sx={{ background: "#f24b50", color: "#fff" }}
-            >
-              Gửi yêu cầu xác nhận
-            </Button>
+           <SubmitMyWorkingTime value={value} />
           </ViewWork>
         </TabPanel>
         <TabPanel value={tab} index={4}>
           <ViewWork>
             <CreateMyworkingtime />
-            <Button
-              type="submit"
-              variant="contained"
-              color="error"
-              sx={{ background: "#f24b50", color: "#fff" }}
-            >
-              Gửi yêu cầu xác nhận
-            </Button>
+           <SubmitMyWorkingTime value={value} />
           </ViewWork>
         </TabPanel>
         <TabPanel value={tab} index={5}>
           <ViewWork>
             <CreateMyworkingtime />
-            <Button
-              type="submit"
-              variant="contained"
-              color="error"
-              sx={{ background: "#f24b50", color: "#fff" }}
-            >
-              Gửi yêu cầu xác nhận
-            </Button>
+           <SubmitMyWorkingTime value={value} />
           </ViewWork>
         </TabPanel>
         <TabPanel value={tab} index={6}>
           <ViewWork>
             <CreateMyworkingtime />
-            <Button
-              type="submit"
-              variant="contained"
-              color="error"
-              sx={{ background: "#f24b50", color: "#fff" }}
-            >
-              Gửi yêu cầu xác nhận
-            </Button>
+           <SubmitMyWorkingTime value={value} />
           </ViewWork>
         </TabPanel>
       </Box>

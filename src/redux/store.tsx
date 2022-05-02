@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./reducer/authReducer";
+import myworkingtimeReducer from "./reducer/myworkingtimeReducer";
 import projectReducer from "./reducer/projectReducer";
 import roleReducer from "./reducer/roleReducer";
 import taskReducer from "./reducer/taskReducer";
 import userRuducer from "./reducer/userRuducer";
+import workingtimeReducer from "./reducer/workingtimeReducer";
 
 const reducer = {
   auth: authReducer,
@@ -11,6 +13,8 @@ const reducer = {
   role: roleReducer,
   task: taskReducer,
   project: projectReducer,
+  workingtime: workingtimeReducer,
+  myworkingtime: myworkingtimeReducer,
 };
 
 const store = configureStore({

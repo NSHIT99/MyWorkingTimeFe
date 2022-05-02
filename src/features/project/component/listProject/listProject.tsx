@@ -83,7 +83,6 @@ export const formatDay = (day: string) => dayjs(day).format("DD/MM/YYYY");
 const ListProjects: React.FC = () => {
   const projects = useSelector((state: RootState) => state.project.projects);
 
-  console.log(projects)
   return (
     <ContentTable>
       <Table
@@ -130,7 +129,7 @@ const ListProjects: React.FC = () => {
                 >
                   <ItemName>{item.name}</ItemName>
                   <ItemName>{item.fullName}</ItemName>
-                  <ListItemOne>{item.pms.join(' - ')}</ListItemOne>
+                  <ListItemOne>{item.pms}</ListItemOne>
                   <ListItemTwo>{item.activeMember} thành viên</ListItemTwo>
                   {item.projectType == 0 ? (
                     <ListItemThree>Đồ án thực tập</ListItemThree>
