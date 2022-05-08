@@ -1,9 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
+  createMyworkingTimeApi,
   getProjectsInTasksApi,
+  getWorkingtimeOfUserApi,
   submitToPendingApi,
 } from "../../api/myworkingtime";
-import { ISubmitToPendingReq } from "../../interfaces/myworkingtime/myworkingtime";
+import {
+  ISubmitToPendingReq,
+  IWorking,
+} from "../../interfaces/myworkingtime/myworkingtime";
 
 export const getProjectsInTasksActions = createAsyncThunk(
   "/Myworkingtime/GetProjectsIncludingTasks",
@@ -17,12 +22,52 @@ export const getProjectsInTasksActions = createAsyncThunk(
 
 export const submitToPendingActions = createAsyncThunk(
   "/Myworkingtime/SubmitToPending",
-  async ({ startDate, endDate, userId }: ISubmitToPendingReq) => {
+  async ({ startDate, endDate }: ISubmitToPendingReq) => {
     const submit = await submitToPendingApi({
       startDate,
       endDate,
-      userId,
     });
     return submit;
+  }
+);
+
+export const getWorkingtimeOfUserActions = createAsyncThunk(
+  "/Myworkingtime/GetWorkingtimeOfUser",
+  async ({ startDate, endDate }: ISubmitToPendingReq) => {
+    const submit = await getWorkingtimeOfUserApi({
+      startDate,
+      endDate,
+    });
+    return submit;
+  }
+);
+
+export const createMyworkingTimeActions = createAsyncThunk(
+  "/Myworkingtime/Create",
+  async ({
+    projectTaskId,
+    note,
+    workingTime,
+    status,
+    typeOfWork,
+    createdAt,
+    userId,
+    id,
+    updatedAt,
+    dateAt,
+  }: IWorking) => {
+    const create = await createMyworkingTimeApi({
+      projectTaskId,
+      note,
+      workingTime,
+      status,
+      typeOfWork,
+      createdAt,
+      userId,
+      id,
+      updatedAt,
+      dateAt,
+    });
+    return create as { result: IWorking };
   }
 );

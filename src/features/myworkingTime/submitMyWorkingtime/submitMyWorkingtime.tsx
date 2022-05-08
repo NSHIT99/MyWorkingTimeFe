@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import Button from "@mui/material/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { submitToPendingActions } from "../../../redux/actions/myworkingtime";
+import { RootState } from "../../../redux/store";
+import { useSnackbar } from "notistack";
 
 const Accept = styled.div``;
 
@@ -12,6 +14,11 @@ export interface IDateValue {
 
 const SubmitMyWorkingTime: React.FC<IDateValue> = ({ value }) => {
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const message = useSelector(
+    (state: RootState) => state.myworkingtime.messageSubmit
+  );
 
   const handlesubmitToPending = () => {
     if (value) {
@@ -49,6 +56,7 @@ const SubmitMyWorkingTime: React.FC<IDateValue> = ({ value }) => {
         })
       );
     }
+    enqueueSnackbar(`${message}`, { variant: "success" });
   };
 
   return (

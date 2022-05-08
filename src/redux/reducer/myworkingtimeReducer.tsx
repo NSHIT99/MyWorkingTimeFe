@@ -2,15 +2,25 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { createSelector } from "reselect";
 import { IError } from "../../interfaces/auth/authType";
-import { IProjectsInTasksReq } from "../../interfaces/myworkingtime/myworkingtime";
 import {
+  IProjectsInTasksReq,
+  IWorking,
+  IWorkingtimeOfUser,
+} from "../../interfaces/myworkingtime/myworkingtime";
+import {
+  createMyworkingTimeActions,
   getProjectsInTasksActions,
+  getWorkingtimeOfUserActions,
   submitToPendingActions,
 } from "../actions/myworkingtime";
 
 export interface MyWorkingtimeState {
   projectsintasks: IProjectsInTasksReq[];
+  workingtimeofuser: IWorkingtimeOfUser[];
+  createMyworkingTime: IWorking[];
+  messageSubmit: string;
   progress: string;
+  createMyworkingTimeProgress: string;
   success: boolean;
   searchName: string;
   error: IError;
@@ -18,7 +28,11 @@ export interface MyWorkingtimeState {
 
 const initialState: MyWorkingtimeState = {
   projectsintasks: [],
+  workingtimeofuser: [],
+  createMyworkingTime: [],
+  messageSubmit: "",
   progress: "",
+  createMyworkingTimeProgress: "",
   success: false,
   searchName: "",
   error: {
@@ -35,6 +49,9 @@ const myworkingtimeSlice = createSlice({
   reducers: {
     resetProgress(state) {
       state.progress = "";
+    },
+    createMyworkingTimeProgress(state) {
+      state.createMyworkingTimeProgress = "";
     },
     resetSuccess(state) {
       state.success = false;
@@ -60,19 +77,38 @@ const myworkingtimeSlice = createSlice({
         state.progress = "pending";
       })
       .addCase(submitToPendingActions.fulfilled, (state, action) => {
+        state.messageSubmit = action.payload.result;
         state.progress = "done";
       })
       .addCase(submitToPendingActions.rejected, (state, action) => {
         state.progress = "error";
       });
+    builder
+      .addCase(getWorkingtimeOfUserActions.pending, (state, action) => {
+        state.progress = "pending";
+      })
+      .addCase(getWorkingtimeOfUserActions.fulfilled, (state, action) => {
+        state.progress = "done";
+        state.workingtimeofuser = action.payload.result;
+      })
+      .addCase(getWorkingtimeOfUserActions.rejected, (state, action) => {
+        state.progress = "error";
+      });
+    builder
+      .addCase(createMyworkingTimeActions.pending, (state, action) => {
+        state.progress = "pending";
+      })
+      .addCase(createMyworkingTimeActions.fulfilled, (state, action) => {
+        state.progress = "done";
+        state.createMyworkingTimeProgress = "done";
+        state.createMyworkingTime.push(action.payload.result);
+      })
+      .addCase(createMyworkingTimeActions.rejected, (state, action) => {
+        state.progress = "error";
+        state.createMyworkingTimeProgress = "error";
+      });
   },
 });
-
-const selectSelf = (state: RootState) => state.myworkingtime;
-const getAllWorkingtimeSelector = createSelector(
-  selectSelf,
-  (state) => state.projectsintasks
-);
 
 export const { resetProgress, resetSuccess, resetMessage } =
   myworkingtimeSlice.actions;

@@ -5,8 +5,6 @@ import Box from "@mui/material/Box";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DesktopDatePicker from "@mui/lab/DatePicker";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
@@ -17,12 +15,6 @@ import { getWorkingtime } from "../../redux/actions/workingtime";
 import { workingtimeSelector } from "../../redux/reducer/workingtimeReducer";
 import ListWorkingTime from "./listWorkingtime/listWorkingtime";
 import AccpetWorkingtime from "./acceptWorkingtime/acceptWorkingtime";
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
 
 const ProjectContent = styled.div`
   width: 100%;
@@ -64,6 +56,7 @@ const WorkingTime: React.FC = () => {
   const [sunday, setSunday] = React.useState("");
   const [status, setStatus] = React.useState("0");
 
+  const dispatch = useDispatch();
   useEffect(() => {
     if (value) {
       const curr = new Date(value);
@@ -117,16 +110,6 @@ const WorkingTime: React.FC = () => {
 
   const [button, setButton] = React.useState("0");
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(
-      getWorkingtime({
-        startDate: monday,
-        endDate: sunday,
-        status: parseInt(status),
-      })
-    );
-  }, [dispatch]);
   const handleStatus0 = () => {
     dispatch(
       getWorkingtime({

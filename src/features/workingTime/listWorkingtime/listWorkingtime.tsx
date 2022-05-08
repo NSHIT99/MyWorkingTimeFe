@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -24,6 +24,25 @@ const ListWorkingTime: React.FC = () => {
     (state: RootState) => state.workingtime.workingtimes
   );
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
+
+  const [checked, setChecked] = React.useState(true);
+  const [idWorking, setIdWorking] = useState<any>([]);
+
+  const handleChange1 = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(!checked);
+    if (checked === false) {
+      let id: any = [];
+      workingtimes.map((item) => {
+        id.push(item.id)
+      });
+      setIdWorking(id);
+    }
+    else setIdWorking([])
+  };
+
+  const handleChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(!checked);
+  };
 
   return (
     <ContentTable>
@@ -98,7 +117,12 @@ const ListWorkingTime: React.FC = () => {
                 justifyContent: "center",
               }}
             >
-              <Checkbox {...label} />
+              <Checkbox
+                {...label}
+                checked={checked}
+                // indeterminate={checked[0] !== checked[1]}
+                onChange={handleChange1}
+              />
               <NumberWorkingTime>0/{workingtimes.length}</NumberWorkingTime>
             </TableCell>
           </TableRow>
@@ -139,44 +163,49 @@ const ListWorkingTime: React.FC = () => {
                 </TableCell>
                 {item.status == 0 ? (
                   <TableCell
-                  colSpan={3}
-                  sx={{
-                    fontSize: "16px",
-                  }}
-                >
+                    colSpan={3}
+                    sx={{
+                      fontSize: "16px",
+                    }}
+                  >
                     Chưa gửi
                   </TableCell>
                 ) : item.status == 1 ? (
                   <TableCell
-                  colSpan={3}
-                  sx={{
-                    fontSize: "16px",
-                  }}
-                >
+                    colSpan={3}
+                    sx={{
+                      fontSize: "16px",
+                    }}
+                  >
                     Đang chờ
                   </TableCell>
                 ) : item.status == 2 ? (
                   <TableCell
-                  colSpan={3}
-                  sx={{
-                    fontSize: "16px",
-                  }}
-                >
+                    colSpan={3}
+                    sx={{
+                      fontSize: "16px",
+                    }}
+                  >
                     Xác nhận
                   </TableCell>
                 ) : (
                   <TableCell
-                  colSpan={3}
-                  sx={{
-                    fontSize: "16px",
-                  }}
-                >
+                    colSpan={3}
+                    sx={{
+                      fontSize: "16px",
+                    }}
+                  >
                     Huỷ bỏ
                   </TableCell>
                 )}
                 <TableCell colSpan={3}>{item.mytimesheetNote}</TableCell>
                 <TableCell colSpan={3}>
-                  <Checkbox {...label} id={item.id as any} />
+                  <Checkbox
+                    {...label}
+                    checked={checked}
+                    onChange={handleChange2}
+                    value={item.id}
+                  />
                 </TableCell>
               </TableRow>
             </TableBody>

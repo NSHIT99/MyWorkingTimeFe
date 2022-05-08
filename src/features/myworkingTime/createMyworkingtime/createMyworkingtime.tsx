@@ -9,8 +9,13 @@ import { useSnackbar } from "notistack";
 import { NativeSelect } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { useForm, Controller } from "react-hook-form";
-import { getProjectsInTasksActions } from "../../../redux/actions/myworkingtime";
+import {
+  createMyworkingTimeActions,
+  getProjectsInTasksActions,
+} from "../../../redux/actions/myworkingtime";
 import { RootState } from "../../../redux/store";
+import MenuItem from "@mui/material/MenuItem";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 const TitleHeader = styled.div`
   font-size: 22px;
@@ -30,13 +35,27 @@ const BtnNewMyworkingtime = styled.div`
 
 const InputName = styled(TextField)``;
 
-const CreateMyworkingtime: React.FC = () => {
+interface INewMyworkingtime {
+  status: number;
+  projectTaskId: number;
+  note: string;
+  workingTime: number;
+  typeOfWork: number;
+  dateAt: string;
+}
+
+export interface IDateValue {
+  value: Date | null;
+}
+
+const CreateMyworkingtime: React.FC<IDateValue> = ({ value }) => {
   const { reset, control, handleSubmit } = useForm<any>();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
+  const [projectTask, setProjectTask] = useState("0");
 
   const projectsintasks = useSelector(
     (state: RootState) => state.myworkingtime.projectsintasks
@@ -44,6 +63,35 @@ const CreateMyworkingtime: React.FC = () => {
   useEffect(() => {
     dispatch(getProjectsInTasksActions());
   }, []);
+
+  const handleChangeProjectTask = (event: SelectChangeEvent) => {
+    setProjectTask(event.target.value as string);
+  };
+
+  const projectsintasksFilter = projectsintasks[parseInt(projectTask)];
+  const handleCreate = async (props: INewMyworkingtime) => {
+    if (value) {
+      let dateAt = new Date(value);
+      dispatch(
+        createMyworkingTimeActions({
+          projectTaskId: +props.projectTaskId,
+          note: props.note,
+          workingTime: +props.workingTime,
+          status: +props.status,
+          typeOfWork: +props.typeOfWork,
+          dateAt: `${dateAt}`,
+        })
+      );
+      reset({
+        projectTaskId: "",
+        note: "",
+        workingTime: "",
+        status: "",
+        typeOfWork: "",
+        dateAt: "",
+      });
+    }
+  };
 
   return (
     <NewMyworkingtime>
@@ -71,16 +119,37 @@ const CreateMyworkingtime: React.FC = () => {
             flexDirection: "column",
           }}
         >
-          <form>
+          <form onSubmit={handleSubmit(handleCreate)}>
             <TitleHeader>Tạo thời gian làm việc</TitleHeader>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={projectTask}
+              onChange={handleChangeProjectTask}
+              sx={{
+                border: "1px solid rgba(0,0,0,.12)",
+                width: "100%",
+                marginBottom: "20px",
+                "& div": { padding: "8px 0" },
+              }}
+            >
+              {projectsintasks.map((item, index) => {
+                return (
+                  <MenuItem value={index}>
+                    {" "}
+                    {item.projectName}({item.listPM.join("-")})
+                  </MenuItem>
+                );
+              })}
+            </Select>
             <Controller
-              name="type"
+              name="projectTaskId"
               render={({ field }) => (
                 <NativeSelect {...field} style={{ width: "100%" }}>
-                  {projectsintasks.map((item, index) => {
+                  {projectsintasksFilter.tasks.map((task) => {
                     return (
-                      <option value={index}>
-                        {item.projectName}({item.listPM.join("-")})
+                      <option value={task.projectTaskId}>
+                        {task.taskName}
                       </option>
                     );
                   })}
@@ -90,17 +159,7 @@ const CreateMyworkingtime: React.FC = () => {
               defaultValue=""
             />
             <Controller
-              name="type"
-              render={({ field }) => (
-                <NativeSelect {...field} style={{ width: "100%" }}>
-                  <option value={0}>abc</option>;
-                </NativeSelect>
-              )}
-              control={control}
-              defaultValue=""
-            />
-            <Controller
-              name="name"
+              name="note"
               render={({ field }) => {
                 return (
                   <InputName
@@ -115,11 +174,11 @@ const CreateMyworkingtime: React.FC = () => {
               defaultValue=""
             />
             <Controller
-              name="name"
+              name="workingTime"
               render={({ field }) => {
                 return (
                   <InputName
-                    label="ThờI gian làm việc *"
+                    label="Thời gian làm việc *"
                     variant="standard"
                     {...field}
                     style={{ width: "100%", marginBottom: "10px" }}
