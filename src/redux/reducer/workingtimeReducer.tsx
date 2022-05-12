@@ -2,7 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { createSelector } from "reselect";
 import { IError } from "../../interfaces/auth/authType";
-import { getWorkingtime } from "../actions/workingtime";
+import {
+  approveWorkingtimesActions,
+  getWorkingtime,
+  rejectWorkingtimesActions,
+} from "../actions/workingtime";
 import { IWorkingtimeReq } from "../../interfaces/workingtime/workingtime";
 
 export interface WorkingtimeState {
@@ -10,6 +14,10 @@ export interface WorkingtimeState {
   progress: string;
   success: boolean;
   searchName: string;
+  messageApprove: string;
+  messageReject: string;
+  approveProgress: string;
+  rejectProgress: string;
   error: IError;
 }
 
@@ -18,6 +26,10 @@ const initialState: WorkingtimeState = {
   progress: "",
   success: false,
   searchName: "",
+  messageApprove: "",
+  messageReject: "",
+  approveProgress: "",
+  rejectProgress: "",
   error: {
     code: 0,
     details: "",
@@ -32,6 +44,12 @@ const workingtimeSlice = createSlice({
   reducers: {
     resetProgress(state) {
       state.progress = "";
+    },
+    resetApproveProgress(state) {
+      state.approveProgress = "";
+    },
+    resetRejectProgress(state) {
+      state.rejectProgress = "";
     },
     resetSuccess(state) {
       state.success = false;
@@ -52,6 +70,34 @@ const workingtimeSlice = createSlice({
       .addCase(getWorkingtime.rejected, (state, action) => {
         state.progress = "error";
       });
+    builder
+      .addCase(approveWorkingtimesActions.pending, (state, action) => {
+        state.approveProgress = "pending";
+        state.progress = "pending";
+      })
+      .addCase(approveWorkingtimesActions.fulfilled, (state, action) => {
+        state.messageApprove = action.payload.result.success;
+        state.approveProgress = "done";
+        state.progress = "done";
+      })
+      .addCase(approveWorkingtimesActions.rejected, (state, action) => {
+        state.approveProgress = "error";
+        state.progress = "error";
+      });
+    builder
+      .addCase(rejectWorkingtimesActions.pending, (state, action) => {
+        state.rejectProgress = "pending";
+        state.progress = "pending";
+      })
+      .addCase(rejectWorkingtimesActions.fulfilled, (state, action) => {
+        state.messageReject = action.payload.result.success;
+        state.rejectProgress = "done";
+        state.progress = "done";
+      })
+      .addCase(rejectWorkingtimesActions.rejected, (state, action) => {
+        state.rejectProgress = "error";
+        state.progress = "error";
+      });
   },
 });
 
@@ -61,17 +107,25 @@ const getAllWorkingtimeSelector = createSelector(
   (state) => state.workingtimes
 );
 
-const getAllWorkingtimeStatus0 = createSelector(getAllWorkingtimeSelector, (workingtimes) =>
-  workingtimes.filter((workingtimes) => workingtimes.status === 0)
+const getAllWorkingtimeStatus0 = createSelector(
+  getAllWorkingtimeSelector,
+  (workingtimes) =>
+    workingtimes.filter((workingtimes) => workingtimes.status === 0)
 );
-const getAllWorkingtimeStatus1 = createSelector(getAllWorkingtimeSelector, (workingtimes) =>
-  workingtimes.filter((workingtimes) => workingtimes.status === 1)
+const getAllWorkingtimeStatus1 = createSelector(
+  getAllWorkingtimeSelector,
+  (workingtimes) =>
+    workingtimes.filter((workingtimes) => workingtimes.status === 1)
 );
-const getAllWorkingtimeStatus2 = createSelector(getAllWorkingtimeSelector, (workingtimes) =>
-  workingtimes.filter((workingtimes) => workingtimes.status === 2)
+const getAllWorkingtimeStatus2 = createSelector(
+  getAllWorkingtimeSelector,
+  (workingtimes) =>
+    workingtimes.filter((workingtimes) => workingtimes.status === 2)
 );
-const getAllWorkingtimeStatus3 = createSelector(getAllWorkingtimeSelector, (workingtimes) =>
-  workingtimes.filter((workingtimes) => workingtimes.status === 3)
+const getAllWorkingtimeStatus3 = createSelector(
+  getAllWorkingtimeSelector,
+  (workingtimes) =>
+    workingtimes.filter((workingtimes) => workingtimes.status === 3)
 );
 
 export const workingtimeSelector = {
@@ -82,7 +136,12 @@ export const workingtimeSelector = {
   getAllWorkingtimeStatus3,
 };
 
-export const { resetProgress, resetSuccess, resetMessage } =
-  workingtimeSlice.actions;
+export const {
+  resetProgress,
+  resetSuccess,
+  resetMessage,
+  resetApproveProgress,
+  resetRejectProgress,
+} = workingtimeSlice.actions;
 
 export default workingtimeSlice.reducer;

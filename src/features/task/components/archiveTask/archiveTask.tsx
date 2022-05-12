@@ -88,7 +88,7 @@ const Archive: React.FC<{ task: ITaskReq }> = ({ task }) => {
                 sx={{ color: "black" }}
                 onClick={handleClose}
               >
-                Cancel
+                Huỷ bỏ
               </Button>
               <Button
                 variant="outlined"
@@ -97,7 +97,7 @@ const Archive: React.FC<{ task: ITaskReq }> = ({ task }) => {
                   onArchive(task.id);
                 }}
               >
-                Yes
+                Xác nhận
               </Button>
             </StyleButton>
           </Form>

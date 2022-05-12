@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TableHead from "@mui/material/TableHead";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import dayjs from "dayjs";
 import { RootState } from "../../../redux/store";
 import Checkbox from "@mui/material/Checkbox";
+import { setAcceptId } from "../../../redux/reducer/myworkingtimeReducer";
 
 const ContentTable = styled.div`
   padding: 10px 25px;
@@ -20,29 +21,35 @@ const NumberWorkingTime = styled.div`
 
 export const formatDay = (day: string) => dayjs(day).format("DD/MM/YYYY");
 const ListWorkingTime: React.FC = () => {
+  const dispatch = useDispatch();
   const workingtimes = useSelector(
     (state: RootState) => state.workingtime.workingtimes
   );
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
-  const [checked, setChecked] = React.useState(true);
-  const [idWorking, setIdWorking] = useState<any>([]);
+  const [checkedList, setCheckedList] = useState<number[]>([]);
 
-  const handleChange1 = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(!checked);
-    if (checked === false) {
-      let id: any = [];
-      workingtimes.map((item) => {
-        id.push(item.id)
-      });
-      setIdWorking(id);
+  const handleChange2 = (id: number) => {
+    setCheckedList((pre) => {
+      if (pre.includes(id)) {
+        return pre.filter((v) => v !== id);
+      }
+      return [...pre, ...[id]];
+    });
+  };
+
+  const handleCheckAll = () => {
+    if (checkedList.length === 0) {
+      const listAllIds = workingtimes.map((v) => v.id);
+      setCheckedList(listAllIds);
+    } else {
+      setCheckedList([]);
     }
-    else setIdWorking([])
   };
 
-  const handleChange2 = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(!checked);
-  };
+  useEffect(() => {
+    dispatch(setAcceptId(checkedList));
+  }, [checkedList]);
 
   return (
     <ContentTable>
@@ -119,11 +126,16 @@ const ListWorkingTime: React.FC = () => {
             >
               <Checkbox
                 {...label}
-                checked={checked}
-                // indeterminate={checked[0] !== checked[1]}
-                onChange={handleChange1}
+                checked={checkedList.length === workingtimes.length}
+                indeterminate={
+                  !!checkedList.length &&
+                  checkedList.length !== workingtimes.length
+                }
+                onChange={handleCheckAll}
               />
-              <NumberWorkingTime>0/{workingtimes.length}</NumberWorkingTime>
+              <NumberWorkingTime>
+                {checkedList.length}/{workingtimes.length}
+              </NumberWorkingTime>
             </TableCell>
           </TableRow>
         </TableHead>
@@ -202,8 +214,8 @@ const ListWorkingTime: React.FC = () => {
                 <TableCell colSpan={3}>
                   <Checkbox
                     {...label}
-                    checked={checked}
-                    onChange={handleChange2}
+                    checked={checkedList.includes(item.id)}
+                    onChange={() => handleChange2(item.id)}
                     value={item.id}
                   />
                 </TableCell>

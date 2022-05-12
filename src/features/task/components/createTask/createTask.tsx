@@ -45,7 +45,6 @@ const CreateTasks: React.FC = () => {
   const { reset, control, handleSubmit } = useForm<INewTask>();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-  const progress = useSelector((state: RootState) => state.task.progress);
   const createProgress = useSelector(
     (state: RootState) => state.task.createProgress
   );
@@ -77,6 +76,7 @@ const CreateTasks: React.FC = () => {
       enqueueSnackbar(message, { variant: "error" });
     }
   }, [createProgress, open, dispatch]);
+  
   return (
     <NewTask>
       <Button

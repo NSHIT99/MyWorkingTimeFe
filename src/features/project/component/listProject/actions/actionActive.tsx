@@ -54,7 +54,7 @@ const ActionActive: React.FC<{ project: IProjectReq }> = ({ project }) => {
   const handleClickVariantAndActive =
     (variant: VariantType, id: number) => () => {
       dispatch(activeProject({ id }));
-      enqueueSnackbar("Active project successfully", {
+      enqueueSnackbar("Hoạt động lại nhóm", {
         variant,
       });
       dispatch(getProject({ status: 1 }));
@@ -62,7 +62,7 @@ const ActionActive: React.FC<{ project: IProjectReq }> = ({ project }) => {
   const handleClickVariantAndInActive =
     (variant: VariantType, id: number) => () => {
       dispatch(inactiveProject({ id }));
-      enqueueSnackbar("InActive project successfully", {
+      enqueueSnackbar("Nhóm này đã hoàn thành", {
         variant,
       });
       dispatch(getProject({ status: 0 }));
@@ -79,7 +79,7 @@ const ActionActive: React.FC<{ project: IProjectReq }> = ({ project }) => {
         <>
           <MenuItem disableRipple onClick={handleOpen}>
             <ClearIcon />
-            Đã xong
+            Đã dừng hoạt động
           </MenuItem>
           <Modal
             open={open}

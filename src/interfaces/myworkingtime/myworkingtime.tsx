@@ -22,7 +22,7 @@ export interface ISubmitToPendingReq {
   userId?: number;
 }
 
-export interface ISubmitToPendingRes {
+export interface IResultRes {
   error: string;
   result: string;
   success: boolean;

@@ -24,6 +24,7 @@ export interface MyWorkingtimeState {
   success: boolean;
   searchName: string;
   error: IError;
+  acceptId: number[];
 }
 
 const initialState: MyWorkingtimeState = {
@@ -41,6 +42,7 @@ const initialState: MyWorkingtimeState = {
     validationErrors: {},
     message: "",
   },
+  acceptId: [],
 };
 
 const myworkingtimeSlice = createSlice({
@@ -50,7 +52,7 @@ const myworkingtimeSlice = createSlice({
     resetProgress(state) {
       state.progress = "";
     },
-    createMyworkingTimeProgress(state) {
+    resetCreateMyworkingTimeProgress(state) {
       state.createMyworkingTimeProgress = "";
     },
     resetSuccess(state) {
@@ -58,6 +60,9 @@ const myworkingtimeSlice = createSlice({
     },
     resetMessage(state) {
       state.error.message = "";
+    },
+    setAcceptId(state, action) {
+      state.acceptId = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -110,7 +115,7 @@ const myworkingtimeSlice = createSlice({
   },
 });
 
-export const { resetProgress, resetSuccess, resetMessage } =
+export const { resetProgress, resetSuccess, resetMessage, resetCreateMyworkingTimeProgress, setAcceptId } =
   myworkingtimeSlice.actions;
 
 export default myworkingtimeSlice.reducer;

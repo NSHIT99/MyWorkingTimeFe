@@ -60,6 +60,7 @@ const taskSlice = createSlice({
       state.tasks = action.payload.result;
     });
     builder.addCase(createTask.pending, (state, action) => {
+      state.createProgress = "pending";
       state.progress = "pending";
     });
     builder.addCase(archiveTask.pending, (state, action) => {

@@ -16,6 +16,7 @@ import {
 import { RootState } from "../../../redux/store";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { resetCreateMyworkingTimeProgress, resetProgress } from "../../../redux/reducer/myworkingtimeReducer";
 
 const TitleHeader = styled.div`
   font-size: 22px;
@@ -93,6 +94,19 @@ const CreateMyworkingtime: React.FC<IDateValue> = ({ value }) => {
     }
   };
 
+  const createMyworkingTimeProgress = useSelector(
+    (state: RootState) => state.myworkingtime.createMyworkingTimeProgress
+  );
+  useEffect(() => {
+    if (createMyworkingTimeProgress === "done" && open) {
+      enqueueSnackbar("Tạo công việc thành công", { variant: "success" });
+      dispatch(resetProgress());
+      dispatch(resetCreateMyworkingTimeProgress());
+      setOpen(false);
+    } else if (createMyworkingTimeProgress === "error") {
+      enqueueSnackbar("Tạo thời gian làm việc thành công", { variant: "error" });
+    }
+  }, [createMyworkingTimeProgress, open, dispatch]);
   return (
     <NewMyworkingtime>
       <Button

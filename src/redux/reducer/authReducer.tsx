@@ -2,9 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import { IAuthState } from "../../interfaces/auth/authType";
 import { setAccessToken } from "../../utils/localStorageService";
 import { getAuthenticate } from "../actions/auth";
+import jwt from "jwt-decode";
 
 const initialState: IAuthState = {
-  progress:"",
+  progress: "",
+  role: "",
   user: {
     accessToken: "",
   },
@@ -27,12 +29,14 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getAuthenticate.pending, (state, action) => {
-      state.progress = "pending"
+      state.progress = "pending";
     });
     builder.addCase(getAuthenticate.fulfilled, (state, action) => {
-      state.progress = "done"
+      state.progress = "done";
       if (action.payload.success === true) {
         setAccessToken(action.payload.result.accessToken);
+        const decode = jwt(action.payload.result.accessToken) as any;
+        state.role = decode.role[0];
         state.user.accessToken = action.payload.result.accessToken;
       } else {
         state.error.message = action.payload.error.message;
@@ -42,8 +46,6 @@ const authSlice = createSlice({
   },
 });
 
-export const {
-  resetProgress,
-} = authSlice.actions;
+export const { resetProgress } = authSlice.actions;
 
 export default authSlice.reducer;

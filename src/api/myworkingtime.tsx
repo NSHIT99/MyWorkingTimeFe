@@ -2,7 +2,7 @@ import {
   ICreateWorkingTimeRes,
   IProjectsInTasksRes,
   ISubmitToPendingReq,
-  ISubmitToPendingRes,
+  IResultRes,
   IWorking,
   IWorkingtimeOfUserRes,
 } from "../interfaces/myworkingtime/myworkingtime";
@@ -20,7 +20,7 @@ export const submitToPendingApi = async ({
   startDate,
   endDate,
 }: ISubmitToPendingReq) => {
-  const res = await postApi<ISubmitToPendingReq, ISubmitToPendingRes>(
+  const res = await postApi<ISubmitToPendingReq, IResultRes>(
     `/Myworkingtime/SubmitToPending`,
     {
       startDate,

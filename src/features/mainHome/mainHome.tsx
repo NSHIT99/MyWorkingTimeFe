@@ -11,6 +11,8 @@ import { RightOutlined } from "@ant-design/icons";
 import { Carousel } from "antd";
 import "antd/dist/antd.css";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 const BoxSlider = styled(Carousel)`
   .slick-prev {
@@ -69,6 +71,16 @@ const ViewSlideThree = styled.div`
 
 const ViewSlideFour = styled.div`
   background-image: url(${daihocvinh4});
+  background-size: 100% 100%;
+`;
+
+const ViewSlideFive = styled.div`
+  background-image: url(${daihocvinh1});
+  background-size: 100% 100%;
+`;
+
+const ViewSlideSix = styled.div`
+  background-image: url(${daihocvinh2});
   background-size: 100% 100%;
 `;
 
@@ -179,86 +191,151 @@ const MainHome: React.FC = () => {
   const date = `${current.getDate()}/${
     current.getMonth() + 1
   }/${current.getFullYear()}`;
+
+  const role = useSelector((state: RootState) => state.auth.role);
+
   return (
     <div>
-      <BoxSlider arrows {...settings}>
-        <ViewSlide>
-          <Btn>
-            <ButtonHeader
-              type="primary"
-              shape="round"
-              icon={<CalendarOutlined />}
-            >
-              Vietnamese calendar
-            </ButtonHeader>
-          </Btn>
-          <TitleDate>Vinh, {date}</TitleDate>
-          <TitleContent>Vinh University</TitleContent>
-          <TitleName>Sinh viên: Nguyễn Sinh Hải</TitleName>
-          <Btn>
-            <ButtonFooter type="primary">
-              <Link to="/app/main/user">Xem người dùng</Link>
-            </ButtonFooter>
-          </Btn>
-        </ViewSlide>
-        <ViewSlideTwo>
-          <Btn>
-            <ButtonHeader
-              type="primary"
-              shape="round"
-              icon={<CalendarOutlined />}
-            >
-              Vietnamese calendar
-            </ButtonHeader>
-          </Btn>
-          <TitleDate>Vinh, {date}</TitleDate>
-          <TitleContent>Vinh University</TitleContent>
-          <TitleName>Sinh viên: Nguyễn Sinh Hải</TitleName>
-          <Btn>
-            <ButtonFooter type="primary">
-              <Link to="/app/main/role">Xem Vai trò</Link>
-            </ButtonFooter>
-          </Btn>
-        </ViewSlideTwo>
-        <ViewSlideThree>
-          <Btn>
-            <ButtonHeader
-              type="primary"
-              shape="round"
-              icon={<CalendarOutlined />}
-            >
-              Vietnamese calendar
-            </ButtonHeader>
-          </Btn>
-          <TitleDate>Vinh, {date}</TitleDate>
-          <TitleContent>Vinh University</TitleContent>
-          <TitleName>Sinh viên: Nguyễn Sinh Hải</TitleName>
-          <Btn>
-            <ButtonFooter type="primary">
-              <Link to="/app/main/task">Xem công việc</Link>
-            </ButtonFooter>
-          </Btn>
-        </ViewSlideThree>
-        <ViewSlideFour>
-          <Btn>
-            <ButtonHeader
-              type="primary"
-              shape="round"
-              icon={<CalendarOutlined />}
-            >
-              Vietnamese calendar
-            </ButtonHeader>
-          </Btn>
-          <TitleDate>Vinh, {date}</TitleDate>
-          <TitleContent>Vinh University</TitleContent>
-          <TitleName>Sinh viên: Nguyễn Sinh Hải</TitleName>
-          <Btn>
-            <ButtonFooter type="primary">
-              <Link to="/app/main/project">Xem đồ án</Link>
-            </ButtonFooter>
-          </Btn>
-        </ViewSlideFour>
-      </BoxSlider>
+      {role === "Admin" ? (
+        <BoxSlider arrows {...settings}>
+          <ViewSlide>
+            <Btn>
+              <ButtonHeader
+                type="primary"
+                shape="round"
+                icon={<CalendarOutlined />}
+              >
+                Vietnamese calendar
+              </ButtonHeader>
+            </Btn>
+            <TitleDate>Vinh, {date}</TitleDate>
+            <TitleContent>Vinh University</TitleContent>
+            <TitleName>Sinh viên: Nguyễn Sinh Hải</TitleName>
+            <Btn>
+              <ButtonFooter type="primary">
+                <Link to="/app/main/user">Xem người dùng</Link>
+              </ButtonFooter>
+            </Btn>
+          </ViewSlide>
+          <ViewSlideTwo>
+            <Btn>
+              <ButtonHeader
+                type="primary"
+                shape="round"
+                icon={<CalendarOutlined />}
+              >
+                Vietnamese calendar
+              </ButtonHeader>
+            </Btn>
+            <TitleDate>Vinh, {date}</TitleDate>
+            <TitleContent>Vinh University</TitleContent>
+            <TitleName>Sinh viên: Nguyễn Sinh Hải</TitleName>
+            <Btn>
+              <ButtonFooter type="primary">
+                <Link to="/app/main/role">Xem Vai trò</Link>
+              </ButtonFooter>
+            </Btn>
+          </ViewSlideTwo>
+          <ViewSlideThree>
+            <Btn>
+              <ButtonHeader
+                type="primary"
+                shape="round"
+                icon={<CalendarOutlined />}
+              >
+                Vietnamese calendar
+              </ButtonHeader>
+            </Btn>
+            <TitleDate>Vinh, {date}</TitleDate>
+            <TitleContent>Vinh University</TitleContent>
+            <TitleName>Sinh viên: Nguyễn Sinh Hải</TitleName>
+            <Btn>
+              <ButtonFooter type="primary">
+                <Link to="/app/main/task">Xem công việc</Link>
+              </ButtonFooter>
+            </Btn>
+          </ViewSlideThree>
+          <ViewSlideFour>
+            <Btn>
+              <ButtonHeader
+                type="primary"
+                shape="round"
+                icon={<CalendarOutlined />}
+              >
+                Vietnamese calendar
+              </ButtonHeader>
+            </Btn>
+            <TitleDate>Vinh, {date}</TitleDate>
+            <TitleContent>Vinh University</TitleContent>
+            <TitleName>Sinh viên: Nguyễn Sinh Hải</TitleName>
+            <Btn>
+              <ButtonFooter type="primary">
+                <Link to="/app/main/project">Xem đồ án</Link>
+              </ButtonFooter>
+            </Btn>
+          </ViewSlideFour>
+          <ViewSlideFive>
+            <Btn>
+              <ButtonHeader
+                type="primary"
+                shape="round"
+                icon={<CalendarOutlined />}
+              >
+                Vietnamese calendar
+              </ButtonHeader>
+            </Btn>
+            <TitleDate>Vinh, {date}</TitleDate>
+            <TitleContent>Vinh University</TitleContent>
+            <TitleName>Sinh viên: Nguyễn Sinh Hải</TitleName>
+            <Btn>
+              <ButtonFooter type="primary">
+                <Link to="/app/main/myworkingtime">Quản lý thời gian</Link>
+              </ButtonFooter>
+            </Btn>
+          </ViewSlideFive>
+          <ViewSlideSix>
+            <Btn>
+              <ButtonHeader
+                type="primary"
+                shape="round"
+                icon={<CalendarOutlined />}
+              >
+                Vietnamese calendar
+              </ButtonHeader>
+            </Btn>
+            <TitleDate>Vinh, {date}</TitleDate>
+            <TitleContent>Vinh University</TitleContent>
+            <TitleName>Sinh viên: Nguyễn Sinh Hải</TitleName>
+            <Btn>
+              <ButtonFooter type="primary">
+                <Link to="/app/main/workingtime">Xác thực thời gian</Link>
+              </ButtonFooter>
+            </Btn>
+          </ViewSlideSix>
+        </BoxSlider>
+      ) : (
+        <BoxSlider arrows {...settings}>
+          <ViewSlideFive>
+            <Btn>
+              <ButtonHeader
+                type="primary"
+                shape="round"
+                icon={<CalendarOutlined />}
+              >
+                Vietnamese calendar
+              </ButtonHeader>
+            </Btn>
+            <TitleDate>Vinh, {date}</TitleDate>
+            <TitleContent>Vinh University</TitleContent>
+            <TitleName>Sinh viên: Nguyễn Sinh Hải</TitleName>
+            <Btn>
+              <ButtonFooter type="primary">
+                <Link to="/app/main/myworkingtime">Quản lý thời gian</Link>
+              </ButtonFooter>
+            </Btn>
+          </ViewSlideFive>
+        </BoxSlider>
+      )}
     </div>
   );
 };

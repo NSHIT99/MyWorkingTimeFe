@@ -15,6 +15,7 @@ import { getWorkingtime } from "../../redux/actions/workingtime";
 import { workingtimeSelector } from "../../redux/reducer/workingtimeReducer";
 import ListWorkingTime from "./listWorkingtime/listWorkingtime";
 import AccpetWorkingtime from "./acceptWorkingtime/acceptWorkingtime";
+import RejectWorkingtime from "./rejectWorkingtime/rejectWorkingtime";
 
 const ProjectContent = styled.div`
   width: 100%;
@@ -219,35 +220,11 @@ const WorkingTime: React.FC = () => {
             </MenuItem>
           </Select>
         </FormControl>
-        <FormControl variant="standard" sx={{ minWidth: 100 }}>
-          <InputLabel id="demo-simple-select-standard-label">
-            Thể loại
-          </InputLabel>
-          <Select
-            labelId="demo-simple-select-standard-label"
-            id="demo-simple-select-standard"
-            value={category}
-            onChange={handleChangeCategory}
-            label="Thể loại"
-          >
-            <MenuItem value={0}>Tất cả</MenuItem>
-            <MenuItem value={1}>Làm việc nhóm</MenuItem>
-            <MenuItem value={2}>Làm việc cá nhân</MenuItem>
-          </Select>
-        </FormControl>
         {button == "1" ? (
           <Btn>
             <AccpetWorkingtime />
-            <Button variant="outlined" color="error">
-              Huỷ bỏ
-            </Button>
+            <RejectWorkingtime />
           </Btn>
-        ) : button == "2" ? (
-          <Button variant="outlined" color="error">
-            Huỷ bỏ
-          </Button>
-        ) : button == "3" ? (
-          <AccpetWorkingtime />
         ) : (
           <div></div>
         )}

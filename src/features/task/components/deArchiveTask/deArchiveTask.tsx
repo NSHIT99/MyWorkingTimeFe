@@ -87,7 +87,7 @@ const DeArchiveTask: React.FC<{ task: ITaskReq }> = ({ task }) => {
                 sx={{ color: "black" }}
                 onClick={handleClose}
               >
-                Cancel
+                Huỷ bỏ
               </Button>
               <Button
                 variant="outlined"
@@ -96,7 +96,7 @@ const DeArchiveTask: React.FC<{ task: ITaskReq }> = ({ task }) => {
                   onDeArchive(task.id);
                 }}
               >
-                Yes
+                Xác nhận
               </Button>
             </StyleButton>
           </Form>

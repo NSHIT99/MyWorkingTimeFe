@@ -7,11 +7,11 @@ import Modal from "@mui/material/Modal";
 import { useForm, Controller } from "react-hook-form";
 import { useSnackbar } from "notistack";
 import { RootState } from "../../../redux/store";
-import { approveWorkingtimesActions } from "../../../redux/actions/workingtime";
 import {
-  resetApproveProgress,
   resetProgress,
+  resetRejectProgress,
 } from "../../../redux/reducer/workingtimeReducer";
+import { rejectWorkingtimesActions } from "../../../redux/actions/workingtime";
 
 const TitleHeader = styled.div`
   font-size: 22px;
@@ -30,7 +30,7 @@ const BtnAccept = styled.div`
   padding-top: 30px;
 `;
 
-const AccpetWorkingtime: React.FC = () => {
+const RejectWorkingtime: React.FC = () => {
   const { reset, control, handleSubmit } = useForm<any>();
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
@@ -42,34 +42,34 @@ const AccpetWorkingtime: React.FC = () => {
     (state: RootState) => state.workingtime.progress
   );
   const message = useSelector(
-    (state: RootState) => state.workingtime.messageApprove
+    (state: RootState) => state.workingtime.messageReject
   );
-  const idApprove = useSelector(
+  const idReject = useSelector(
     (state: RootState) => state.myworkingtime.acceptId
   );
 
-  const handleApprove = async () => {
-    dispatch(approveWorkingtimesActions({ idApprove }));
+  const handleReject = async () => {
+    dispatch(rejectWorkingtimesActions({ idReject }));
   };
 
-  const approveProgress = useSelector(
-    (state: RootState) => state.workingtime.approveProgress
+  const rejectProgress = useSelector(
+    (state: RootState) => state.workingtime.rejectProgress
   );
   useEffect(() => {
-    if (progress === "done" && open && approveProgress === "done") {
+    if (progress === "done" && open && rejectProgress === "done") {
       enqueueSnackbar(message, { variant: "success" });
       dispatch(resetProgress());
-      dispatch(resetApproveProgress());
+      dispatch(resetRejectProgress());
       setOpen(false);
     } else if (progress === "error" && message) {
       enqueueSnackbar(message, { variant: "error" });
     }
-  }, [progress, open, dispatch, approveProgress]);
+  }, [progress, open, dispatch, rejectProgress]);
 
   return (
     <Accept>
-      <Button variant="contained" color="success" onClick={handleOpen}>
-        Xác nhận
+      <Button variant="outlined" color="error" onClick={handleOpen}>
+        Huỷ bỏ
       </Button>
       <Modal open={open}>
         <Box
@@ -87,8 +87,8 @@ const AccpetWorkingtime: React.FC = () => {
             flexDirection: "column",
           }}
         >
-          <form onSubmit={handleSubmit(handleApprove)}>
-            <TitleHeader>Bạn có muốn xác nhận các mục này?</TitleHeader>
+          <form onSubmit={handleSubmit(handleReject)}>
+            <TitleHeader>Bạn có muốn huỷ bỏ các mục này?</TitleHeader>
             <BtnAccept>
               <Button
                 variant="outlined"
@@ -114,4 +114,4 @@ const AccpetWorkingtime: React.FC = () => {
   );
 };
 
-export default AccpetWorkingtime;
+export default RejectWorkingtime;

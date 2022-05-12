@@ -156,6 +156,7 @@ const Myworkingtime: React.FC = () => {
     (state: RootState) => state.myworkingtime.workingtimeofuser
   );
 
+  console.log(projects);
   return (
     <ProjectContent>
       <HeaderProject>
@@ -207,17 +208,15 @@ const Myworkingtime: React.FC = () => {
                   month: "2-digit",
                   day: "2-digit",
                 });
-                if (dateNow === dateMondayToSunday[0]) {
-                  return (
+                return (
+                  <div>
                     <div>
-                      <div>
-                        [{item.projectName}][{item.projectCode}]---
-                        {item.taskName}
-                      </div>
-                      <div>{dateNow}</div>
+                      [{item.projectName}][{item.projectCode}]---
+                      {item.taskName}
                     </div>
-                  );
-                }
+                    <div>{dateNow}</div>
+                  </div>
+                );
               });
             })}
             <ViewWork>
@@ -238,17 +237,15 @@ const Myworkingtime: React.FC = () => {
                   day: "2-digit",
                 });
 
-                if (dateNow === dateMondayToSunday[1]) {
-                  return (
+                return (
+                  <div>
                     <div>
-                      <div>
-                        [{item.projectName}][{item.projectCode}]---
-                        {item.taskName}
-                      </div>
-                      <div>{dateNow}</div>
+                      [{item.projectName}][{item.projectCode}]---
+                      {item.taskName}
                     </div>
-                  );
-                }
+                    <div>{dateNow}</div>
+                  </div>
+                );
               });
             })}
             <ViewWork>
@@ -270,17 +267,15 @@ const Myworkingtime: React.FC = () => {
                     day: "2-digit",
                   });
 
-                  if (dateNow === dateMondayToSunday[2]) {
-                    return (
+                  return (
+                    <div>
                       <div>
-                        <div>
-                          [{item.projectName}][{item.projectCode}]---
-                          {item.taskName}
-                        </div>
-                        <div>{dateNow}</div>
+                        [{item.projectName}][{item.projectCode}]---
+                        {item.taskName}
                       </div>
-                    );
-                  }
+                      <div>{dateNow}</div>
+                    </div>
+                  );
                 });
               })}
               <CreateMyworkingtime value={value} />
@@ -300,17 +295,15 @@ const Myworkingtime: React.FC = () => {
                   day: "2-digit",
                 });
 
-                if (dateNow === dateMondayToSunday[3]) {
-                  return (
+                return (
+                  <div>
                     <div>
-                      <div>
-                        [{item.projectName}][{item.projectCode}]---
-                        {item.taskName}
-                      </div>
-                      <div>{dateNow}</div>
+                      [{item.projectName}][{item.projectCode}]---
+                      {item.taskName}
                     </div>
-                  );
-                }
+                    <div>{dateNow}</div>
+                  </div>
+                );
               });
             })}
             <ViewWork>
@@ -331,17 +324,15 @@ const Myworkingtime: React.FC = () => {
                   day: "2-digit",
                 });
 
-                if (dateNow === dateMondayToSunday[4]) {
-                  return (
+                return (
+                  <div>
                     <div>
-                      <div>
-                        [{item.projectName}][{item.projectCode}]---
-                        {item.taskName}
-                      </div>
-                      <div>{dateNow}</div>
+                      [{item.projectName}][{item.projectCode}]---
+                      {item.taskName}
                     </div>
-                  );
-                }
+                    <div>{dateNow}</div>
+                  </div>
+                );
               });
             })}
             <ViewWork>
@@ -362,17 +353,15 @@ const Myworkingtime: React.FC = () => {
                   day: "2-digit",
                 });
 
-                if (dateNow === dateMondayToSunday[5]) {
-                  return (
+                return (
+                  <div>
                     <div>
-                      <div>
-                        [{item.projectName}][{item.projectCode}]---
-                        {item.taskName}
-                      </div>
-                      <div>{dateNow}</div>
+                      [{item.projectName}][{item.projectCode}]---
+                      {item.taskName}
                     </div>
-                  );
-                }
+                    <div>{dateNow}</div>
+                  </div>
+                );
               });
             })}
             <ViewWork>
@@ -392,18 +381,15 @@ const Myworkingtime: React.FC = () => {
                   month: "2-digit",
                   day: "2-digit",
                 });
-
-                if (dateNow === dateMondayToSunday[6]) {
-                  return (
+                return (
+                  <div>
                     <div>
-                      <div>
-                        [{item.projectName}][{item.projectCode}]---
-                        {item.taskName}
-                      </div>
-                      <div>{dateNow}</div>
+                      [{item.projectName}][{item.projectCode}]---
+                      {item.taskName}
                     </div>
-                  );
-                }
+                    <div>{dateNow}</div>
+                  </div>
+                );
               });
             })}
             <ViewWork>

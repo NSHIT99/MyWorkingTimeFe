@@ -30,3 +30,43 @@ export interface IGetDateWorkingtime {
   endDate?: string;
   status?: number;
 }
+
+export interface IApproveWorkingtimesReq {
+  idApprove: number[];
+}
+
+export interface IRejectWorkingtimesReq {
+  idReject: number[];
+}
+
+export interface IResultApprove {
+  success: string;
+  successCount: number;
+  failedCount: number;
+  fail: string;
+  lockDate:string;
+}
+
+export interface IResultApproveWorkingtimesRes {
+  result: IResultApprove;
+  targetUrl: string;
+  success: boolean;
+  error: string;
+  unAuthRequest:boolean;
+  __abp:boolean;
+}
+
+export interface IResultReject {
+  fail: string;
+  lockDate:string;
+  success: string;
+}
+
+export interface IResultRejectWorkingtimesRes {
+  result: IResultReject;
+  targetUrl: string;
+  success: boolean;
+  error: string;
+  unAuthRequest:boolean;
+  __abp:boolean;
+}
