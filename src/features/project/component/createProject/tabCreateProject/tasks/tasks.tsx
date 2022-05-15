@@ -96,7 +96,7 @@ const Tasks: React.FC = () => {
   const handleClickSelectTask = () => {
     setOpenSelectTask(!openSelectTask);
   };
-  const Tasks = useSelector((state: RootState) => state.project.viewTask);
+  const tasks = useSelector((state: RootState) => state.project.viewTask);
   const selectedTasks = useSelector(
     (state: RootState) => state.project.selectedTasks
   );
@@ -117,7 +117,6 @@ const Tasks: React.FC = () => {
           <Text>Công việc</Text>
           <RightNav>
             <Text>Tích chọn</Text>
-            <Checkbox {...label} color="error" defaultChecked />
           </RightNav>
         </NavHeader>
         {selectedTasks.map((task) => {
@@ -153,7 +152,7 @@ const Tasks: React.FC = () => {
         </RightSelect>
       </ViewSelect>
       <Collapse in={openSelectTask} timeout="auto" unmountOnExit>
-        {Tasks.map((item) => {
+        {tasks.map((item) => {
           return (
             <ViewTask>
               <LeftView>

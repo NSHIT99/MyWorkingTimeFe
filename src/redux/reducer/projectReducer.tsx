@@ -108,6 +108,7 @@ const projectSlice = createSlice({
     },
     pushTask: (state, action: PayloadAction<ITaskReq>) => {
       state.selectedTasks.push(action.payload);
+      console.log(action.payload);
       state.viewTask = state.viewTask.filter(
         (task) => task.id !== action.payload.id
       );

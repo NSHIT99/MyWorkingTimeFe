@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import Header from "./header/header";
 import MainView from "./mainView/mainView";
-import SideBar from "./sidebar/sidebar";
 
 const HomeView = styled.div``;
 
@@ -15,7 +14,6 @@ const HomePage: React.FC = () => {
     <HomeView>
       <Header />
       <MainContent>
-        <SideBar />
         <MainView />
       </MainContent>
     </HomeView>

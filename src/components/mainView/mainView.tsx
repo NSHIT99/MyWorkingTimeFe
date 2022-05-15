@@ -15,7 +15,6 @@ const MainContent = styled.div`
   width: 100%;
   height: 100%;
   margin-top: 70px;
-  padding-left: 350px;
 `;
 
 const Content = styled.div`

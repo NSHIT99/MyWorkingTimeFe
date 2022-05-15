@@ -1,33 +1,33 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import AddIcon from "@mui/icons-material/Add";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "@mui/material/Modal";
-import { useSnackbar } from "notistack";
-import { NativeSelect } from "@mui/material";
-import TextField from "@mui/material/TextField";
 import { useForm, Controller } from "react-hook-form";
-import {
-  createMyworkingTimeActions,
-  getProjectsInTasksActions,
-} from "../../../redux/actions/myworkingtime";
+import { NativeSelect } from "@mui/material";
+import { useSnackbar } from "notistack";
+import { IWorking } from "../../../interfaces/myworkingtime/myworkingtime";
 import { RootState } from "../../../redux/store";
+import {
+  getProjectsInTasksActions,
+  updateMyWorkingtimeActions,
+} from "../../../redux/actions/myworkingtime";
+import { resetProgress } from "../../../redux/reducer/myworkingtimeReducer";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { resetCreateMyworkingTimeProgress, resetProgress } from "../../../redux/reducer/myworkingtimeReducer";
 
 const TitleHeader = styled.div`
   font-size: 22px;
 `;
-
-const NewMyworkingtime = styled.div`
+const NewWorkingtime = styled.div`
   display: flex;
+  padding: 10px 10px;
   gap: 250px;
 `;
 
-const BtnNewMyworkingtime = styled.div`
+const BtnNewWorkingtime = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: 20px;
@@ -36,28 +36,23 @@ const BtnNewMyworkingtime = styled.div`
 
 const InputName = styled(TextField)``;
 
-interface INewMyworkingtime {
-  status: number;
-  projectTaskId: number;
+interface INewWorkingtime {
+  projectTaskId: string;
   note: string;
-  workingTime: number;
-  typeOfWork: number;
+  workingTime: string;
+  status: string;
+  typeOfWork: string;
+  createdAt: string;
   dateAt: string;
+  userId: number;
+  id: number;
+  updatedAt: string;
 }
 
-export interface IDateValue {
-  value: Date | null;
-}
-
-const CreateMyworkingtime: React.FC<IDateValue> = ({ value }) => {
-  const { reset, control, handleSubmit } = useForm<any>();
-  const [open, setOpen] = React.useState(false);
+const EditWorkingtimes: React.FC<{ workingtime: IWorking }> = ({
+  workingtime,
+}) => {
   let changeTask = false;
-
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const { enqueueSnackbar } = useSnackbar();
-  const dispatch = useDispatch();
   const [projectTask, setProjectTask] = useState("0");
 
   const projectsintasks = useSelector(
@@ -73,53 +68,84 @@ const CreateMyworkingtime: React.FC<IDateValue> = ({ value }) => {
   };
 
   const projectsintasksFilter = projectsintasks[parseInt(projectTask)];
-  const handleCreate = async (props: INewMyworkingtime) => {
-    if(!changeTask) props.projectTaskId = projectsintasksFilter?.tasks[0].projectTaskId;
-    if (value) {
-      let dateAt = new Date(value);
-      dispatch(
-        createMyworkingTimeActions({
-          projectTaskId: +props.projectTaskId,
-          note: props.note,
-          workingTime: +props.workingTime,
-          status: +props.status,
-          typeOfWork: +props.typeOfWork,
-          dateAt: `${dateAt}`,
-        })
-      );
-      reset({
-        projectTaskId: "",
-        note: "",
-        workingTime: "",
-        status: "",
-        typeOfWork: "",
-        dateAt: "",
-      });
-    }
+
+  const { reset, control, handleSubmit } = useForm<INewWorkingtime>({
+    defaultValues: {
+      projectTaskId: workingtime.projectTaskId.toString(),
+      note: workingtime.note,
+      workingTime: workingtime.workingTime.toString(),
+      status: workingtime.status.toString(),
+      typeOfWork: workingtime.typeOfWork.toString(),
+      createdAt: workingtime.createdAt,
+      dateAt: workingtime.dateAt,
+      userId: workingtime.userId,
+      id: workingtime.id,
+      updatedAt: workingtime.updatedAt,
+    },
+  });
+  const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
+  const message = useSelector(
+    (state: RootState) => state.myworkingtime.error.message
+  );
+  const progress = useSelector(
+    (state: RootState) => state.myworkingtime.progress
+  );
+  const handleEdit = async (props: INewWorkingtime) => {
+    dispatch(
+      updateMyWorkingtimeActions({
+        projectTaskId: +props.projectTaskId,
+        note: props.note,
+        workingTime: +props.workingTime,
+        status: +props.status,
+        typeOfWork: +props.typeOfWork,
+        createdAt: props.createdAt,
+        dateAt: props.dateAt,
+        userId: props.userId,
+        id: props.id,
+        updatedAt: props.updatedAt,
+      })
+    );
   };
 
-  const createMyworkingTimeProgress = useSelector(
-    (state: RootState) => state.myworkingtime.createMyworkingTimeProgress
-  );
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    reset({
+      projectTaskId: workingtime.projectTaskId.toString(),
+      note: workingtime.note,
+      workingTime: workingtime.workingTime.toString(),
+      status: workingtime.status.toString(),
+      typeOfWork: workingtime.typeOfWork.toString(),
+      createdAt: workingtime.createdAt,
+      dateAt: workingtime.dateAt,
+      userId: workingtime.userId,
+      id: workingtime.id,
+      updatedAt: workingtime.updatedAt,
+    });
+    setOpen(true);
+  };
+  const handleClose = () => setOpen(false);
+
   useEffect(() => {
-    if (createMyworkingTimeProgress === "done" && open) {
-      enqueueSnackbar("Tạo công việc thành công", { variant: "success" });
+    if (progress === "done" && open) {
+      enqueueSnackbar("Sửa thời gian làm việc thành công", {
+        variant: "success",
+      });
       dispatch(resetProgress());
-      dispatch(resetCreateMyworkingTimeProgress());
       setOpen(false);
-    } else if (createMyworkingTimeProgress === "error") {
-      enqueueSnackbar("Tạo thời gian làm việc thành công", { variant: "error" });
+    } else if (progress === "error" && message) {
+      enqueueSnackbar(message, { variant: "error" });
     }
-  }, [createMyworkingTimeProgress, open, dispatch]);
+  }, [progress, open, dispatch]);
+
   return (
-    <NewMyworkingtime>
+    <NewWorkingtime>
       <Button
-        style={{ background: "#f24b50", height: "40px" }}
+        style={{ background: "#fff", height: "40px", color: "#000" }}
         variant="contained"
-        startIcon={<AddIcon />}
         onClick={handleOpen}
       >
-        Tạo mới
+        Sửa
       </Button>
       <Modal open={open}>
         <Box
@@ -128,7 +154,7 @@ const CreateMyworkingtime: React.FC<IDateValue> = ({ value }) => {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: 700,
+            width: 300,
             bgcolor: "#fff",
             pt: 2,
             px: 4,
@@ -137,8 +163,8 @@ const CreateMyworkingtime: React.FC<IDateValue> = ({ value }) => {
             flexDirection: "column",
           }}
         >
-          <form onSubmit={handleSubmit(handleCreate)}>
-            <TitleHeader>Tạo thời gian làm việc</TitleHeader>
+          <form onSubmit={handleSubmit(handleEdit)}>
+            <TitleHeader>Sửa công việc</TitleHeader>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
@@ -163,7 +189,11 @@ const CreateMyworkingtime: React.FC<IDateValue> = ({ value }) => {
             <Controller
               name="projectTaskId"
               render={({ field }) => (
-                <NativeSelect {...field} style={{ width: "100%" }} onChange={() => changeTask = true} >
+                <NativeSelect
+                  {...field}
+                  style={{ width: "100%" }}
+                  onChange={() => (changeTask = true)}
+                >
                   {projectsintasksFilter.tasks.map((task) => {
                     return (
                       <option value={task.projectTaskId}>
@@ -174,14 +204,17 @@ const CreateMyworkingtime: React.FC<IDateValue> = ({ value }) => {
                 </NativeSelect>
               )}
               control={control}
-              defaultValue={projectsintasksFilter?.tasks[0].projectTaskId}
+              defaultValue={
+                projectsintasksFilter?.tasks[projectTask as any]
+                  .projectTaskId as any
+              }
             />
             <Controller
               name="note"
               render={({ field }) => {
                 return (
                   <InputName
-                    label="Ghi chú *"
+                    label="Note *"
                     variant="standard"
                     {...field}
                     style={{ width: "100%", marginBottom: "10px" }}
@@ -217,7 +250,7 @@ const CreateMyworkingtime: React.FC<IDateValue> = ({ value }) => {
               control={control}
               defaultValue=""
             />
-            <BtnNewMyworkingtime>
+            <BtnNewWorkingtime>
               <Button
                 variant="outlined"
                 color="error"
@@ -234,12 +267,12 @@ const CreateMyworkingtime: React.FC<IDateValue> = ({ value }) => {
               >
                 Save
               </Button>
-            </BtnNewMyworkingtime>
+            </BtnNewWorkingtime>
           </form>
         </Box>
       </Modal>
-    </NewMyworkingtime>
+    </NewWorkingtime>
   );
 };
 
-export default CreateMyworkingtime;
+export default EditWorkingtimes;

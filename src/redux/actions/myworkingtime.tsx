@@ -1,12 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   createMyworkingTimeApi,
+  deleteMyWorkingTimeApi,
   getProjectsInTasksApi,
   getWorkingtimeOfUserApi,
   submitToPendingApi,
+  updateMyWorkingtimeApi,
 } from "../../api/myworkingtime";
 import {
   ISubmitToPendingReq,
+  IUpdateMyworkingtimeReq,
   IWorking,
 } from "../../interfaces/myworkingtime/myworkingtime";
 
@@ -69,5 +72,43 @@ export const createMyworkingTimeActions = createAsyncThunk(
       dateAt,
     });
     return create as { result: IWorking };
+  }
+);
+
+export const deleteMyWorkingtime = createAsyncThunk(
+  "/Workingtime/Delete",
+  async (id: number) => {
+    const response = { ...(await deleteMyWorkingTimeApi(id)), id };
+    return response;
+  }
+);
+
+export const updateMyWorkingtimeActions = createAsyncThunk(
+  "/Myworkingtime/Update",
+  async ({
+    projectTaskId,
+    note,
+    workingTime,
+    status,
+    typeOfWork,
+    createdAt,
+    dateAt,
+    userId,
+    id,
+    updatedAt,
+  }: IWorking) => {
+    const update = await updateMyWorkingtimeApi({
+      projectTaskId,
+      note,
+      workingTime,
+      status,
+      typeOfWork,
+      createdAt,
+      dateAt,
+      userId,
+      id,
+      updatedAt,
+    });
+    return update as { result: IUpdateMyworkingtimeReq };
   }
 );

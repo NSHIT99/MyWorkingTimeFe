@@ -27,8 +27,8 @@ export interface IResultRes {
   result: string;
   success: boolean;
   targetUrl: string;
-  unAuthRequest:boolean;
-  __abp:boolean;
+  unAuthRequest: boolean;
+  __abp: boolean;
 }
 
 export interface IWorking {
@@ -58,4 +58,17 @@ export interface IWorkingtimeOfUserRes {
 
 export interface ICreateWorkingTimeRes {
   result: IWorking[];
+}
+
+export interface IUpdateMyworkingtimeReq {
+  projectTaskId: number;
+  note: string;
+  workingTime: number;
+  status: number;
+  typeOfWork: number;
+  createdAt: string;
+  dateAt: string;
+  userId: number;
+  id: number;
+  updatedAt: string;
 }

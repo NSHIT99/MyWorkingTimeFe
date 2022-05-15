@@ -99,7 +99,6 @@ const taskSlice = createSlice({
         );
       } else {
         state.error.message = action.payload.error.message;
-        console.log(state.error.message);
       }
     });
     builder.addCase(archiveTask.fulfilled, (state, action) => {

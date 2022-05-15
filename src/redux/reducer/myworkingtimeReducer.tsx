@@ -9,17 +9,21 @@ import {
 } from "../../interfaces/myworkingtime/myworkingtime";
 import {
   createMyworkingTimeActions,
+  deleteMyWorkingtime,
   getProjectsInTasksActions,
   getWorkingtimeOfUserActions,
   submitToPendingActions,
+  updateMyWorkingtimeActions,
 } from "../actions/myworkingtime";
 
 export interface MyWorkingtimeState {
   projectsintasks: IProjectsInTasksReq[];
+  myworkingtimes: IWorking[];
   workingtimeofuser: IWorkingtimeOfUser[];
   createMyworkingTime: IWorking[];
   messageSubmit: string;
   progress: string;
+  updateProgress: string;
   createMyworkingTimeProgress: string;
   success: boolean;
   searchName: string;
@@ -29,10 +33,12 @@ export interface MyWorkingtimeState {
 
 const initialState: MyWorkingtimeState = {
   projectsintasks: [],
+  myworkingtimes: [],
   workingtimeofuser: [],
   createMyworkingTime: [],
   messageSubmit: "",
   progress: "",
+  updateProgress: "",
   createMyworkingTimeProgress: "",
   success: false,
   searchName: "",
@@ -49,6 +55,9 @@ const myworkingtimeSlice = createSlice({
   name: "myworkingtime",
   initialState,
   reducers: {
+    resetUpdateProgress(state) {
+      state.updateProgress = "";
+    },
     resetProgress(state) {
       state.progress = "";
     },
@@ -112,10 +121,63 @@ const myworkingtimeSlice = createSlice({
         state.progress = "error";
         state.createMyworkingTimeProgress = "error";
       });
+    builder
+      .addCase(deleteMyWorkingtime.pending, (state, action) => {
+        state.progress = "pending";
+      })
+      .addCase(deleteMyWorkingtime.fulfilled, (state, action) => {
+        state.progress = "done";
+        if (action.payload.success === true) {
+          state.myworkingtimes = state.myworkingtimes.filter(
+            (myworkingtime) => myworkingtime.id !== action.payload.id
+          );
+        } else {
+          state.error.message = action.payload.error.message;
+        }
+      })
+      .addCase(deleteMyWorkingtime.rejected, (state, action) => {
+        state.progress = "error";
+      });
+    builder
+      .addCase(updateMyWorkingtimeActions.pending, (state, action) => {
+        state.progress = "pending";
+      })
+      .addCase(updateMyWorkingtimeActions.fulfilled, (state, action) => {
+        state.progress = "done";
+        state.updateProgress = "done";
+        state.myworkingtimes.find(
+          (myworkingtime) => myworkingtime.id === action.payload.result.id
+        );
+        state.myworkingtimes = state.myworkingtimes.map((myworkingtime) => {
+          if (myworkingtime.id === action.payload.result.id) {
+            myworkingtime.projectTaskId = action.payload.result.projectTaskId;
+            myworkingtime.note = action.payload.result.note;
+            myworkingtime.workingTime = action.payload.result.workingTime;
+            myworkingtime.status = action.payload.result.status;
+            myworkingtime.typeOfWork = action.payload.result.typeOfWork;
+            myworkingtime.createdAt = action.payload.result.createdAt;
+            myworkingtime.dateAt = action.payload.result.dateAt;
+            myworkingtime.userId = action.payload.result.userId;
+            myworkingtime.updatedAt = action.payload.result.updatedAt;
+          }
+          return myworkingtime;
+        });
+      })
+      .addCase(updateMyWorkingtimeActions.rejected, (state, action) => {
+        state.progress = "error";
+        state.updateProgress = "error";
+        state.error.message = action.payload as string;
+      });
   },
 });
 
-export const { resetProgress, resetSuccess, resetMessage, resetCreateMyworkingTimeProgress, setAcceptId } =
-  myworkingtimeSlice.actions;
+export const {
+  resetProgress,
+  resetSuccess,
+  resetMessage,
+  resetCreateMyworkingTimeProgress,
+  setAcceptId,
+  resetUpdateProgress,
+} = myworkingtimeSlice.actions;
 
 export default myworkingtimeSlice.reducer;

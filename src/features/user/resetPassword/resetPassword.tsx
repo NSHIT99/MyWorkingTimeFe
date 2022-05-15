@@ -41,16 +41,16 @@ interface IResetPass {
 const ResetPassword: React.FC<{ user: IGetAllReq }> = ({ user }) => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-  const { control, handleSubmit } = useForm<IResetPassword>({
+  const { reset, control, handleSubmit } = useForm<IResetPassword>({
     defaultValues: {
-        userId: user.id,
-        adminPassword: user.password,
-        newPassword: user.password,
+      userId: user.id,
+      adminPassword: user.password,
+      newPassword: user.password,
     },
   });
 
-  const message = useSelector((state: RootState) => state.task.error.message);
-  const progress = useSelector((state: RootState) => state.task.progress);
+  const message = useSelector((state: RootState) => state.user.error.message);
+  const progress = useSelector((state: RootState) => state.user.progress);
   const handleEdit = async (props: IResetPass) => {
     dispatch(
       resetPasswordActions({
@@ -64,6 +64,11 @@ const ResetPassword: React.FC<{ user: IGetAllReq }> = ({ user }) => {
   const [open, setOpen] = React.useState(false);
   const handleClose = () => setOpen(false);
   const handleOpen = () => {
+    reset({
+      userId: user.id,
+      adminPassword: user.password,
+      newPassword: user.password,
+    });
     setOpen(true);
   };
 
@@ -108,12 +113,13 @@ const ResetPassword: React.FC<{ user: IGetAllReq }> = ({ user }) => {
                   <InputName
                     label="Mật khẩu Admin *"
                     variant="standard"
+                    {...field}
                     style={{ width: "100%", marginBottom: "10px" }}
                   />
                 );
               }}
               control={control}
-              defaultValue=""
+              defaultValue="a"
             />
             <Controller
               name="newPassword"
@@ -122,12 +128,13 @@ const ResetPassword: React.FC<{ user: IGetAllReq }> = ({ user }) => {
                   <InputName
                     label="Mật khẩu mới *"
                     variant="standard"
+                    {...field}
                     style={{ width: "100%", marginBottom: "10px" }}
                   />
                 );
               }}
               control={control}
-              defaultValue=""
+              defaultValue="a"
             />
             <BtnNewTask>
               <Button

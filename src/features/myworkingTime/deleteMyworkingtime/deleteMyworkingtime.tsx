@@ -1,0 +1,120 @@
+import React from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import { useSnackbar } from "notistack";
+import { IWorking } from "../../../interfaces/myworkingtime/myworkingtime";
+import { RootState } from "../../../redux/store";
+import { deleteMyWorkingtime } from "../../../redux/actions/myworkingtime";
+
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  p: 4,
+  borderRadius: "10px",
+};
+
+const Form = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const TextTitle = styled.div`
+  font-size: 40px;
+  font-weight: 600;
+  margin-bottom: 15px;
+`;
+
+const TextDescription = styled.div`
+  font-size: 20px;
+  font-weight: 100;
+  margin-bottom: 15px;
+`;
+
+const StyleButton = styled.div`
+  display: flex;
+  gap: 15px;
+`;
+
+const DeleteWorkingtime: React.FC<{ workingtime: IWorking }> = ({
+  workingtime,
+}) => {
+  const dispatch = useDispatch();
+  const [open, setOpen] = React.useState(false);
+  const { enqueueSnackbar } = useSnackbar();
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const message = useSelector(
+    (state: RootState) => state.workingtime.error.message
+  );
+  const onDelete = async (id: number) => {
+    enqueueSnackbar("Xoá công việc thành công", { variant: "success" });
+    dispatch(deleteMyWorkingtime(id));
+    handleClose();
+  };
+  const handleClose = () => setOpen(false);
+  return (
+    <div>
+      <Button
+        defaultValue={workingtime.id}
+        style={{
+          marginRight: "10px",
+          background: "#FFFFFF",
+          color: "black",
+          textTransform: "none",
+        }}
+        variant="contained"
+        onClick={handleOpen}
+      >
+        Xoá
+      </Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Form>
+            <ErrorOutlineIcon
+              sx={{ width: "100px", height: "100px", color: "#f8bb86" }}
+            />
+            <TextTitle>Bạn có chắc chắn không?</TextTitle>
+            <TextDescription>
+              Xoá thời gian làm việc: {workingtime.note} ?
+            </TextDescription>
+            <StyleButton>
+              <Button
+                variant="outlined"
+                sx={{ color: "black" }}
+                onClick={handleClose}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="outlined"
+                sx={{ color: "black", background: "#7cd1f9" }}
+                onClick={() => {
+                  onDelete(workingtime.id as number);
+                }}
+              >
+                Yes
+              </Button>
+            </StyleButton>
+          </Form>
+        </Box>
+      </Modal>
+    </div>
+  );
+};
+
+export default DeleteWorkingtime;

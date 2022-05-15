@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import Box from "@mui/material/Box";
@@ -9,11 +9,17 @@ import CreateMyworkingtime from "./createMyworkingtime/createMyworkingtime";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import SubmitMyWorkingTime from "./submitMyWorkingtime/submitMyWorkingtime";
 import { RootState } from "../../redux/store";
 import { resetProgress } from "../../redux/reducer/myworkingtimeReducer";
 import { getWorkingtimeOfUserActions } from "../../redux/actions/myworkingtime";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableRow from "@mui/material/TableRow";
+import TableHead from "@mui/material/TableHead";
+import DeleteWorkingtime from "./deleteMyworkingtime/deleteMyworkingtime";
+import EditWorkingtimes from "./editMyworkingTime/editMyworkingTime";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -156,7 +162,35 @@ const Myworkingtime: React.FC = () => {
     (state: RootState) => state.myworkingtime.workingtimeofuser
   );
 
-  console.log(projects);
+  const renderTabPannel = (index: number) => (
+    <TabPanel value={tab} index={index}>
+      <ViewWork>
+        <CreateMyworkingtime value={value} />
+        <SubmitMyWorkingTime value={value} />
+      </ViewWork>
+    </TabPanel>
+  );
+
+  let noteWorking: any = [];
+  projects.map((item, index) => {
+    const working = item.working;
+    return working.map((e, i) => {
+      if (index === i)
+        noteWorking.push({
+          projectName: item.projectName,
+          taskName: item.taskName,
+          projectCode: item.projectCode,
+          note: e.note,
+          id: e.id,
+          status: e.status,
+          typeOfWork: e.typeOfWork,
+          dateAt: e.dateAt,
+          workingTime: e.workingTime,
+          projectTaskId: e.projectTaskId,
+        });
+    });
+  });
+
   return (
     <ProjectContent>
       <HeaderProject>
@@ -197,207 +231,238 @@ const Myworkingtime: React.FC = () => {
             <Tab label="Sunday" {...a11yProps(6)} />
           </Tabs>
         </Box>
-        <TabPanel value={tab} index={0}>
-          <div>
-            {projects.map((item) => {
-              const working = item.working;
-              working.map((e) => {
-                const now = new Date(e.dateAt);
-                const dateNow = now.toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "2-digit",
-                  day: "2-digit",
-                });
-                return (
-                  <div>
-                    <div>
-                      [{item.projectName}][{item.projectCode}]---
-                      {item.taskName}
-                    </div>
-                    <div>{dateNow}</div>
-                  </div>
-                );
-              });
-            })}
-            <ViewWork>
-              <CreateMyworkingtime value={value} />
-              <SubmitMyWorkingTime value={value} />
-            </ViewWork>
-          </div>
-        </TabPanel>
-        <TabPanel value={tab} index={1}>
-          <div>
-            {projects.map((item) => {
-              const working = item.working;
-              working.map((e) => {
-                const now = new Date(e.dateAt);
-                const dateNow = now.toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "2-digit",
-                  day: "2-digit",
-                });
+        {[1, 2, 3, 4, 5, 6, 0].map((item) => renderTabPannel(item))}
+      </Box>
+      <Box>
+        <Table
+          aria-label="simple table"
+          sx={{
+            border: 1,
+            color: "#e9e9e9",
+          }}
+        >
+          <TableHead>
+            <TableRow
+              sx={{
+                "&:last-child td, &:last-child th": {
+                  border: 0,
+                },
+              }}
+            >
+              <TableCell
+                colSpan={3}
+                sx={{
+                  background: "#d3d3d3",
+                  fontSize: "16px",
+                }}
+              >
+                Tên đồ án
+              </TableCell>
+              <TableCell
+                colSpan={3}
+                sx={{
+                  background: "#d3d3d3",
+                  fontSize: "16px",
+                }}
+              >
+                Phương án làm việc
+              </TableCell>
+              <TableCell
+                colSpan={3}
+                sx={{
+                  background: "#d3d3d3",
+                  fontSize: "16px",
+                }}
+              >
+                Công việc
+              </TableCell>
+              <TableCell
+                colSpan={3}
+                sx={{
+                  background: "#d3d3d3",
+                  fontSize: "16px",
+                }}
+              >
+                Note
+              </TableCell>
+              <TableCell
+                colSpan={3}
+                sx={{
+                  background: "#d3d3d3",
+                  fontSize: "16px",
+                }}
+              >
+                Thời gian làm việc
+              </TableCell>
+              <TableCell
+                colSpan={3}
+                sx={{
+                  background: "#d3d3d3",
+                  fontSize: "16px",
+                }}
+              >
+                Ngày làm việc
+              </TableCell>
 
-                return (
-                  <div>
-                    <div>
-                      [{item.projectName}][{item.projectCode}]---
-                      {item.taskName}
-                    </div>
-                    <div>{dateNow}</div>
-                  </div>
-                );
-              });
-            })}
-            <ViewWork>
-              <CreateMyworkingtime value={value} />
-              <SubmitMyWorkingTime value={value} />
-            </ViewWork>
-          </div>
-        </TabPanel>
-        <TabPanel value={tab} index={2}>
-          <div>
-            <ViewWork>
-              {projects.map((item) => {
-                const working = item.working;
-                working.map((e) => {
-                  const now = new Date(e.dateAt);
-                  const dateNow = now.toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "2-digit",
-                    day: "2-digit",
-                  });
-
-                  return (
-                    <div>
-                      <div>
-                        [{item.projectName}][{item.projectCode}]---
-                        {item.taskName}
-                      </div>
-                      <div>{dateNow}</div>
-                    </div>
-                  );
-                });
-              })}
-              <CreateMyworkingtime value={value} />
-              <SubmitMyWorkingTime value={value} />
-            </ViewWork>
-          </div>
-        </TabPanel>
-        <TabPanel value={tab} index={3}>
-          <div>
-            {projects.map((item) => {
-              const working = item.working;
-              working.map((e) => {
-                const now = new Date(e.dateAt);
-                const dateNow = now.toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "2-digit",
-                  day: "2-digit",
-                });
-
-                return (
-                  <div>
-                    <div>
-                      [{item.projectName}][{item.projectCode}]---
-                      {item.taskName}
-                    </div>
-                    <div>{dateNow}</div>
-                  </div>
-                );
-              });
-            })}
-            <ViewWork>
-              <CreateMyworkingtime value={value} />
-              <SubmitMyWorkingTime value={value} />
-            </ViewWork>
-          </div>
-        </TabPanel>
-        <TabPanel value={tab} index={4}>
-          <div>
-            {projects.map((item) => {
-              const working = item.working;
-              working.map((e) => {
-                const now = new Date(e.dateAt);
-                const dateNow = now.toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "2-digit",
-                  day: "2-digit",
-                });
-
-                return (
-                  <div>
-                    <div>
-                      [{item.projectName}][{item.projectCode}]---
-                      {item.taskName}
-                    </div>
-                    <div>{dateNow}</div>
-                  </div>
-                );
-              });
-            })}
-            <ViewWork>
-              <CreateMyworkingtime value={value} />
-              <SubmitMyWorkingTime value={value} />
-            </ViewWork>
-          </div>
-        </TabPanel>
-        <TabPanel value={tab} index={5}>
-          <div>
-            {projects.map((item) => {
-              const working = item.working;
-              working.map((e) => {
-                const now = new Date(e.dateAt);
-                const dateNow = now.toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "2-digit",
-                  day: "2-digit",
-                });
-
-                return (
-                  <div>
-                    <div>
-                      [{item.projectName}][{item.projectCode}]---
-                      {item.taskName}
-                    </div>
-                    <div>{dateNow}</div>
-                  </div>
-                );
-              });
-            })}
-            <ViewWork>
-              <CreateMyworkingtime value={value} />
-              <SubmitMyWorkingTime value={value} />
-            </ViewWork>
-          </div>
-        </TabPanel>
-        <TabPanel value={tab} index={6}>
-          <div>
-            {projects.map((item) => {
-              const working = item.working;
-              working.map((e) => {
-                const now = new Date(e.dateAt);
-                const dateNow = now.toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "2-digit",
-                  day: "2-digit",
-                });
-                return (
-                  <div>
-                    <div>
-                      [{item.projectName}][{item.projectCode}]---
-                      {item.taskName}
-                    </div>
-                    <div>{dateNow}</div>
-                  </div>
-                );
-              });
-            })}
-            <ViewWork>
-              <CreateMyworkingtime value={value} />
-              <SubmitMyWorkingTime value={value} />
-            </ViewWork>
-          </div>
-        </TabPanel>
+              <TableCell
+                colSpan={3}
+                sx={{
+                  background: "#d3d3d3",
+                  fontSize: "16px",
+                }}
+              >
+                Trạng thái
+              </TableCell>
+              <TableCell
+                colSpan={3}
+                sx={{
+                  background: "#d3d3d3",
+                  fontSize: "16px",
+                }}
+              >
+                Chỉnh sửa
+              </TableCell>
+              <TableCell
+                colSpan={3}
+                sx={{
+                  background: "#d3d3d3",
+                  fontSize: "16px",
+                }}
+              >
+                Xoá
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          {noteWorking.map((item: any) => {
+            const now = new Date(item.dateAt);
+            const dateNow = now.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+            });
+            return (
+              <TableBody>
+                <TableRow
+                  sx={{
+                    "&:last-child td, &:last-child th": {
+                      border: 0,
+                    },
+                  }}
+                >
+                  <TableCell
+                    colSpan={3}
+                    sx={{
+                      fontSize: "16px",
+                    }}
+                  >
+                    {item.projectName}
+                  </TableCell>
+                  <TableCell
+                    colSpan={3}
+                    sx={{
+                      fontSize: "16px",
+                    }}
+                  >
+                    {item.projectCode}
+                  </TableCell>
+                  <TableCell
+                    colSpan={3}
+                    sx={{
+                      fontSize: "16px",
+                    }}
+                  >
+                    {item.taskName}
+                  </TableCell>
+                  <TableCell
+                    colSpan={3}
+                    sx={{
+                      fontSize: "16px",
+                    }}
+                  >
+                    {item.note}
+                  </TableCell>
+                  <TableCell
+                    colSpan={3}
+                    sx={{
+                      fontSize: "16px",
+                    }}
+                  >
+                    {item.workingTime}
+                  </TableCell>
+                  <TableCell
+                    colSpan={3}
+                    sx={{
+                      fontSize: "16px",
+                    }}
+                  >
+                    {dateNow}
+                  </TableCell>
+                  {item.status == 0 ? (
+                    <TableCell
+                      colSpan={3}
+                      sx={{
+                        color: "#6519d6",
+                        fontWeight: "bold",
+                        fontSize: "16px",
+                      }}
+                    >
+                      Chưa gửi
+                    </TableCell>
+                  ) : item.status == 1 ? (
+                    <TableCell
+                      colSpan={3}
+                      sx={{
+                        color: "yellow",
+                        fontWeight: "bold",
+                        fontSize: "16px",
+                      }}
+                    >
+                      Đang chờ
+                    </TableCell>
+                  ) : item.status == 2 ? (
+                    <TableCell
+                      colSpan={3}
+                      sx={{
+                        fontSize: "16px",
+                        fontWeight: "bold",
+                        color: "green",
+                      }}
+                    >
+                      Xác nhận
+                    </TableCell>
+                  ) : (
+                    <TableCell
+                      colSpan={3}
+                      sx={{
+                        color: "red",
+                        fontWeight: "bold",
+                        fontSize: "16px",
+                      }}
+                    >
+                      Huỷ bỏ
+                    </TableCell>
+                  )}
+                  <TableCell
+                    colSpan={3}
+                    sx={{
+                      fontSize: "16px",
+                    }}
+                  >
+                    <EditWorkingtimes workingtime={item} />
+                  </TableCell>
+                  <TableCell
+                    colSpan={3}
+                    sx={{
+                      fontSize: "16px",
+                    }}
+                  >
+                    <DeleteWorkingtime workingtime={item} />
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            );
+          })}
+        </Table>
       </Box>
     </ProjectContent>
   );

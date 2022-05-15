@@ -182,6 +182,8 @@ function SamplePrevArrow(props: any) {
 }
 
 const settings = {
+  autoplay: true,
+  autoplaySpeed: 3000,
   nextArrow: <SampleNextArrow />,
   prevArrow: <SamplePrevArrow />,
 };

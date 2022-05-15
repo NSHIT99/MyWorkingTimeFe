@@ -17,12 +17,22 @@ import LockIcon from "@mui/icons-material/Lock";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { resetProgress } from "../../redux/reducer/authReducer";
 
-const LoginTimesheet = styled.div`
-  font-family: "Roboto", sans-serif;
+const LoginContainer = styled.div`
+  display: flex;
+`;
+
+const RightBlock = styled.div`
+  flex: 1 1;
   background-image: url(${bgrLogin});
   background-size: cover;
   background-repeat: no-repeat;
   object-fit: cover;
+`;
+
+const LoginTimesheet = styled.div`
+  flex: 1 1;
+  background-color: rgba(246, 191, 200, 0.9);
+  font-family: "Roboto", sans-serif;
   height: 100vh;
   width: 100%;
   display: flex;
@@ -39,7 +49,8 @@ const Title = styled.div`
 `;
 
 const MyTimesheet = styled.div`
-  width: 25%;
+  width: 50%;
+  height: 50%;
 `;
 
 const TitleError = styled.div`
@@ -146,80 +157,83 @@ const Login: React.FC = () => {
   } = useForm<IFormLoginRequest>();
 
   return (
-    <LoginTimesheet>
-      <MyTimesheet>
-        <MyLogo>
-          <Image src={logo} />
-          <Title>My Working Time</Title>
-        </MyLogo>
-        <FormLogin onSubmit={handleSubmit(onLogin)}>
-          <TextField
-            id="standard-basic"
-            label="Username"
-            {...register("userNameOrEmailAddress", { required: true })}
-            placeholder="Enter your username"
-            variant="standard"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <AccountCircleIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-          {errors.userNameOrEmailAddress && (
-            <TitleError>This field is required</TitleError>
-          )}
-          <TextField
-            variant="standard"
-            {...register("password", { required: true })}
-            id="outlined-adornment-password"
-            placeholder="Enter password"
-            type={values.showPassword ? "text" : "password"}
-            value={values.password}
-            onChange={handleChange("password")}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <LockIcon />
-                </InputAdornment>
-              ),
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            label="Password"
-          />
-          {errors.password && <TitleError>This field is required</TitleError>}
-          <StyleCheckBox>
-            <Checkbox
-              style={{ textAlign: "left", padding: "0 10px 0 0" }}
-              {...register("rememberClient")}
-              color="secondary"
-              defaultChecked
+    <LoginContainer>
+      <LoginTimesheet>
+        <MyTimesheet>
+          <MyLogo>
+            <Image src={logo} />
+            <Title>My Working Time</Title>
+          </MyLogo>
+          <FormLogin onSubmit={handleSubmit(onLogin)}>
+            <TextField
+              id="standard-basic"
+              label="Username"
+              {...register("userNameOrEmailAddress", { required: true })}
+              placeholder="Enter your username"
+              variant="standard"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <AccountCircleIcon />
+                  </InputAdornment>
+                ),
+              }}
             />
-            <p>Remember me</p>
-          </StyleCheckBox>
-          <ButtonLogin
-            type="submit"
-            variant="contained"
-            style={{ background: "#ff4081", borderRadius: "20px" }}
-          >
-            Login
-          </ButtonLogin>
-        </FormLogin>
-        <Footer>@2021 My Working Time by Nguyen Sinh Hai</Footer>
-      </MyTimesheet>
-    </LoginTimesheet>
+            {errors.userNameOrEmailAddress && (
+              <TitleError>This field is required</TitleError>
+            )}
+            <TextField
+              variant="standard"
+              {...register("password", { required: true })}
+              id="outlined-adornment-password"
+              placeholder="Enter password"
+              type={values.showPassword ? "text" : "password"}
+              value={values.password}
+              onChange={handleChange("password")}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <LockIcon />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              label="Password"
+            />
+            {errors.password && <TitleError>This field is required</TitleError>}
+            <StyleCheckBox>
+              <Checkbox
+                style={{ textAlign: "left", padding: "0 10px 0 0" }}
+                {...register("rememberClient")}
+                color="secondary"
+                defaultChecked
+              />
+              <p>Remember me</p>
+            </StyleCheckBox>
+            <ButtonLogin
+              type="submit"
+              variant="contained"
+              style={{ background: "#ff4081", borderRadius: "20px" }}
+            >
+              Login
+            </ButtonLogin>
+          </FormLogin>
+          <Footer>@2021 My Working Time by Nguyen Sinh Hai</Footer>
+        </MyTimesheet>
+      </LoginTimesheet>
+      <RightBlock></RightBlock>
+    </LoginContainer>
   );
 };
 

@@ -6,6 +6,7 @@ import {
   IWorking,
   IWorkingtimeOfUserRes,
 } from "../interfaces/myworkingtime/myworkingtime";
+import { IDeleteRes } from "../interfaces/type";
 import { IDataError } from "../utils/apiError";
 import { deleteApi, getApi, postApi } from "../utils/apiHelper";
 
@@ -68,4 +69,39 @@ export const createMyworkingTimeApi = async ({
     }
   );
   return create;
+};
+
+export const deleteMyWorkingTimeApi = async (id: number) => {
+  const data = await deleteApi<IDeleteRes>(`/Myworkingtime/Delete?id=${id}`);
+  return data;
+};
+
+export const updateMyWorkingtimeApi = async ({
+  projectTaskId,
+  note,
+  workingTime,
+  status,
+  typeOfWork,
+  createdAt,
+  dateAt,
+  userId,
+  id,
+  updatedAt,
+}: IWorking) => {
+  const update = await postApi<IWorking, ICreateWorkingTimeRes | IDataError>(
+    `/Myworkingtime/Update`,
+    {
+      projectTaskId,
+      note,
+      workingTime,
+      status,
+      typeOfWork,
+      createdAt,
+      dateAt,
+      userId,
+      id,
+      updatedAt,
+    }
+  );
+  return update;
 };

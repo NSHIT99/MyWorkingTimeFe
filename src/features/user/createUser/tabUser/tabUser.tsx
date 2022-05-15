@@ -5,6 +5,11 @@ import { UseFormRegister, UseFormSetValue } from "react-hook-form";
 import { INewUser } from "../createUser";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import InputAdornment from "@mui/material/InputAdornment";
+import LockIcon from "@mui/icons-material/Lock";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import IconButton from "@mui/material/IconButton";
 
 const NewUser = styled.div`
   display: flex;
@@ -29,6 +34,11 @@ interface useForm {
   setValue: UseFormSetValue<INewUser>;
 }
 
+interface State {
+  password: string;
+  showPassword: boolean;
+}
+
 const TabUser: React.FC<useForm> = ({ register }) => {
   const [branch, setBranch] = React.useState("");
   const handleChangeBranch = (event: SelectChangeEvent) => {
@@ -41,6 +51,29 @@ const TabUser: React.FC<useForm> = ({ register }) => {
   const [type, setType] = React.useState("");
   const handleChangeType = (event: SelectChangeEvent) => {
     setType(event.target.value as string);
+  };
+
+  const [values, setValues] = React.useState<State>({
+    password: "",
+    showPassword: false,
+  });
+
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
+
+  const handleChange =
+    (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      setValues({ ...values, [prop]: event.target.value });
+    };
+
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
   };
 
   return (
@@ -65,12 +98,34 @@ const TabUser: React.FC<useForm> = ({ register }) => {
             id="standard-basic"
             variant="standard"
             placeholder="Mời nhập password"
+            type={values.showPassword ? "text" : "password"}
+            value={values.password}
             {...register("password", { required: true })}
+            onChange={handleChange("password")}
             sx={{
               border: "1px solid rgba(0,0,0,.12)",
               width: "100%",
               marginBottom: "20px",
               "& input": { padding: "10px" },
+            }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <LockIcon />
+                </InputAdornment>
+              ),
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
             }}
           />
           <TextField
@@ -79,19 +134,6 @@ const TabUser: React.FC<useForm> = ({ register }) => {
             variant="standard"
             placeholder="Mời nhập tên"
             {...register("name", { required: true })}
-            sx={{
-              border: "1px solid rgba(0,0,0,.12)",
-              width: "100%",
-              marginBottom: "20px",
-              "& input": { padding: "10px" },
-            }}
-          />
-          <TextField
-            hiddenLabel
-            id="standard-basic"
-            variant="standard"
-            placeholder="Mời nhập avatar"
-            {...register("avatarPath", { required: true })}
             sx={{
               border: "1px solid rgba(0,0,0,.12)",
               width: "100%",
@@ -148,7 +190,7 @@ const TabUser: React.FC<useForm> = ({ register }) => {
           </Select>
         </FormLeft>
         <FormRight>
-        <TextField
+          <TextField
             hiddenLabel
             id="standard-basic"
             variant="standard"
@@ -185,18 +227,6 @@ const TabUser: React.FC<useForm> = ({ register }) => {
               width: "100%",
               marginBottom: "20px",
               "& input": { padding: "10px" },
-            }}
-          />
-          <TextField
-            hiddenLabel
-            id="standard-basic"
-            placeholder="Mời nhập lại password"
-            variant="standard"
-            style={{
-              width: "100%",
-              border: "1px solid rgba(0,0,0,.12)",
-              marginBottom: "20px",
-              padding: "10px 0 0",
             }}
           />
           <TextField

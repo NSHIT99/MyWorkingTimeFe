@@ -126,9 +126,9 @@ const ListUsers: React.FC = () => {
                   ) : (
                     <TableCell scope="row">None</TableCell>
                   )}
-                  {item.type == 1 ? (
+                  {item.type == 0 ? (
                     <TableCell scope="row">Nhóm trưởng</TableCell>
-                  ) : item.type == 2 ? (
+                  ) : item.type == 1 ? (
                     <TableCell scope="row">GV phụ trách</TableCell>
                   ) : (
                     <TableCell scope="row">Thành viên</TableCell>

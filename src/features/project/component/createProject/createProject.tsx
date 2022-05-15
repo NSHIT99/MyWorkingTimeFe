@@ -179,7 +179,7 @@ const CreateProjects: React.FC = () => {
     const newProject: INewProject = {
       name: props.name,
       code: props.code,
-      status: props.status,
+      status: props.status || 0,
       timeStart: props.timeStart,
       timeEnd: props.timeEnd,
       note: props.note,

@@ -60,7 +60,7 @@ const EditTasks: React.FC<{ task: ITaskReq }> = ({ task }) => {
     reset({
       id: task.id,
       name: task.name,
-      type: task.type.toString() as string,
+      type: task.type.toString(),
     });
     setOpen(true);
   };

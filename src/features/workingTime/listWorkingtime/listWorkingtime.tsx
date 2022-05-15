@@ -177,6 +177,8 @@ const ListWorkingTime: React.FC = () => {
                   <TableCell
                     colSpan={3}
                     sx={{
+                      color: "#6519d6",
+                      fontWeight: "bold",
                       fontSize: "16px",
                     }}
                   >
@@ -186,6 +188,8 @@ const ListWorkingTime: React.FC = () => {
                   <TableCell
                     colSpan={3}
                     sx={{
+                      color: "yellow",
+                      fontWeight: "bold",
                       fontSize: "16px",
                     }}
                   >
@@ -196,6 +200,8 @@ const ListWorkingTime: React.FC = () => {
                     colSpan={3}
                     sx={{
                       fontSize: "16px",
+                      fontWeight: "bold",
+                      color: "green",
                     }}
                   >
                     Xác nhận
@@ -204,6 +210,8 @@ const ListWorkingTime: React.FC = () => {
                   <TableCell
                     colSpan={3}
                     sx={{
+                      color: "red",
+                      fontWeight: "bold",
                       fontSize: "16px",
                     }}
                   >

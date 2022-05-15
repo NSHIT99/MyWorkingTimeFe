@@ -7,7 +7,55 @@ import { Modal, Tab } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import { Colors } from "./color";
 import logo from "../../asset/img/logo.png";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { useHistory } from "react-router-dom";
+import { removeAccessToken } from "../../utils/localStorageService";
+import ListSubheader from "@mui/material/ListSubheader";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
+import DateRangeIcon from "@mui/icons-material/DateRange";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import GroupIcon from "@mui/icons-material/Group";
+import LocalOfferIcon from "@mui/icons-material/LocalOffer";
+import HomeIcon from "@mui/icons-material/Home";
+import AssessmentIcon from "@mui/icons-material/Assessment";
+import GroupWorkIcon from "@mui/icons-material/GroupWork";
+import AddIcon from "@mui/icons-material/Add";
+import ImportContactsIcon from "@mui/icons-material/ImportContacts";
+import { Link } from "react-router-dom";
+import Collapse from "@mui/material/Collapse";
 import logosidebar from "../../asset/img/logosidebar.png";
+
+const StyleLink = styled(Link)`
+  color: #fff;
+  text-decoration: none;
+`;
+
+const ItemText = styled(ListItemText)`
+  color: #fff;
+  text-decoration: none;
+`;
+
+const ButtonLogout = styled.div`
+  display: flex;
+  gap: 10px;
+  background: #f45c5c;
+  border: 1px solid;
+  padding: 5px;
+  position: absolute;
+  margin: 15px;
+  z-index: 1;
+  cursor: pointer;
+  border-radius: 5px;
+  :hover {
+    background: #ec1111;
+  }
+`;
 
 const Container = styled.div`
   display: flex;
@@ -101,6 +149,19 @@ const Header: React.FC = () => {
     setColor(key);
   };
 
+  const history = useHistory();
+  const handleclickLogout = () => {
+    removeAccessToken();
+    history.push("/account/login");
+  };
+  const role = useSelector((state: RootState) => state.auth.role);
+
+  const [side, setSide] = React.useState(false);
+
+  const handleClickSideBar = () => {
+    setSide(!side);
+  };
+
   return (
     <Container
       style={{
@@ -112,6 +173,112 @@ const Header: React.FC = () => {
         <img src={logo} />
         <Title>MyWorkingTime</Title>
       </LeftBlock>
+      {role === "Admin" ? (
+        <List
+          sx={{ display: "flex" }}
+          component="nav"
+          aria-labelledby="nested-list-subheader"
+        >
+          <StyleLink to="/app/home">
+            <ListItemButton>
+              <ListItemIcon>
+                <HomeIcon sx={{ color: "#fff" }} />
+              </ListItemIcon>
+              <ItemText primary="Trang chủ" />
+            </ListItemButton>
+          </StyleLink>
+          <ListItemButton onClick={handleClickSideBar}>
+            <ListItemIcon>
+              <GroupWorkIcon sx={{ color: "#fff" }} />
+            </ListItemIcon>
+            <ItemText primary="Quản trị" />
+            {side ? (
+              <AddIcon sx={{ color: "#fff" }} />
+            ) : (
+              <AddIcon sx={{ color: "#fff" }} />
+            )}
+          </ListItemButton>
+          <Collapse in={side} timeout="auto" unmountOnExit>
+            <List
+              component="div"
+              disablePadding
+              sx={{ display: "flex", flexDirection: "row" }}
+            >
+              <StyleLink to="/app/main/user">
+                <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemIcon>
+                    <GroupIcon sx={{ color: "#fff" }} />
+                  </ListItemIcon>
+                  <ItemText primary="Người dùng" />
+                </ListItemButton>
+              </StyleLink>
+              <StyleLink to="/app/main/role">
+                <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemIcon>
+                    <LocalOfferIcon sx={{ color: "#fff" }} />
+                  </ListItemIcon>
+                  <ItemText primary="Vai trò" />
+                </ListItemButton>
+              </StyleLink>
+            </List>
+          </Collapse>
+          <StyleLink to="/app/main/task">
+            <ListItemButton>
+              <ListItemIcon>
+                <ImportContactsIcon sx={{ color: "#fff" }} />
+              </ListItemIcon>
+              <ItemText primary="Công việc" />
+            </ListItemButton>
+          </StyleLink>
+          <StyleLink to="/app/main/project">
+            <ListItemButton>
+              <ListItemIcon>
+                <AssessmentIcon sx={{ color: "#fff" }} />
+              </ListItemIcon>
+              <ItemText primary="Quản lý đồ án" />
+            </ListItemButton>
+          </StyleLink>
+          <StyleLink to="/app/main/myworkingtime">
+            <ListItemButton>
+              <ListItemIcon>
+                <AccessAlarmIcon sx={{ color: "#fff" }} />
+              </ListItemIcon>
+              <ItemText primary="Quản lý thời gian" />
+            </ListItemButton>
+          </StyleLink>
+          <StyleLink to="/app/main/workingtime">
+            <ListItemButton>
+              <ListItemIcon>
+                <DateRangeIcon sx={{ color: "#fff" }} />
+              </ListItemIcon>
+              <ItemText primary="Xác thực thời gian" />
+            </ListItemButton>
+          </StyleLink>
+        </List>
+      ) : (
+        <List
+          sx={{ display: "flex" }}
+          component="nav"
+          aria-labelledby="nested-list-subheader"
+        >
+          <StyleLink to="/app/home">
+            <ListItemButton>
+              <ListItemIcon>
+                <HomeIcon sx={{ color: "#fff" }} />
+              </ListItemIcon>
+              <ItemText primary="Trang chủ" />
+            </ListItemButton>
+          </StyleLink>
+          <StyleLink to="/app/main/myworkingtime">
+            <ListItemButton>
+              <ListItemIcon>
+                <AccessAlarmIcon sx={{ color: "#fff" }} />
+              </ListItemIcon>
+              <ItemText primary="Quản lý thời gian" />
+            </ListItemButton>
+          </StyleLink>
+        </List>
+      )}
       <RightBlock>
         <MoreVertIcon style={{ color: "#fff" }} onClick={handleOpen} />
       </RightBlock>
@@ -169,7 +336,12 @@ const Header: React.FC = () => {
                 </StyleNav>
               ))}
             </TabPanel>
-            <TabPanel value="2">SETTINGS</TabPanel>
+            <TabPanel value="2">
+              <ButtonLogout onClick={handleclickLogout}>
+                <LogoutIcon />
+                Logout
+              </ButtonLogout>
+            </TabPanel>
           </TabContext>
         </StyleBox>
       </Modal>

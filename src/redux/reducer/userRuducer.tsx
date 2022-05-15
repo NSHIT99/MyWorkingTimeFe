@@ -147,6 +147,7 @@ const userSlice = createSlice({
       })
       .addCase(resetPasswordActions.fulfilled, (state, action) => {
         state.progress = "done";
+        console.log(action.payload.result.userId);
         state.users.find((user) => user.id === action.payload.result.userId);
         state.users.find((user) => user.roleNames === "Admin" && user.password === action.payload.result.adminPassword);
         state.users = state.users.map((user) => {

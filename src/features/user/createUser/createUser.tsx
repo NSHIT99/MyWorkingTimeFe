@@ -181,7 +181,7 @@ const CreateUser: React.FC = () => {
             left: "50%",
             transform: "translate(-50%, -50%)",
             width: "40%",
-            height: "85%",
+            height: "73%",
             bgcolor: "#fff",
             pt: 2,
             px: 4,
