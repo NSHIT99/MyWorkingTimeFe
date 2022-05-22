@@ -58,20 +58,16 @@ const initialState: ProjectState = {
       {
         taskId: 0,
         billable: false,
+        confirm: false,
         id: 0,
+        timeStartTask: "",
+        timeEndTask: "",
       },
     ],
     users: [
       {
         userId: 0,
         type: 0,
-        id: 0,
-      },
-    ],
-    projectTargetUsers: [
-      {
-        userId: 0,
-        roleName: "",
         id: 0,
       },
     ],
@@ -108,7 +104,6 @@ const projectSlice = createSlice({
     },
     pushTask: (state, action: PayloadAction<ITaskReq>) => {
       state.selectedTasks.push(action.payload);
-      console.log(action.payload);
       state.viewTask = state.viewTask.filter(
         (task) => task.id !== action.payload.id
       );
@@ -131,6 +126,8 @@ const projectSlice = createSlice({
       state.viewTask = state.viewTask.map((task) => {
         if (task.id === action.payload.id) {
           task.billable = action.payload.billable;
+          task.timeStartTask = action.payload.timeStartTask;
+          task.timeEndTask = action.payload.timeEndTask;
         }
         return task;
       });

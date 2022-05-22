@@ -8,12 +8,18 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import ClearIcon from "@mui/icons-material/Clear";
 import { RootState } from "../../../../../../redux/store";
 import Checkbox from "@mui/material/Checkbox";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 import {
   pushTask,
   removeTask,
   updateBillable,
 } from "../../../../../../redux/reducer/projectReducer";
 import { ITaskReq } from "../../../../../../interfaces/task/taskType";
+import TextField from "@mui/material/TextField";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
@@ -53,6 +59,9 @@ const RightNav = styled.div`
   flex-direction: column;
   margin-right: 200px;
 `;
+
+const LeftNav = styled.div``;
+
 const ViewSelect = styled.div`
   display: flex;
   flex-direction: row;
@@ -89,6 +98,12 @@ const TextView = styled.div`
   font-size: 15px;
 `;
 
+const FormList = styled.div`
+  display: flex;
+  padding-bottom: 20px;
+  align-items: center;
+`;
+
 const Tasks: React.FC = () => {
   const dispatch = useDispatch();
 
@@ -113,37 +128,49 @@ const Tasks: React.FC = () => {
   return (
     <Wrapper>
       <Header>
-        <NavHeader>
-          <Text>Công việc</Text>
-          <RightNav>
-            <Text>Tích chọn</Text>
-          </RightNav>
-        </NavHeader>
-        {selectedTasks.map((task) => {
-          return (
-            <ViewHeader>
-              <LeftViewHeader>
-                <ClearIcon onClick={() => handleRemoveTask(task)} />
-                <TextView>{task.name}</TextView>
-              </LeftViewHeader>
-              <RightViewHeader>
-                <Checkbox
-                  color="error"
-                  value={check}
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setCheck(event.target.checked);
-                    dispatch(
-                      updateBillable({
-                        ...task,
-                        billable: event.target.checked,
-                      })
-                    );
+        <Table aria-label="simple table" sx={{ border: 0 }}>
+          <TableHead>
+            <TableRow
+              sx={{
+                "& th": {
+                  border: "1px solid #ccc",
+                  background: "#e9e9e9",
+                  textAlign: "center",
+                },
+              }}
+            >
+              <TableCell scope="row">Thêm công việc</TableCell>
+              <TableCell scope="row">Công việc</TableCell>
+              <TableCell scope="row">Loại công việc</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {selectedTasks.map((task, index) => {
+              return (
+                <TableRow
+                  key={index}
+                  sx={{
+                    "& td": { border: "1px solid #ccc" },
                   }}
-                />
-              </RightViewHeader>
-            </ViewHeader>
-          );
-        })}
+                >
+                  <TableCell scope="row">
+                    <AddCircleOutlineIcon onClick={() => handleRemoveTask(task)} />
+                  </TableCell>
+                  <TableCell scope="row">
+                    <TextView>{task.name}</TextView>
+                  </TableCell>
+                  <TableCell scope="row">
+                    {task.type === 0 ? (
+                      <TextView>Công việc chung</TextView>
+                    ) : (
+                      <TextView>Công việc khác</TextView>
+                    )}
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
       </Header>
       <ViewSelect>
         <TextView>Danh sách công việc</TextView>
@@ -152,26 +179,87 @@ const Tasks: React.FC = () => {
         </RightSelect>
       </ViewSelect>
       <Collapse in={openSelectTask} timeout="auto" unmountOnExit>
-        {tasks.map((item) => {
-          return (
-            <ViewTask>
-              <LeftView>
-                <AddCircleOutlineIcon
-                  sx={{ marginLeft: "18px" }}
-                  onClick={() => handlePushTask(item)}
-                />
-                <TextView>{item.name}</TextView>
-              </LeftView>
-              <RightView>
-                {item.type === 0 ? (
-                  <TextView>Công việc chung</TextView>
-                ) : (
-                  <TextView>Công việc khác</TextView>
-                )}
-              </RightView>
-            </ViewTask>
-          );
-        })}
+        <Table aria-label="simple table" sx={{ border: 0 }}>
+          <TableHead>
+            <TableRow
+              sx={{
+                "& th": {
+                  border: "1px solid #ccc",
+                  background: "#e9e9e9",
+                  textAlign: "center",
+                },
+              }}
+            >
+              <TableCell scope="row">Huỷ bỏ</TableCell>
+              <TableCell scope="row">Công việc</TableCell>
+              <TableCell scope="row">Loại công việc</TableCell>
+              <TableCell scope="row">Deadline</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {tasks.map((task, index) => {
+              return (
+                <TableRow
+                  key={index}
+                  sx={{
+                    "& td": { border: "1px solid #ccc" },
+                  }}
+                >
+                  <TableCell scope="row">
+                    <ClearIcon
+                      sx={{ marginLeft: "18px" }}
+                      onClick={() => handlePushTask(task)}
+                    />
+                  </TableCell>
+                  <TableCell scope="row">
+                    <TextView>{task.name}</TextView>
+                  </TableCell>
+                  <TableCell scope="row">
+                    {task.type === 0 ? (
+                      <TextView>Công việc chung</TextView>
+                    ) : (
+                      <TextView>Công việc khác</TextView>
+                    )}
+                  </TableCell>
+                  <TableCell scope="row">
+                    <FormList>
+                      <TextField
+                        style={{ width: "50%" }}
+                        type="date"
+                        onChange={(
+                          event: React.ChangeEvent<HTMLInputElement>
+                        ) => {
+                          dispatch(
+                            updateBillable({
+                              ...task,
+                              timeStartTask: event.target.value,
+                            })
+                          );
+                        }}
+                      />
+                      <p style={{ padding: "0 5px" }}>to</p>
+                      <TextField
+                        style={{ width: "50%" }}
+                        type="date"
+                        onChange={(
+                          event: React.ChangeEvent<HTMLInputElement>
+                        ) => {
+                          dispatch(
+                            updateBillable({
+                              ...task,
+                              timeEndTask: event.target.value,
+                            })
+                          );
+                        }}
+                      />
+                    </FormList>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+        ;
       </Collapse>
     </Wrapper>
   );

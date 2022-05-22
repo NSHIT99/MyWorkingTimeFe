@@ -17,7 +17,10 @@ import Tabs from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import { Alert, Snackbar } from "@mui/material";
-import { createProject, getUserNotPagging } from "../../../../redux/actions/project";
+import {
+  createProject,
+  getUserNotPagging,
+} from "../../../../redux/actions/project";
 
 const TitleHeader = styled.div`
   font-size: 30px;
@@ -101,14 +104,16 @@ export interface INewProject {
   code: string;
   name: string;
   note: string;
-  projectTargetUsers: {
-    userId: number;
-    roleName: string;
-    id: number;
-  }[];
   projectType: number;
   status: number;
-  tasks: { taskId: number; billable?: boolean; id: number }[];
+  tasks: {
+    taskId: number;
+    billable?: boolean;
+    id: number;
+    confirm: boolean;
+    timeStartTask: string;
+    timeEndTask: string;
+  }[];
   timeEnd: string;
   timeStart: string;
   users: { userId: number; type?: number; id: number }[];
@@ -143,7 +148,6 @@ const CreateProjects: React.FC = () => {
       projectType: 0,
       tasks: [],
       users: [],
-      projectTargetUsers: [],
     });
   };
   const [valueTab, setValueTab] = React.useState(0);
@@ -172,9 +176,23 @@ const CreateProjects: React.FC = () => {
           typeof member.projectType === "undefined" ? 1 : member.projectType,
       })
     );
-    let tasks: { id: number; taskId: number; billable?: boolean }[] = [];
+    let tasks: {
+      id: number;
+      taskId: number;
+      billable?: boolean;
+      confirm: boolean;
+      timeStartTask: any;
+      timeEndTask: any;
+    }[] = [];
     selectedTasks.forEach((task) => {
-      tasks.push({ taskId: task.id, id: 0, billable: task.billable || false });
+      tasks.push({
+        taskId: task.id,
+        id: 0,
+        billable: task.billable || false,
+        confirm: false,
+        timeStartTask: task.timeStartTask,
+        timeEndTask: task.timeEndTask,
+      });
     });
     const newProject: INewProject = {
       name: props.name,
@@ -186,7 +204,6 @@ const CreateProjects: React.FC = () => {
       projectType: props.projectType || 1,
       tasks: tasks,
       users: members,
-      projectTargetUsers: props.projectTargetUsers,
     };
     dispatch(createProject(newProject));
     reset({
@@ -199,7 +216,6 @@ const CreateProjects: React.FC = () => {
       projectType: 0,
       tasks: [],
       users: [],
-      projectTargetUsers: [],
     });
   };
   useEffect(() => {

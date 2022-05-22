@@ -113,7 +113,15 @@ const ListWorkingTime: React.FC = () => {
             >
               Ghi chú
             </TableCell>
-
+            <TableCell
+              colSpan={3}
+              sx={{
+                background: "#d3d3d3",
+                fontSize: "16px",
+              }}
+            >
+              Người gửi
+            </TableCell>
             <TableCell
               colSpan={3}
               sx={{
@@ -219,6 +227,14 @@ const ListWorkingTime: React.FC = () => {
                   </TableCell>
                 )}
                 <TableCell colSpan={3}>{item.mytimesheetNote}</TableCell>
+                <TableCell
+                  colSpan={3}
+                  sx={{
+                    fontSize: "16px",
+                  }}
+                >
+                  {item.user}
+                </TableCell>
                 <TableCell colSpan={3}>
                   <Checkbox
                     {...label}

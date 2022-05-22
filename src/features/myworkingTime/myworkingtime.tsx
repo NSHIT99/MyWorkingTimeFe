@@ -20,6 +20,9 @@ import TableRow from "@mui/material/TableRow";
 import TableHead from "@mui/material/TableHead";
 import DeleteWorkingtime from "./deleteMyworkingtime/deleteMyworkingtime";
 import EditWorkingtimes from "./editMyworkingTime/editMyworkingTime";
+import { getComment } from "../../redux/actions/comment";
+import CommentsList from "./comment/comment";
+import CreateComments from "./createComment/createComment";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -457,6 +460,30 @@ const Myworkingtime: React.FC = () => {
                     }}
                   >
                     <DeleteWorkingtime workingtime={item} />
+                  </TableCell>
+                </TableRow>
+                <TableRow
+                  sx={{
+                    "&:last-child td, &:last-child th": {
+                      border: 0,
+                    },
+                  }}
+                >
+                  <TableCell
+                    sx={{
+                      background: "#d3d3d3",
+                      fontSize: "16px",
+                    }}
+                  >
+                    <CommentsList idWorkingtime={item.id} />
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      background: "#d3d3d3",
+                      fontSize: "16px",
+                    }}
+                  >
+                    <CreateComments idWorkingtime={item.id} />
                   </TableCell>
                 </TableRow>
               </TableBody>

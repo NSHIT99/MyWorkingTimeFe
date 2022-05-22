@@ -12,7 +12,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import General from "./tabEdit/general/general";
 import Team from "./tabEdit/team/team";
 import Tasks from "./tabEdit/tasks/tasks";
-import { IEditProject, IProjectReq } from "../../../../interfaces/project/projectType";
+import {
+  IEditProject,
+  IProjectReq,
+} from "../../../../interfaces/project/projectType";
 
 const Container = styled(Box)`
   display: block;
@@ -123,7 +126,6 @@ const EditProject: React.FC<{ project: IProjectReq }> = ({ project }) => {
     projectType: projectGet.projectType,
     tasks: selectedTasks,
     users: selectedMembers,
-    projectTargetUsers: projectGet.projectTargetUsers,
   };
   const methods = useForm<IEditProject>({
     defaultValues: defaultValues,
@@ -146,9 +148,23 @@ const EditProject: React.FC<{ project: IProjectReq }> = ({ project }) => {
       type: typeof member.projectType === "undefined" ? 1 : member.projectType,
     })
   );
-  let tasks: { id: number; taskId: number; billable?: boolean }[] = [];
+  let tasks: {
+    id: number;
+    taskId: number;
+    billable?: boolean;
+    confirm: boolean;
+    timeStartTask: any;
+    timeEndTask: any;
+  }[] = [];
   selectedTasks.forEach((task) => {
-    tasks.push({ taskId: task.id, id: 0, billable: task.billable || false });
+    tasks.push({
+      taskId: task.id,
+      id: 0,
+      billable: task.billable || false,
+      confirm: false,
+      timeStartTask: task.timeStartTask,
+      timeEndTask: task.timeEndTask,
+    });
   });
   const onSaveProject = (props: IEditProject) => {
     const newProject: IEditProject = {
@@ -161,7 +177,6 @@ const EditProject: React.FC<{ project: IProjectReq }> = ({ project }) => {
       projectType: props.projectType || 1,
       tasks: tasks,
       users: members,
-      projectTargetUsers: props.projectTargetUsers,
     };
     dispatch(onSaveProject(newProject));
     reset();

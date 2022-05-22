@@ -16,7 +16,10 @@ import {
 import { RootState } from "../../../redux/store";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { resetCreateMyworkingTimeProgress, resetProgress } from "../../../redux/reducer/myworkingtimeReducer";
+import {
+  resetCreateMyworkingTimeProgress,
+  resetProgress,
+} from "../../../redux/reducer/myworkingtimeReducer";
 
 const TitleHeader = styled.div`
   font-size: 22px;
@@ -74,7 +77,8 @@ const CreateMyworkingtime: React.FC<IDateValue> = ({ value }) => {
 
   const projectsintasksFilter = projectsintasks[parseInt(projectTask)];
   const handleCreate = async (props: INewMyworkingtime) => {
-    if(!changeTask) props.projectTaskId = projectsintasksFilter?.tasks[0].projectTaskId;
+    if (!changeTask)
+      props.projectTaskId = projectsintasksFilter?.tasks[0].projectTaskId;
     if (value) {
       let dateAt = new Date(value);
       dispatch(
@@ -108,7 +112,9 @@ const CreateMyworkingtime: React.FC<IDateValue> = ({ value }) => {
       dispatch(resetCreateMyworkingTimeProgress());
       setOpen(false);
     } else if (createMyworkingTimeProgress === "error") {
-      enqueueSnackbar("Tạo thời gian làm việc thành công", { variant: "error" });
+      enqueueSnackbar("Tạo thời gian làm việc thành công", {
+        variant: "error",
+      });
     }
   }, [createMyworkingTimeProgress, open, dispatch]);
   return (
@@ -163,7 +169,11 @@ const CreateMyworkingtime: React.FC<IDateValue> = ({ value }) => {
             <Controller
               name="projectTaskId"
               render={({ field }) => (
-                <NativeSelect {...field} style={{ width: "100%" }} onChange={() => changeTask = true} >
+                <NativeSelect
+                  {...field}
+                  style={{ width: "100%" }}
+                  onChange={() => (changeTask = true)}
+                >
                   {projectsintasksFilter.tasks.map((task) => {
                     return (
                       <option value={task.projectTaskId}>

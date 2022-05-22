@@ -1,6 +1,7 @@
 import { IError } from "../auth/authType";
 
 export interface ITasksProjects {
+  confirm: boolean
   projectTaskId: number;
   taskName: string;
 }

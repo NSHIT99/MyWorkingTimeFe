@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@devexpress/dx-react-chart-material-ui": "^3.0.3",
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
     "@mui/icons-material": "^5.0.5",
@@ -23,6 +24,8 @@
     "axios": "^0.24.0",
     "date-fns": "^2.28.0",
     "dayjs": "^1.10.7",
+    "devextreme": "^21.2.7",
+    "devextreme-react": "^21.2.7",
     "http-proxy-middleware": "^2.0.1",
     "jwt-decode": "^3.1.2",
     "notistack": "^2.0.3",

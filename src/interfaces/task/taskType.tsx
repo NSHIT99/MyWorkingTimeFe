@@ -4,6 +4,8 @@ export interface ITaskReq {
   isDeleted: boolean;
   billable?: boolean;
   id: number;
+  timeStartTask?: string;
+  timeEndTask?: string;
 }
 
 export interface ITaskRes {

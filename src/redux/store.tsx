@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./reducer/authReducer";
+import commentReducer from "./reducer/commentReducer";
 import myworkingtimeReducer from "./reducer/myworkingtimeReducer";
 import projectReducer from "./reducer/projectReducer";
 import roleReducer from "./reducer/roleReducer";
@@ -15,6 +16,7 @@ const reducer = {
   project: projectReducer,
   workingtime: workingtimeReducer,
   myworkingtime: myworkingtimeReducer,
+  comment: commentReducer,
 };
 
 const store = configureStore({

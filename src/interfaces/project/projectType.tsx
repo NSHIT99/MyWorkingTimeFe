@@ -38,15 +38,13 @@ export interface ICreateProject {
     taskId: number;
     billable?: boolean;
     id: number;
+    confirm: boolean;
+    timeStartTask: string;
+    timeEndTask: string;
   }[];
   users: {
     userId: number;
     type?: number;
-    id: number;
-  }[];
-  projectTargetUsers: {
-    userId: number;
-    roleName: string;
     id: number;
   }[];
   id?: number;
@@ -77,15 +75,13 @@ export interface IEditProject {
     taskId: number;
     billable?: boolean;
     id: number;
+    timeStartTask: string;
+    confirm: boolean;
+    timeEndTask: string;
   }[];
   users: {
     userId: number;
     type?: number;
-    id: number;
-  }[];
-  projectTargetUsers: {
-    userId: number;
-    roleName: string;
     id: number;
   }[];
 }

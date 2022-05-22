@@ -24,7 +24,6 @@ export interface IFormLoginResponse {
 
 export interface IAuthState {
   progress: string;
-  role: string;
   user: {
     accessToken: string;
   };

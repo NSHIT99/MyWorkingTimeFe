@@ -10,7 +10,11 @@ import logo from "../../asset/img/logo.png";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useHistory } from "react-router-dom";
-import { removeAccessToken } from "../../utils/localStorageService";
+import {
+  getRoleName,
+  removeAccessToken,
+  removeRoleName,
+} from "../../utils/localStorageService";
 import ListSubheader from "@mui/material/ListSubheader";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -30,6 +34,7 @@ import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 import { Link } from "react-router-dom";
 import Collapse from "@mui/material/Collapse";
 import logosidebar from "../../asset/img/logosidebar.png";
+import CameraIcon from '@mui/icons-material/Camera';
 
 const StyleLink = styled(Link)`
   color: #fff;
@@ -70,7 +75,7 @@ const Container = styled.div`
 const LeftBlock = styled.div`
   display: flex;
   align-items: center;
-  padding-left: 25px;
+  padding-left: 10px;
   img {
     width: 40px;
     height: 40px;
@@ -152,10 +157,11 @@ const Header: React.FC = () => {
   const history = useHistory();
   const handleclickLogout = () => {
     removeAccessToken();
+    removeRoleName();
     history.push("/account/login");
   };
-  const role = useSelector((state: RootState) => state.auth.role);
 
+  const role = getRoleName();
   const [side, setSide] = React.useState(false);
 
   const handleClickSideBar = () => {
@@ -251,7 +257,15 @@ const Header: React.FC = () => {
               <ListItemIcon>
                 <DateRangeIcon sx={{ color: "#fff" }} />
               </ListItemIcon>
-              <ItemText primary="Xác thực thời gian" />
+              <ItemText primary="Xác thực" />
+            </ListItemButton>
+          </StyleLink>
+          <StyleLink to="/app/main/statistical">
+            <ListItemButton>
+              <ListItemIcon>
+                <CameraIcon sx={{ color: "#fff" }} />
+              </ListItemIcon>
+              <ItemText primary="Thống kê" />
             </ListItemButton>
           </StyleLink>
         </List>

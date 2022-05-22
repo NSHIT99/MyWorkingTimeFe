@@ -28,7 +28,6 @@ export const createProjectApi = async ({
   projectType,
   tasks,
   users,
-  projectTargetUsers,
 }: ICreateProject) => {
   const data = await postApi<ICreateProject, ICreateProjectRes>(
     `/Project/Save`,
@@ -43,7 +42,6 @@ export const createProjectApi = async ({
       projectType,
       tasks,
       users,
-      projectTargetUsers,
     }
   );
   return data;

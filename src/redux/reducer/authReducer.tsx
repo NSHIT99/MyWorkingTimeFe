@@ -1,12 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IAuthState } from "../../interfaces/auth/authType";
-import { setAccessToken } from "../../utils/localStorageService";
+import { setAccessToken, setRoleName } from "../../utils/localStorageService";
 import { getAuthenticate } from "../actions/auth";
 import jwt from "jwt-decode";
 
 const initialState: IAuthState = {
   progress: "",
-  role: "",
   user: {
     accessToken: "",
   },
@@ -36,7 +35,7 @@ const authSlice = createSlice({
       if (action.payload.success === true) {
         setAccessToken(action.payload.result.accessToken);
         const decode = jwt(action.payload.result.accessToken) as any;
-        state.role = decode.role[0];
+        setRoleName(decode.role[0]);
         state.user.accessToken = action.payload.result.accessToken;
       } else {
         state.error.message = action.payload.error.message;

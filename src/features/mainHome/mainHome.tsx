@@ -13,6 +13,7 @@ import "antd/dist/antd.css";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { getRoleName } from "../../utils/localStorageService";
 
 const BoxSlider = styled(Carousel)`
   .slick-prev {
@@ -194,7 +195,7 @@ const MainHome: React.FC = () => {
     current.getMonth() + 1
   }/${current.getFullYear()}`;
 
-  const role = useSelector((state: RootState) => state.auth.role);
+  const role = getRoleName();
 
   return (
     <div>
@@ -314,6 +315,25 @@ const MainHome: React.FC = () => {
               </ButtonFooter>
             </Btn>
           </ViewSlideSix>
+          <ViewSlideThree>
+            <Btn>
+              <ButtonHeader
+                type="primary"
+                shape="round"
+                icon={<CalendarOutlined />}
+              >
+                Vietnamese calendar
+              </ButtonHeader>
+            </Btn>
+            <TitleDate>Vinh, {date}</TitleDate>
+            <TitleContent>Vinh University</TitleContent>
+            <TitleName>Sinh viên: Nguyễn Sinh Hải</TitleName>
+            <Btn>
+              <ButtonFooter type="primary">
+                <Link to="/app/main/statistical">Thống Kê</Link>
+              </ButtonFooter>
+            </Btn>
+          </ViewSlideThree>
         </BoxSlider>
       ) : (
         <BoxSlider arrows {...settings}>

@@ -10,6 +10,7 @@ import Projects from "../../features/project/project";
 import MainHome from "../../features/mainHome/mainHome";
 import Myworkingtime from "../../features/myworkingTime/myworkingtime";
 import WorkingTime from "../../features/workingTime/workingtime";
+import Statistical from "../../features/statistical/statistical";
 
 const MainContent = styled.div`
   width: 100%;
@@ -65,6 +66,11 @@ const MainView: React.FC = () => {
             exact={false}
             path={`${path}/main/workingtime`}
             component={WorkingTime}
+          />
+           <PrivateRoute
+            exact={false}
+            path={`${path}/main/statistical`}
+            component={Statistical}
           />
         </Switch>
       </Content>

@@ -31,7 +31,6 @@ export const createProject = createAsyncThunk(
     projectType,
     tasks,
     users,
-    projectTargetUsers,
   }: ICreateProject) => {
     const response = await createProjectApi({
       id,
@@ -44,7 +43,6 @@ export const createProject = createAsyncThunk(
       projectType,
       tasks,
       users,
-      projectTargetUsers,
     });
     return response as ICreateProjectRes;
   }
